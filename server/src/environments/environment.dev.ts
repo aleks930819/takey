@@ -5,6 +5,7 @@ export const DevEnviroment: Environment = {
   email_host: process.env.EMAIL_HOST,
   email_port: Number(process.env.EMAIL_PORT),
   port: Number(process.env.PORT),
+  node_env: process.env.NODE_ENV,
   salt_rounds: Number(process.env.SALT_ROUNDS),
   upload_path: process.env.UPLOAD_PATH,
   auth: {

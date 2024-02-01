@@ -3,7 +3,8 @@ export interface Environment {
     email_host: string;
     email_port: number;
     salt_rounds: number;
-    port: Number;
+    port: number;
+    node_env: string;
     upload_path: string;
     auth: {
         user: string;

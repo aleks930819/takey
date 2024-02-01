@@ -1,16 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-require("dotenv/config");
 const Express = require("express");
-const morgan = require("morgan");
 const cors = require("cors");
+const morgan = require("morgan");
+const routes_1 = require("./routes");
 const app = Express();
-if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'));
-}
 app.use(cors());
 app.use(Express.json());
-app.get('/', (req, res) => {
-    res.send('Hello world!');
-});
+app.use(morgan('dev'));
+app.use('/api/v1/cities', routes_1.cityRouter);
+app.use('/api/v1/cuisines', routes_1.cuisineRouter);
 exports.default = app;

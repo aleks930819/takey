@@ -1,20 +1,17 @@
-import 'dotenv/config';
-
 import * as Express from 'express';
-import * as morgan from 'morgan';
 import * as cors from 'cors';
+import * as morgan from 'morgan';
+
+import { cityRouter, cuisineRouter } from './routes';
 
 const app = Express();
-
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
 
 app.use(cors());
 app.use(Express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello world!');
-});
+app.use(morgan('dev'));
+
+app.use('/api/v1/cities', cityRouter);
+app.use('/api/v1/cuisines', cuisineRouter);
 
 export default app;
