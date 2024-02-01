@@ -1,0 +1,16 @@
+{
+  "extends": ["prettier", "plugin:node/recommended"],
+  "plugins": ["prettier"],
+  "rules": {
+    "curly": [2, "multi-line"],
+    "quotes": ["warn", "single"],
+    "no-empty-function": "warn",
+    "no-unused-vars": "error",
+    "no-empty": "error",
+    "no-undef": "error",
+    "no-duplicate-imports": ["error"],
+    "no-restricted-imports": "error",
+    "node/no-unpublished-require": "off"
+  },
+  "env": { "es6": true }
+}
