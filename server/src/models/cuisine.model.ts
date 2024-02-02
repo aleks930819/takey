@@ -1,5 +1,12 @@
 import mongoose from 'mongoose';
 
+export interface Cuisine {
+  name: string;
+  imageCover: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 const cuisineSchema = new mongoose.Schema(
   {
     name: {
@@ -17,6 +24,6 @@ const cuisineSchema = new mongoose.Schema(
   }
 );
 
-const Cuisine = mongoose.model('Cuisine', cuisineSchema);
+const Cuisine = mongoose.model<Cuisine>('Cuisine', cuisineSchema);
 
 export default Cuisine;

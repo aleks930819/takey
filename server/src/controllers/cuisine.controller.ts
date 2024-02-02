@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { handleImageUpload, handleDeleteImageByName } from '../utils/uploads';
+import { handleImageUpload, handleDeleteImageByPath } from '../utils/uploads';
 
 import { Cuisine } from '../models';
 import { asnycHandler } from '../middlewares';
@@ -51,9 +51,9 @@ const getCuisine = asnycHandler(async (req: Request, res: Response) => {
 const createCuisine = asnycHandler(async (req: Request, res: Response) => {
   const { name } = req.body;
 
-  const imageName = handleImageUpload(req, res);
+  const imagePath = await handleImageUpload(req, res);
 
-  const cuisine = await Cuisine.create({ name, imageCover: `/src/uploads/${imageName}` });
+  const cuisine = await Cuisine.create({ name, imageCover: imagePath });
 
   res.status(201).json({
     status: 'success',
@@ -72,13 +72,7 @@ const createCuisine = asnycHandler(async (req: Request, res: Response) => {
  */
 const deleteCuisine = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
-  const cuisine = await Cuisine.findByIdAndDelete(id);
-
-  const cuisineImage = cuisine?.imageCover.split('/').pop();
-
-  if (cuisineImage) {
-    handleDeleteImageByName(cuisineImage);
-  }
+  await Cuisine.findByIdAndDelete(id);
 
   res.status(204).json({
     status: 'success',
@@ -97,16 +91,8 @@ const updateCuisine = asnycHandler(async (req: Request, res: Response) => {
 
   // check if image is uploaded and update the imageCover
   if (req.files) {
-    const cuisine = await Cuisine.findById(id);
-    const cuisineImage = cuisine?.imageCover.split('/').pop();
-
-    // delete the old image to avoid cluttering the server
-    if (cuisineImage) {
-      await handleDeleteImageByName(cuisineImage);
-    }
-
-    const imageName = handleImageUpload(req, res);
-    req.body.imageCover = `/src/uploads/${imageName}`;
+    const image = await handleImageUpload(req, res);
+    req.body.imageCover = image;
   }
 
   const cuisine = await Cuisine.findByIdAndUpdate(id, req.body, {

@@ -1,5 +1,12 @@
 import mongoose from 'mongoose';
 
+export interface City {
+  name: string;
+  location: [number];
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 const citySchema = new mongoose.Schema(
   {
     name: {
@@ -16,6 +23,6 @@ const citySchema = new mongoose.Schema(
   }
 );
 
-const City = mongoose.model('City', citySchema);
+const City = mongoose.model<City>('City', citySchema);
 
 export default City;

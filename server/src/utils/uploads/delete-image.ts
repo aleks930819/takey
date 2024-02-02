@@ -1,16 +1,18 @@
 import * as fs from 'fs/promises';
+import * as path from 'path';
 
 /**
- * Deletes an image file by its name from the uploads directory.
- * @param imageName - The name of the image file to delete.
+ * Deletes an image file
+ * @param imagePath - The path to the image file.
  */
-const handleDeleteImageByName = async (imageName: string) => {
-  const path = `src/uploads/${imageName}`;
+const handleDeleteImageByPath = async (imagePath: string) => {
+  const pathToFile = path.join(__dirname, imagePath);
+
   try {
-    await fs.unlink(path);
+    await fs.unlink(pathToFile);
   } catch (error) {
     console.error(error);
   }
 };
 
-export default handleDeleteImageByName;
+export default handleDeleteImageByPath;

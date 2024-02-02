@@ -3,7 +3,7 @@ import * as cors from 'cors';
 import * as morgan from 'morgan';
 import * as expressFileUpload from 'express-fileupload';
 
-import { cityRouter, cuisineRouter } from './routes';
+import { cityRouter, cuisineRouter, restaurantRouter } from './routes';
 
 const app = Express();
 
@@ -22,7 +22,6 @@ app.use(morgan('dev'));
 app.use('/src/uploads', Express.static('src/uploads'));
 app.use('/api/v1/cities', cityRouter);
 app.use('/api/v1/cuisines', cuisineRouter);
-
-
+app.use('/api/v1/restaurants', restaurantRouter);
 
 export default app;

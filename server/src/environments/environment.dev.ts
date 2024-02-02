@@ -6,6 +6,9 @@ export const DevEnviroment: Environment = {
   email_port: Number(process.env.EMAIL_PORT),
   port: Number(process.env.PORT),
   node_env: process.env.NODE_ENV,
+  cloudinary_cloud_name: process.env.CLOUDINARY_CLOUD,
+  cloudinary_api_key: process.env.CLOUDINARY_API_KEY,
+  cloudinary_api_secret: process.env.CLOUDINARY_API_SECRET,
   salt_rounds: Number(process.env.SALT_ROUNDS),
   upload_path: process.env.UPLOAD_PATH,
   auth: {

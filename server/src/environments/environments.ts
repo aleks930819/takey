@@ -1,6 +1,7 @@
 import { DevEnviroment } from './environment.dev';
 import { ProdEnviroment } from './environment.prod';
 
+
 export interface Environment {
   db_uri: string;
   email_host: string;
@@ -9,6 +10,9 @@ export interface Environment {
   port: number;
   node_env: string;
   upload_path: string;
+  cloudinary_cloud_name: string;
+  cloudinary_api_key: string;
+  cloudinary_api_secret: string;
   auth: {
     user: string;
     pass: string;
