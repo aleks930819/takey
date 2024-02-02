@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 
+import { handleImageUpload, handleDeleteImageByName } from '../utils/uploads';
+
 import { Cuisine } from '../models';
 import { asnycHandler } from '../middlewares';
 
@@ -46,10 +48,13 @@ const getCuisine = asnycHandler(async (req: Request, res: Response) => {
  * @access Private
  * @returns A JSON response containing the new cuisine.
  */
-
 const createCuisine = asnycHandler(async (req: Request, res: Response) => {
   const { name } = req.body;
-  const cuisine = await Cuisine.create({ name });
+
+  const imageName = handleImageUpload(req, res);
+
+  const cuisine = await Cuisine.create({ name, imageCover: `/src/uploads/${imageName}` });
+
   res.status(201).json({
     status: 'success',
     data: {
@@ -68,14 +73,18 @@ const createCuisine = asnycHandler(async (req: Request, res: Response) => {
 const deleteCuisine = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
   const cuisine = await Cuisine.findByIdAndDelete(id);
-  res.status(200).json({
+
+  const cuisineImage = cuisine?.imageCover.split('/').pop();
+
+  if (cuisineImage) {
+    handleDeleteImageByName(cuisineImage);
+  }
+
+  res.status(204).json({
     status: 'success',
-    data: {
-      cuisine
-    }
+    data: null
   });
 });
-
 /**
  * Update a cuisine by its ID.
  *
@@ -85,6 +94,21 @@ const deleteCuisine = asnycHandler(async (req: Request, res: Response) => {
  */
 const updateCuisine = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
+
+  // check if image is uploaded and update the imageCover
+  if (req.files) {
+    const cuisine = await Cuisine.findById(id);
+    const cuisineImage = cuisine?.imageCover.split('/').pop();
+
+    // delete the old image to avoid cluttering the server
+    if (cuisineImage) {
+      await handleDeleteImageByName(cuisineImage);
+    }
+
+    const imageName = handleImageUpload(req, res);
+    req.body.imageCover = `/src/uploads/${imageName}`;
+  }
+
   const cuisine = await Cuisine.findByIdAndUpdate(id, req.body, {
     new: true,
     runValidators: true
