@@ -6,6 +6,10 @@ const cuisineSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true
+    },
+    imageCover: {
+      type: String,
+      required: true
     }
   },
   {
