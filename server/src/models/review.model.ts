@@ -1,6 +1,7 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 export interface Review {
+  _id: mongoose.Types.ObjectId | string;
   review: string;
   rating: number;
   restaurant: mongoose.Types.ObjectId | string;
@@ -9,7 +10,7 @@ export interface Review {
   updatedAt?: Date;
 }
 
-const reviewSchema = new mongoose.Schema(
+const ReviewSchema: Schema = new Schema(
   {
     review: {
       type: String,
@@ -38,8 +39,8 @@ const reviewSchema = new mongoose.Schema(
 );
 
 // Prevent a user from submitting multiple reviews for the same restaurant
-reviewSchema.index({ restaurant: 1, user: 1 }, { unique: true });
+ReviewSchema.index({ restaurant: 1, user: 1 }, { unique: true });
 
-const Review = mongoose.model<Review>('Review', reviewSchema);
+const Review = mongoose.model<Review>('Review', ReviewSchema);
 
 export default Review;

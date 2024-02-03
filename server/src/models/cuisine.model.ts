@@ -1,13 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 export interface Cuisine {
+  _id: mongoose.Types.ObjectId | string;
   name: string;
   imageCover: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-const cuisineSchema = new mongoose.Schema(
+const CuisineSchema: Schema = new Schema(
   {
     name: {
       type: String,
@@ -24,6 +25,6 @@ const cuisineSchema = new mongoose.Schema(
   }
 );
 
-const Cuisine = mongoose.model<Cuisine>('Cuisine', cuisineSchema);
+const Cuisine = mongoose.model<Cuisine>('Cuisine', CuisineSchema);
 
 export default Cuisine;

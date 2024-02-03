@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 
+import { RESPONSE_STATUS } from '../constants';
+import { handleImageUpload } from '../utils/uploads';
 import { Restaurant } from '../models';
 import { asnycHandler } from '../middlewares';
-import { handleImageUpload } from '../utils/uploads';
 
 /**
  * Retrieves all restaurants from the database.
@@ -14,7 +15,7 @@ import { handleImageUpload } from '../utils/uploads';
 const getAllRestaurants = asnycHandler(async (req: Request, res: Response) => {
   const restaurants = await Restaurant.find();
   res.status(200).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     results: restaurants.length,
     data: {
       restaurants
@@ -32,7 +33,7 @@ const getRestaurant = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
   const restaurant = await Restaurant.findById(id);
   res.status(200).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     data: {
       restaurant
     }
@@ -56,7 +57,7 @@ const createRestaurant = asnycHandler(async (req: Request, res: Response) => {
 
   const restaurant = await Restaurant.create(req.body);
   res.status(201).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     data: {
       restaurant
     }
@@ -74,7 +75,7 @@ const deleteRestaurant = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
   await Restaurant.findByIdAndDelete(id);
   res.status(204).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     data: null
   });
 });
@@ -99,7 +100,7 @@ const updateRestaurant = asnycHandler(async (req: Request, res: Response) => {
     runValidators: true
   });
   res.status(200).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     data: {
       restaurant
     }

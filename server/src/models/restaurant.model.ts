@@ -1,6 +1,7 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 export interface Restaurant {
+  _id: mongoose.Types.ObjectId | string;
   name: string;
   location?: [number];
   deliveryTime: string;
@@ -14,7 +15,7 @@ export interface Restaurant {
   updatedAt?: Date;
 }
 
-const restaurantSchema = new mongoose.Schema(
+const RestaruantSchema: Schema = new Schema(
   {
     name: {
       type: String,
@@ -59,6 +60,6 @@ const restaurantSchema = new mongoose.Schema(
   }
 );
 
-const Restaurant = mongoose.model<Restaurant>('Restaurant', restaurantSchema);
+const Restaurant = mongoose.model<Restaurant>('Restaurant', RestaruantSchema);
 
 export default Restaurant;

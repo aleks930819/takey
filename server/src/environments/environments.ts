@@ -8,6 +8,7 @@ export interface Environment {
   email_port: number;
   salt_rounds: number;
   port: number;
+ 
   node_env: string;
   upload_path: string;
   cloudinary_cloud_name: string;

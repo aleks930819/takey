@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 
-import { handleImageUpload, handleDeleteImageByPath } from '../utils/uploads';
+import { handleImageUpload } from '../utils/uploads';
 
+import { RESPONSE_STATUS } from '../constants';
 import { Cuisine } from '../models';
 import { asnycHandler } from '../middlewares';
 
@@ -15,7 +16,7 @@ import { asnycHandler } from '../middlewares';
 const getAllCuisines = asnycHandler(async (req: Request, res: Response) => {
   const cuisines = await Cuisine.find();
   res.status(200).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     results: cuisines.length,
     data: {
       cuisines
@@ -34,7 +35,7 @@ const getCuisine = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
   const cuisine = await Cuisine.findById(id);
   res.status(200).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     data: {
       cuisine
     }
@@ -56,7 +57,7 @@ const createCuisine = asnycHandler(async (req: Request, res: Response) => {
   const cuisine = await Cuisine.create({ name, imageCover: imagePath });
 
   res.status(201).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     data: {
       cuisine
     }
@@ -75,7 +76,7 @@ const deleteCuisine = asnycHandler(async (req: Request, res: Response) => {
   await Cuisine.findByIdAndDelete(id);
 
   res.status(204).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     data: null
   });
 });
@@ -100,7 +101,7 @@ const updateCuisine = asnycHandler(async (req: Request, res: Response) => {
     runValidators: true
   });
   res.status(200).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     data: {
       cuisine
     }

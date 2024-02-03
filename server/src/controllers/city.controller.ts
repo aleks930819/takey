@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import { RESPONSE_STATUS } from '../constants';
 import { City } from '../models';
 import { asnycHandler } from '../middlewares';
 
@@ -13,7 +14,7 @@ import { asnycHandler } from '../middlewares';
 const getAllCities = asnycHandler(async (req: Request, res: Response) => {
   const cities = await City.find();
   res.status(200).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     results: cities.length,
     data: {
       cities
@@ -31,7 +32,7 @@ const getCity = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
   const city = await City.findById(id);
   res.status(200).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     data: {
       city
     }
@@ -48,7 +49,7 @@ const createCity = asnycHandler(async (req: Request, res: Response) => {
   const { name, location } = req.body;
   const city = await City.create({ name, location });
   res.status(201).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     data: {
       city
     }
@@ -66,7 +67,7 @@ const deleteCity = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
   const city = await City.findByIdAndDelete(id);
   res.status(204).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     data: null
   });
 });
@@ -85,7 +86,7 @@ const updateCity = asnycHandler(async (req: Request, res: Response) => {
     runValidators: true
   });
   res.status(200).json({
-    status: 'success',
+    status: RESPONSE_STATUS.SUCCESS,
     data: {
       city
     }
