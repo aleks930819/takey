@@ -4,6 +4,7 @@ import { RESPONSE_STATUS } from '../constants';
 import { handleImageUpload } from '../utils/uploads';
 import { Restaurant } from '../models';
 import { asnycHandler } from '../middlewares';
+import { ApiFeatures } from '../utils';
 
 /**
  * Retrieves all restaurants from the database.
@@ -13,7 +14,14 @@ import { asnycHandler } from '../middlewares';
  * @returns A JSON response containing the list of restaurants.
  */
 const getAllRestaurants = asnycHandler(async (req: Request, res: Response) => {
-  const restaurants = await Restaurant.find();
+  const features = new ApiFeatures(Restaurant.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .pagination();
+
+  const restaurants = await features.query;
+
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     results: restaurants.length,

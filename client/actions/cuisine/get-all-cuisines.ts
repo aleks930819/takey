@@ -10,6 +10,11 @@ interface CuisinesResponse {
   };
 }
 
+/**
+ * Retrieves all cuisines from the server.
+ * @returns A Promise that resolves to a CuisinesResponse object.
+ * @throws An error if the request fails.
+ */
 const getAllRestaurants = async (): Promise<CuisinesResponse> => {
   try {
     const response = await axiosInstance.get('/cuisines');
