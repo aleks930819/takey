@@ -14,7 +14,7 @@ import { RESPONSE_STATUS } from '../constants';
  */
 
 const getAllUsers = asnycHandler(async (req: Request, res: Response) => {
-  const users = await User.find();
+  const users = await User.find().select('-password');
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     results: users.length,
@@ -31,7 +31,6 @@ const getAllUsers = asnycHandler(async (req: Request, res: Response) => {
  * @access Private
  * @returns A JSON response containing the user.
  */
-
 const getUser = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
   const user = await User.findById(id);

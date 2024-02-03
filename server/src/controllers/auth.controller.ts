@@ -61,7 +61,6 @@ const login = asnycHandler(async (req: Request, res: Response) => {
       message: 'Invalid email or password'
     });
   }
-
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     token
