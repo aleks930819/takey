@@ -8,7 +8,7 @@ const variants = {
   outline:
     'py-4 px-6 border border-primary-dark text-primary-dark lg:hover:bg-primary-dark lg:hover:border-primary-dark lg:hover:text-white font-bold transition-all duration-200 ease-in-out',
   primary:
-    'py-4 px-6 bg-primary-dark lg:hover:bg-primary-dark/60 text-white font-bold transition-all duration-200 ease-in-out  focus:ring-3 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary/60',
+    'py-4 px-6 bg-primary-dark lg:hover:bg-primary text-white font-bold transition-all duration-200 ease-in-out  focus:ring-3 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary/60',
 };
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
