@@ -29,6 +29,10 @@ const UserSchema: Schema = new Schema(
       required: true,
       unique: true
     },
+    photo: {
+      type: String,
+      default: 'https://res.cloudinary.com/dbrewse3d/image/upload/v1706957974/default-profiel_cd3lbd.jpg'
+    },
     active: {
       type: Boolean,
       default: true
