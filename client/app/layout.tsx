@@ -5,7 +5,7 @@ import { Roboto } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
-import { MaxWidth, ScrollToTopButton, SpaceContainer } from '@/components/common';
+import { ClientOnly, MaxWidth, ScrollToTopButton, SpaceContainer } from '@/components/common';
 import { Cuisines } from '@/components/cuisines';
 import { RestaruantCard } from './page';
 
@@ -26,21 +26,23 @@ export default function RootLayout({
       <body className={`${roboto.className} flex min-h-screen flex-col justify-between`}>
         <Navbar />
         <main className="px-4">
-          <MaxWidth>
-            <SpaceContainer variant="small" />
-            <Cuisines />
-            <SpaceContainer variant="small" />
-            <section className="flex w-full flex-col gap-4 lg:flex-row">
-              <aside className="w-full lg:w-[30%]  ">
-                <div className="h-auto bg-blue-500 lg:sticky lg:top-5">
-                  <>Filter</>
-                </div>
-              </aside>
-              <div className="w-full ">{children}</div>
-            </section>
-          </MaxWidth>
+          <ClientOnly>
+            <MaxWidth>
+              <SpaceContainer variant="small" />
+              <Cuisines />
+              <SpaceContainer variant="small" />
+              <section className="flex w-full flex-col gap-4 lg:flex-row">
+                <aside className="w-full lg:w-[30%]  ">
+                  <div className="h-auto bg-blue-500 lg:sticky lg:top-5">
+                    <>Filter</>
+                  </div>
+                </aside>
+                <div className="w-full ">{children}</div>
+              </section>
+            </MaxWidth>
+          </ClientOnly>
+          <ScrollToTopButton />
         </main>
-        <ScrollToTopButton />
         <Footer />
       </body>
     </html>

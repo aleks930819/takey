@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { Clock, ShoppingBag } from 'lucide-react';
+import { Clock, ShoppingBag, Star } from 'lucide-react';
 
 import { getAllRestaurants } from '@/actions/restaurants';
 import { ClientOnly, MaxWidth, SpaceContainer } from '@/components/common';
@@ -14,7 +14,7 @@ export const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
     <Link
       href={`/restaurants/${restaurant._id}`}
       key={restaurant._id}
-      className="mb-10 flex  h-full flex-col  overflow-hidden rounded-lg  shadow-md lg:h-[200px] lg:flex-row lg:gap-10"
+      className="mb-10 flex  h-full flex-col  overflow-hidden rounded-lg  shadow-md lg:h-[220px] lg:flex-row lg:gap-10"
     >
       {/* FIRST COLUMN */}
       <figure className=" relative h-[100px] w-full overflow-hidden bg-gray-200  lg:h-full lg:w-[40%]">
@@ -23,7 +23,13 @@ export const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
       {/* SECOND COLUMN */}
       <div className="flex flex-col items-start  gap-4 px-4 py-4 lg:px-0  lg:py-6">
         <h2 className="text-lg font-bold lg:text-3xl">{restaurant.name}</h2>
-        <p className="mb-1 flex items-center gap-2 text-sm font-semibold lg:text-base">
+        <p className="flex items-center gap-1 text-gray-600">
+          <span>
+            <Star size={20} fill="orange" className="text-orange-400" />
+          </span>
+          <strong>{restaurant.rating}</strong>({restaurant.ratingsQuantity}) Reviews <br />
+        </p>
+        <p className="mb-1 flex items-center gap-2 text-sm text-gray-600 lg:text-base">
           <span className="">
             <ShoppingBag size={20} />
           </span>
@@ -32,7 +38,7 @@ export const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
           </p>
           ${restaurant.minOrderPrice.toFixed(2)}
         </p>
-        <p className="flex items-center gap-2 text-sm font-semibold lg:text-base">
+        <p className="flex items-center gap-2 text-sm text-gray-600 lg:text-base">
           <span className="">
             <Clock size={20} />
           </span>
@@ -53,5 +59,11 @@ export default async function Home() {
     return <RestaruantCard restaurant={restaurant} key={restaurant._id} />;
   });
 
-  return <ClientOnly>{restaurants}</ClientOnly>;
+  return (
+    <ClientOnly>
+      {restaurants}
+      {restaurants}
+      {restaurants}
+    </ClientOnly>
+  );
 }

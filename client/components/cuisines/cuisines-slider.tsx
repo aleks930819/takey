@@ -32,7 +32,7 @@ const ArrowButton = ({
         aria-label={`${direction} image`}
         type="button"
         className={cn(
-          `bg-primary-dark hidden rounded-full p-1 text-white lg:block ${
+          `bg-primary-dark hidden rounded-full p-1  text-white lg:block ${
             direction === 'left' ? '-left-16' : '-right-16'
           } hover:primary-dark/60 absolute top-[40%]
           ${isVisible ? 'opacity-100' : 'pointer-events-none opacity-0'}

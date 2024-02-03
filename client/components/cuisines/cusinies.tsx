@@ -9,9 +9,9 @@ const Cuisines = async () => {
   const { data } = await getAllCuisines();
 
   return (
-    <div>
+    <>
       <CuisinesSlider cuisines={data.cuisines} />
-    </div>
+    </>
   );
 };
 
