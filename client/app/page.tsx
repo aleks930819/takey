@@ -4,8 +4,9 @@ import Image from 'next/image';
 import { Clock, ShoppingBag } from 'lucide-react';
 
 import { getAllRestaurants } from '@/actions/restaurants';
-import { ClientOnly, MaxWidth } from '@/components/common';
+import { ClientOnly, MaxWidth, SpaceContainer } from '@/components/common';
 import { Button } from '@/components/ui';
+import { Cuisines } from '@/components/cuisines';
 
 export default async function Home() {
   const { data } = await getAllRestaurants();
@@ -51,6 +52,9 @@ export default async function Home() {
     <ClientOnly>
       <div>
         <MaxWidth>
+          <SpaceContainer variant="small" />
+          <Cuisines />
+          <SpaceContainer variant="small" />
           <section className="flex w-full flex-col gap-4 lg:flex-row">
             <aside className="w-full lg:w-[30%]  ">
               <div className="h-auto bg-blue-500 lg:sticky lg:top-5">

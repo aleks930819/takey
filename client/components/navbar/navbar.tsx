@@ -6,8 +6,8 @@ const Navbar = () => {
   return (
     <header className="bg-white shadow-lg">
       <MaxWidth>
-        <nav className="text-heading flex items-center justify-between py-4">
-          <Logo className="h-[100px] w-[100px]" />
+        <nav className="text-heading flex items-center justify-between py-4 px-4 lg:px-0">
+          <Logo className="h-[70px] w-[70px] lg:h-[100px] lg:w-[100px]" />
           <ul>
             <SignInButton />
           </ul>
