@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import { RESPONSE_STATUS } from '../constants';
 
-import { Review } from '../models';
+import { Restaurant, Review } from '../models';
 import { asnycHandler } from '../middlewares';
 
 /**
@@ -66,10 +66,24 @@ const getReview = asnycHandler(async (req: Request, res: Response) => {
 const createReview = asnycHandler(async (req: Request, res: Response) => {
   const { restaurantId } = req.params;
 
-  const review = await Review.create({
-    ...req.body,
+  // check if use already reviewed the restaurant
+
+  const alreadyReviewed = await Review.findOne({
     restaurant: restaurantId,
     user: req.user._id
+  });
+
+  if (alreadyReviewed) {
+    return res.status(400).json({
+      status: RESPONSE_STATUS.FAIL,
+      message: 'You have already reviewed this restaurant'
+    });
+  }
+
+  const review = await Review.create({
+    ...req.body,
+    restaurant: req.body.restaurant || restaurantId,
+    user: req.body.user || req.user._id
   });
 
   res.status(201).json({
@@ -128,15 +142,22 @@ const updateReview = asnycHandler(async (req: Request, res: Response) => {
     });
   }
 
-  const review = await Review.findOneAndUpdate({ _id: id, restaurant: restaurantId }, req.body, {
-    new: true,
-    runValidators: true
-  });
+  const updatedReview = await Review.findOneAndUpdate(
+    {
+      _id: id,
+      restaurant: restaurantId
+    },
+    req.body,
+    {
+      new: true,
+      runValidators: true
+    }
+  );
 
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      review
+      updatedReview
     }
   });
 });

@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-export interface Restaurant {
+export interface IRestaurant {
   _id: mongoose.Types.ObjectId | string;
   name: string;
   location?: [number];
@@ -8,6 +8,7 @@ export interface Restaurant {
   minOrderPrice: number;
   image: string;
   rating?: number;
+  ratingsAverage?: number;
   ratingsQuantity?: number;
   city: mongoose.Types.ObjectId | string;
   cuisine: mongoose.Types.ObjectId | string;
@@ -40,6 +41,13 @@ const RestaruantSchema: Schema = new Schema(
       type: Number,
       default: 4.5
     },
+    ratingsAverage: {
+      type: Number,
+      default: 4.5,
+      min: [1, 'Rating must be above 1.0'],
+      max: [5, 'Rating must be below 5.0'],
+      set: vaul => Math.round(vaul * 10) / 10 // 4.666666, 46.66666, 47, 4.7
+    },
     ratingsQuantity: {
       type: Number,
       default: 0
@@ -60,6 +68,12 @@ const RestaruantSchema: Schema = new Schema(
   }
 );
 
-const Restaurant = mongoose.model<Restaurant>('Restaurant', RestaruantSchema);
+RestaruantSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'restaurant',
+  localField: '_id'
+});
+
+const Restaurant = mongoose.model<IRestaurant>('Restaurant', RestaruantSchema);
 
 export default Restaurant;

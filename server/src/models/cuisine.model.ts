@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-export interface Cuisine {
+export interface ICuisine {
   _id: mongoose.Types.ObjectId | string;
   name: string;
   imageCover: string;
@@ -25,6 +25,6 @@ const CuisineSchema: Schema = new Schema(
   }
 );
 
-const Cuisine = mongoose.model<Cuisine>('Cuisine', CuisineSchema);
+const Cuisine = mongoose.model<ICuisine>('Cuisine', CuisineSchema);
 
 export default Cuisine;

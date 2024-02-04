@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-export interface City {
+export interface ICity {
   _id: mongoose.Types.ObjectId | string;
   name: string;
   location: [number];
@@ -24,6 +24,6 @@ const CitySchema: Schema = new Schema(
   }
 );
 
-const City = mongoose.model<City>('City', CitySchema);
+const City = mongoose.model<ICity>('City', CitySchema);
 
 export default City;

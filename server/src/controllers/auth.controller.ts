@@ -10,7 +10,10 @@ import { signToken } from '../utils/token';
 declare global {
   namespace Express {
     interface Request {
-      user?: IUser; // Define the user property on the Request object
+      user?: {
+        role: string;
+        _id: string;
+      }; // Define the user property on the Request object
     }
   }
 }

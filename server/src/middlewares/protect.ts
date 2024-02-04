@@ -45,7 +45,12 @@ const protect = asnycHandler(async (req: Request, res: Response, next: NextFunct
   // Grant access to protected route
   // Add user to req object
   // because we will need it in the next middleware (restrictTo)!!!
-  req.user = user;
+  req.user = {
+    role: user.role,
+    _id: user._id as string
+  };
+
+  console.log(req.user);
   next();
 });
 
