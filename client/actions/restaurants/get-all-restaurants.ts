@@ -1,6 +1,8 @@
 import { Restaurant } from '@/interfaces/restaurants';
 import { axiosInstance } from '@/utils/network';
 
+import queryString from 'query-string';
+
 interface RestaurantResponse {
   status: string;
   results: number;
@@ -15,14 +17,30 @@ interface RestaurantResponse {
  * @returns A promise that resolves to a RestaurantResponse object.
  * @throws An error if the request fails.
  */
-const getAllRestaurants = async (cuisineId?: string): Promise<RestaurantResponse> => {
-  const constructedUrl = cuisineId ? `/restaurants?cuisine=${cuisineId}` : '/restaurants';
+const getAllRestaurants = async ({
+  searchData,
+  cuisineId,
+}: {
+  searchData?: any;
+  cuisineId?: string;
+}): Promise<RestaurantResponse | null> => {
+  const constructQuery = (searchData: any) => {
+    return queryString.stringify(searchData);
+  };
+
+  let query = '';
+
+  if (searchData) {
+    query = constructQuery(searchData);
+  }
+
+  const constructedUrl = cuisineId ? `/restaurants?cuisine=${cuisineId}&${query}` : `/restaurants?${query}`;
 
   try {
-    const response = await axiosInstance.get(constructedUrl);
+    const response = await axiosInstance.get(`${constructedUrl}`);
     return response.data;
   } catch (error: any) {
-    throw new Error(error);
+    return null;
   }
 };
 

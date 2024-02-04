@@ -7,6 +7,7 @@ export interface Restaurant {
   image: string;
   rating?: number;
   ratingsQuantity?: number;
+  ratingsAverage?: number;
   city: string;
   cuisine: string;
   createdAt?: Date;

@@ -27,7 +27,7 @@ export const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
           <span>
             <Star size={20} fill="orange" className="text-orange-400" />
           </span>
-          <strong>{restaurant.rating}</strong>({restaurant.ratingsQuantity}) Reviews <br />
+          <strong>{restaurant.ratingsAverage}</strong>({restaurant.ratingsQuantity}) Reviews <br />
         </p>
         <p className="mb-1 flex items-center gap-2 text-sm text-gray-600 lg:text-base">
           <span className="">
@@ -52,18 +52,31 @@ export const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
   );
 };
 
-export default async function Home() {
-  const { data } = await getAllRestaurants();
+export default async function Home({ searchParams }: { searchParams: any }) {
+  const searchData = {
+    ...searchParams,
+  };
+  const data = await getAllRestaurants({ searchData });
 
-  const restaurants = data.restaurants.map((restaurant) => {
+
+  let restaruants = null;
+
+  if (data) {
+    restaruants = data.data.restaurants;
+  }
+
+  if (data && data.results === 0) {
+    return (
+      <MaxWidth>
+        <SpaceContainer variant="medium" />
+        <h1 className="text-2xl font-bold text-black">No restaurants found</h1>
+      </MaxWidth>
+    );
+  }
+
+  const restaurantsData = restaruants?.map((restaurant) => {
     return <RestaruantCard restaurant={restaurant} key={restaurant._id} />;
   });
 
-  return (
-    <ClientOnly>
-      {restaurants}
-      {restaurants}
-      {restaurants}
-    </ClientOnly>
-  );
+  return <ClientOnly>{restaurantsData}</ClientOnly>;
 }
