@@ -6,13 +6,16 @@ import { Clock, ShoppingBag, Star } from 'lucide-react';
 import { getAllRestaurants } from '@/actions/restaurants';
 import { ClientOnly, MaxWidth, SpaceContainer } from '@/components/common';
 import { Restaurant } from '@/interfaces/restaurants';
+import { cn } from '@/lib/utils';
 
 export const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
   return (
     <Link
       href={`/restaurants/${restaurant._id}`}
       key={restaurant._id}
-      className="mb-10 flex  h-full flex-col  overflow-hidden rounded-lg  shadow-md lg:h-[220px] lg:flex-row lg:gap-10"
+      className={cn(
+        'relative mb-10  flex h-full flex-col  overflow-hidden rounded-lg  shadow-md lg:h-[220px] lg:flex-row lg:gap-10',
+      )}
     >
       {/* FIRST COLUMN */}
       <figure className=" relative h-[100px] w-full overflow-hidden bg-gray-200  lg:h-full lg:w-[40%]">
@@ -46,6 +49,18 @@ export const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
           {restaurant.deliveryTime} min.
         </p>
       </div>
+      {restaurant.isOpen && (
+        <span className="absolute left-0 top-0 bg-primary-dark px-2 py-1 text-xs text-white">Open</span>
+      )}
+      {/* {!restaurant.isOpen && (
+        <div
+          className="bg absolute left-0
+          top-0 h-full w-full
+        bg-gray-200/80 px-2 py-1 text-xs text-white"
+        >
+          <span className="absolute left-0 top-0 bg-red-500 px-2 py-1 text-xs text-white">Closed</span>
+        </div>
+      )} */}
     </Link>
   );
 };

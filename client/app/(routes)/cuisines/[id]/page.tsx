@@ -1,4 +1,4 @@
-import { RestaruantCard } from '@/app/page';
+import { RestaruantCard } from '@/app/(routes)/page';
 import { getAllRestaurants } from '@/actions/restaurants';
 import { MaxWidth, SpaceContainer } from '@/components/common';
 
@@ -15,7 +15,6 @@ const CuisinesRestaruantsPage = async ({
 }) => {
   const data = await getAllRestaurants({ cuisineId: params.id, searchData: { ...searchParams } });
 
-  console.log(data);
   let restaruants = null;
 
   if (data) {

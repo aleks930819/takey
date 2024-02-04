@@ -5,6 +5,7 @@ export interface Restaurant {
   deliveryTime: string;
   minOrderPrice: number;
   image: string;
+  isOpen?: boolean;
   rating?: number;
   ratingsQuantity?: number;
   ratingsAverage?: number;
