@@ -34,7 +34,7 @@ export default function RootLayout({
               <SpaceContainer variant="small" />
               <section className="flex w-full flex-col gap-4 lg:flex-row">
                 <aside className="w-full lg:w-[30%]  ">
-                  <div className="h-auto bg-blue-500 lg:sticky lg:top-5">
+                  <div className="h-auto  lg:sticky lg:top-5">
                     <Filter />
                   </div>
                 </aside>
