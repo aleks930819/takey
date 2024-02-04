@@ -9,6 +9,7 @@ import { ClientOnly, MaxWidth, ScrollToTopButton, SpaceContainer } from '@/compo
 import { Cuisines } from '@/components/cuisines';
 import { RestaruantCard } from './page';
 import { Filter } from '@/components/filter';
+import { ViewModeSwitch } from '@/components/ui';
 
 const roboto = Roboto({ weight: ['100', '300', '400', '500', '700', '900'], subsets: ['latin'] });
 

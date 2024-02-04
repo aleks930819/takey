@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary: #ff8c00;
+}
+
 /* SCROLLBAR */
 
 ::-webkit-scrollbar {
@@ -13,11 +17,8 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ff8c00;
+  background: var(--primary);
   height: 10px;
   border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #ff8c00;
-}
