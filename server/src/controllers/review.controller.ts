@@ -4,6 +4,7 @@ import { RESPONSE_STATUS } from '../constants';
 
 import { Restaurant, Review } from '../models';
 import { asnycHandler } from '../middlewares';
+import { ApiFeatures } from '../utils';
 
 /**
  * Retrieves all reviews from the database
@@ -16,18 +17,35 @@ import { asnycHandler } from '../middlewares';
 const getAllReviews = asnycHandler(async (req: Request, res: Response) => {
   const { restaurantId } = req.params;
 
-  let filter = {};
+  if (!restaurantId) {
+    return res.status(400).json({
+      status: RESPONSE_STATUS.FAIL,
+      message: 'Please provide a restaurant ID'
+    });
+  }
 
-  if (restaurantId) filter = { restaurant: restaurantId };
+  const features = new ApiFeatures(
+    Review.find({
+      restaurant: restaurantId
+    }),
+    req.query
+  );
 
-  const reviews = await Review.find(filter).populate({
-    path: 'user',
-    select: 'name'
-  });
+  const reviews = await features
+    .filter()
+    .sort()
+    .limitFields()
+    .pagination().query;
+
+  const totalReviews = await Review.countDocuments();
+
+  const totalPages = Math.ceil(Number(totalReviews) / (Number(req.query.limit) || features.query.limit));
 
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     results: reviews.length,
+    totalReviews,
+    totalPages: totalPages,
     data: {
       reviews
     }

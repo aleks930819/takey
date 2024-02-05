@@ -1,4 +1,15 @@
 import mongoose, { Schema } from 'mongoose';
+import Review, { IReview } from './review.model';
+
+const OpeningHoursSchema = new Schema({
+  day: {
+    type: String,
+    enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    required: true
+  },
+  open: String,
+  close: String
+});
 
 export interface IRestaurant {
   _id: mongoose.Types.ObjectId | string;
@@ -7,6 +18,8 @@ export interface IRestaurant {
   deliveryTime: string;
   minOrderPrice: number;
   image: string;
+  reviews: IReview[];
+  openingHours: Array<{ day: string; open: string; close: string }>;
   rating?: number;
   ratingsAverage?: number;
   ratingsQuantity?: number;
@@ -14,14 +27,17 @@ export interface IRestaurant {
   cuisine: mongoose.Types.ObjectId | string;
   createdAt?: Date;
   updatedAt?: Date;
+  isOpen?: () => boolean;
 }
 
 const RestaruantSchema: Schema = new Schema(
   {
     name: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
+
     location: {
       type: [Number]
     },
@@ -52,6 +68,11 @@ const RestaruantSchema: Schema = new Schema(
       type: Number,
       default: 0
     },
+    openingHours: [OpeningHoursSchema],
+    isClosed: {
+      type: Boolean,
+      default: false
+    },
     city: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'City',
@@ -68,11 +89,30 @@ const RestaruantSchema: Schema = new Schema(
   }
 );
 
-RestaruantSchema.virtual('reviews', {
-  ref: 'Review',
-  foreignField: 'restaurant',
-  localField: '_id'
-});
+RestaruantSchema.methods.isOpen = function() {
+  const date = new Date();
+  const dayNumber = date.getDay();
+  const currentTime = date.getHours() * 60 + date.getMinutes();
+
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const currentDay = days[dayNumber];
+
+  for (let i = 0; i < this.openingHours.length; i++) {
+    if (this.openingHours[i].day === currentDay) {
+      const [openHours, openMinutes] = this.openingHours[i].open.split(':').map(Number);
+      const [closeHours, closeMinutes] = this.openingHours[i].close.split(':').map(Number);
+
+      const openTime = openHours * 60 + openMinutes;
+      const closeTime = closeHours * 60 + closeMinutes;
+
+      if (currentTime >= openTime && currentTime <= closeTime) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+};
 
 const Restaurant = mongoose.model<IRestaurant>('Restaurant', RestaruantSchema);
 

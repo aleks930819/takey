@@ -6,6 +6,7 @@ import { getRestaurant } from '@/actions/restaurants';
 import NotFound from '@/app/not-found';
 import { MaxWidth, SpaceContainer } from '@/components/common';
 import { Reviews } from '@/components/reviews';
+import { getAllReviews } from '@/actions/reviews';
 
 const RestaurantPage = async ({
   params,
@@ -32,7 +33,11 @@ const RestaurantPage = async ({
           <div className="flex flex-col items-start justify-start">
             <h1 className="text-3xl font-bold  text-heading">{restaurant.name}</h1>
             <SpaceContainer variant="xsmall" />
-            <Reviews reviewsCount={restaurant.ratingsQuantity as number} rating={restaurant.ratingsAverage as number} />
+            <Reviews
+              reviewsCount={restaurant.ratingsQuantity as number}
+              rating={restaurant.ratingsAverage as number}
+              reviewsLink={`/restaurants/${restaurant._id}/reviews`}
+            />
           </div>
         </MaxWidth>
       </header>

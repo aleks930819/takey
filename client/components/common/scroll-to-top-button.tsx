@@ -11,8 +11,8 @@ const ScrollToTopButton = ({ scrollTo, isVisible }: { scrollTo?: any; isVisible?
   return (
     <button
       onClick={scrollToTheTop}
-      className={` hover:bg-primary-dark/60 bg-primary-dark group fixed bottom-10 right-0 z-20 rounded-sm px-4 py-2
-      text-white shadow-xl transition-all duration-300 ease-in-out hover:text-white
+      className={` group fixed bottom-10 right-0 z-[70] rounded-sm bg-primary-dark px-4 py-2 text-white
+      shadow-xl transition-all duration-300 ease-in-out hover:bg-primary-dark/60 hover:text-white
       ${isVisible || y! >= 200 ? ' translate-x-0 opacity-100' : 'pointer-events-none translate-x-full opacity-0'}
       `}
     >

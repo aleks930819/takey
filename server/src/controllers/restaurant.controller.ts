@@ -22,11 +22,18 @@ const getAllRestaurants = asnycHandler(async (req: Request, res: Response) => {
 
   const restaurants = await features.query;
 
+  const restaurantsWithOpenStatus = restaurants.map((restaurant: any) => {
+    return {
+      ...restaurant.toObject(),
+      isOpen: restaurant.isOpen()
+    };
+  });
+
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     results: restaurants.length,
     data: {
-      restaurants
+      restaurants: restaurantsWithOpenStatus
     }
   });
 });
@@ -39,11 +46,17 @@ const getAllRestaurants = asnycHandler(async (req: Request, res: Response) => {
  */
 const getRestaurant = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
-  const restaurant = await Restaurant.findById(id).populate('reviews');
+  const restaurant = await Restaurant.findById(id);
+
+  const restaurantWithOpenStatus = {
+    ...restaurant.toObject(),
+    isOpen: restaurant.isOpen()
+  };
+
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      restaurant
+      restaurant: restaurantWithOpenStatus
     }
   });
 });

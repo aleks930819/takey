@@ -52,7 +52,7 @@ export const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
       {restaurant.isOpen && (
         <span className="absolute left-0 top-0 bg-primary-dark px-2 py-1 text-xs text-white">Open</span>
       )}
-      {/* {!restaurant.isOpen && (
+      {!restaurant.isOpen && (
         <div
           className="bg absolute left-0
           top-0 h-full w-full
@@ -60,7 +60,7 @@ export const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
         >
           <span className="absolute left-0 top-0 bg-red-500 px-2 py-1 text-xs text-white">Closed</span>
         </div>
-      )} */}
+      )}
     </Link>
   );
 };

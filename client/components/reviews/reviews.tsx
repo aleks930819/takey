@@ -1,6 +1,5 @@
-import { Review } from '@/interfaces/reviews';
-
 import { Star } from 'lucide-react';
+import Link from 'next/link';
 
 const ReviewsStars = ({ rating }: { rating: number }) => {
   return [...Array(5)].map((_, i) => {
@@ -13,13 +12,22 @@ const ReviewsStars = ({ rating }: { rating: number }) => {
   });
 };
 
-const Reviews = ({ reviewsCount, rating }: { reviewsCount: number; rating: number }) => {
+// TODO: Rename this component with a more descriptive name
+const Reviews = ({
+  reviewsCount,
+  rating,
+  reviewsLink,
+}: {
+  reviewsCount: number;
+  rating: number;
+  reviewsLink: string;
+}) => {
   return (
-    <div className="">
-      <div className="flex items-center gap-1">
-        <ReviewsStars rating={rating} />
+    <div className="flex items-center gap-1">
+      <ReviewsStars rating={rating} />
+      <Link href={reviewsLink} className="text-heading underline">
         <p>{reviewsCount} Reviews</p>
-      </div>
+      </Link>
     </div>
   );
 };
