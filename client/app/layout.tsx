@@ -3,9 +3,8 @@ import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 
 import './globals.css';
-import { Navbar } from '@/components/navbar';
-import { Footer } from '@/components/footer';
-import { ScrollToTopButton } from '@/components/common';
+import { Footer, Navbar } from '@/components';
+import { ScrollToTopButton, SpaceContainer } from '@/components/common';
 
 const roboto = Roboto({ weight: ['100', '300', '400', '500', '700', '900'], subsets: ['latin'] });
 

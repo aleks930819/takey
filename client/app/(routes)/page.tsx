@@ -80,7 +80,6 @@ export default async function Home({ searchParams }: { searchParams: any }) {
   if (data && data.results === 0) {
     return (
       <MaxWidth>
-        <SpaceContainer variant="medium" />
         <h1 className="text-2xl font-bold text-black">No restaurants found</h1>
       </MaxWidth>
     );

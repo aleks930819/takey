@@ -1,16 +1,26 @@
+export interface OpeningHours {
+  day: string;
+  open: string;
+  close: string;
+}
+
 export interface Restaurant {
   _id: string;
   name: string;
-  location?: [number];
+  location: {
+    type: string;
+    coordinates: number[];
+  };
   deliveryTime: string;
   minOrderPrice: number;
   image: string;
-  isOpen?: boolean;
-  rating?: number;
-  ratingsQuantity?: number;
-  ratingsAverage?: number;
+  isOpen: boolean;
+  openingHours: OpeningHours[];
+  rating: number;
+  ratingsQuantity: number;
+  ratingsAverage: number;
   city: string;
   cuisine: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -2,7 +2,7 @@ import { getRestaurant } from '@/actions/restaurants';
 import { getAllReviews } from '@/actions/reviews';
 
 import NotFound from '@/app/not-found';
-import { MaxWidth, SpaceContainer, GoBackButton, LoadMoreButton, Pagination } from '@/components/common';
+import { MaxWidth, SpaceContainer, GoBackButton, Pagination } from '@/components/common';
 import { ReviewCard } from '@/components/reviews';
 
 interface RestaruantReviewsPageProps {
@@ -16,9 +16,9 @@ interface RestaruantReviewsPageProps {
 
 const RestaruantReviews = async ({ params, searchParams }: RestaruantReviewsPageProps) => {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
-  const limit = searchParams.limit ? parseInt(searchParams.limit) : 10;
+  const limit = searchParams.limit ? parseInt(searchParams.limit) : 12;
 
-  const data = await getAllReviews({ restaurantId: params.id, limit: 4, page });
+  const data = await getAllReviews({ restaurantId: params.id, limit, page });
 
   const { data: restaruantData } = await getRestaurant(params.id);
 

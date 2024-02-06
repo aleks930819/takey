@@ -1,1 +1,1 @@
-export { default as Cuisines } from './cusinies';
+export { default } from './cusinies';

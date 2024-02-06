@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { ClientOnly, MaxWidth, ScrollToTopButton, SpaceContainer } from '@/components/common';
-import { Cuisines } from '@/components/cuisines';
-import { Filter } from '@/components/filter';
+import { Cuisines, Filter } from '@/components';
 
 export default function RootLayout({
   children,
