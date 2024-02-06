@@ -26,7 +26,7 @@ const RestaruantInfoPage = async ({
         <div>
           <header className="mb-10">
             <h1 className="text-center text-3xl font-bold text-heading">
-              Restaurant Info about <em>{data.restaurant.name}</em>
+              Restaurant Info about <span className="underline">{data.restaurant.name}</span>
             </h1>
           </header>
           <section className="flex w-full flex-col items-center justify-center gap-2 lg:flex-row">

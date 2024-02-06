@@ -34,7 +34,7 @@ const ToolTip = ({ children, tooltip, position = 'left' }: ToolTipProps) => {
         <span
           className={`
           ${positionOfTheToolTip()}
-          absolute z-[999] hidden  scale-0 rounded bg-primary-dark px-3 py-2 text-xs text-white transition-all lg:block
+          absolute z-[999] hidden   scale-0 rounded bg-primary-dark px-3 py-2 text-xs text-white transition-all lg:block
           ${show ? 'scale-100' : ''}
           `}
         >

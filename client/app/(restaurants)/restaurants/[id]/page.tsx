@@ -7,8 +7,9 @@ import NotFound from '@/app/not-found';
 import { MaxWidth, SpaceContainer } from '@/components/common';
 import { Reviews } from '@/components/reviews';
 import { getAllReviews } from '@/actions/reviews';
-import { ShoppingBag } from 'lucide-react';
+import { Info, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
+import { Tooltip } from '@/components/ui';
 
 const RestaurantPage = async ({
   params,
@@ -48,9 +49,15 @@ const RestaurantPage = async ({
             </div>
           </div>
           <div>
-            <Link href={`/restaurants/${restaurant._id}/info`} className="text-primary underline">
-              See information about the restaurant
-            </Link>
+            <Tooltip
+              position="bottom"
+              tooltip="Information such as opening hours, location and more about the restaurant."
+            >
+              <Link href={`/restaurants/${restaurant._id}/info`} className=" flex items-center gap-2 underline">
+                See information about the restaurant
+                <Info size={18} />
+              </Link>
+            </Tooltip>
           </div>
         </MaxWidth>
       </header>

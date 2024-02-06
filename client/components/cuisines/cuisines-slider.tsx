@@ -4,6 +4,8 @@ import React, { useRef, useState } from 'react';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+import { Virtual } from 'swiper/modules';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
@@ -32,7 +34,7 @@ const ArrowButton = ({
         aria-label={`${direction} image`}
         type="button"
         className={cn(
-          `bg-primary-dark hidden rounded-full p-1  text-white lg:block ${
+          `hidden rounded-full bg-primary-dark p-1  text-white lg:block ${
             direction === 'left' ? '-left-16' : '-right-16'
           } hover:primary-dark/60 absolute top-[40%]
           ${isVisible ? 'opacity-100' : 'pointer-events-none opacity-0'}
@@ -55,11 +57,7 @@ const CuisinesSlider = ({ cuisines }: { cuisines: Cuisine[] }) => {
   const onSlideChange = () => {
     if (swiperRef.current && swiperRef.current.swiper) {
       setCurrentSlideIndex(swiperRef.current.swiper.realIndex);
-    }
-    if (swiperRef.current.swiper.isEnd) {
-      setIsSliderEnd(true);
-    } else {
-      setIsSliderEnd(false);
+      setIsSliderEnd(swiperRef.current.swiper.isEnd);
     }
   };
 
@@ -74,12 +72,16 @@ const CuisinesSlider = ({ cuisines }: { cuisines: Cuisine[] }) => {
       swiperRef.current.swiper.slidePrev();
     }
   };
+
+  console.log(currentSlideIndex);
   return (
     <ClientOnly>
       <div className="relative mx-auto w-full lg:w-[80%]">
         <Swiper
           ref={swiperRef}
+          modules={[Virtual]}
           spaceBetween={20}
+          className="mySwiper"
           onSlideChange={onSlideChange}
           pagination={{ clickable: true }}
           breakpoints={{
@@ -94,7 +96,7 @@ const CuisinesSlider = ({ cuisines }: { cuisines: Cuisine[] }) => {
             },
           }}
         >
-          {cuisines.map((cuisine) => (
+          {cuisines.map((cuisine, i) => (
             <SwiperSlide key={cuisine._id}>
               <CuisinesSliderItem cuisine={cuisine} />
             </SwiperSlide>
