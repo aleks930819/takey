@@ -39,7 +39,15 @@ const RestaruantSchema: Schema = new Schema(
     },
 
     location: {
-      type: [Number]
+      type: {
+        type: String,
+        enum: ['Point'],
+        default: 'Point'
+      },
+      coordinates: {
+        type: [Number],
+        required: true
+      }
     },
     deliveryTime: {
       type: String,
@@ -56,6 +64,10 @@ const RestaruantSchema: Schema = new Schema(
     rating: {
       type: Number,
       default: 4.5
+    },
+    avgPrice: {
+      type: Number,
+      required: true
     },
     ratingsAverage: {
       type: Number,

@@ -6,3 +6,4 @@ export { default as SpaceContainer } from './space-container';
 export { default as URLParamRadioGroup } from './url-param-radio-group';
 export { default as GoBackButton } from '../common/go-back-button';
 export { default as Pagination } from './pagination';
+export { default as PaddingContainer } from './padding-container';

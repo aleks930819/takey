@@ -15,6 +15,7 @@ export interface Restaurant {
   minOrderPrice: number;
   image: string;
   isOpen: boolean;
+  avgPrice: number;
   openingHours: OpeningHours[];
   rating: number;
   ratingsQuantity: number;

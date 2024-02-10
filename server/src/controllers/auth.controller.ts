@@ -79,7 +79,7 @@ const login = asnycHandler(async (req: Request, res: Response) => {
  * @returns A JSON response containing the user.
  */
 const getMe = asnycHandler(async (req: Request, res: Response) => {
-  const user = await User.findById(req.user._id);
+  const user = await User.findById(req.user._id).select('-password');
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
