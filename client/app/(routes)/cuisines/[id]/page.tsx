@@ -1,6 +1,6 @@
-import { RestaruantCard } from '@/app/(routes)/page';
 import { getAllRestaurants } from '@/actions/restaurants';
 import { MaxWidth, SpaceContainer } from '@/components/common';
+import { RestaruantCard } from '@/components/restaruant';
 
 const CuisinesRestaruantsPage = async ({
   params,
