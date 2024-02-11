@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 const options = [
   { value: 'avgPrice', label: 'Avg. Price' },
   { value: 'createdAt', label: 'Newest' },
+  { value: '-ratingsAverage', label: 'Reviews' },
   { value: '-createdAt', label: 'Oldest' },
 ];
 

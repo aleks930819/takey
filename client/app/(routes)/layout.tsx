@@ -16,7 +16,11 @@ export default function RootLayout({
             <SpaceContainer variant="small" />
             <Cuisines />
             <SpaceContainer variant="small" />
-            <div className="flex items-end justify-end">
+            <div className="flex items-end justify-between">
+              <h1 className="text-2xl font-bold">
+                Restaurants
+                <span className="ml-2 text-sm font-normal text-gray-500">(12 restaurants found)</span>
+              </h1>
               <SortBy />
             </div>
             <SpaceContainer variant="small" />

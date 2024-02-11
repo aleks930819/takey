@@ -1,4 +1,5 @@
 import { URLParamRadioGroup } from '../common';
+import ClearFiltersButton from './clear-filters-button';
 import { RatingGrid } from './rating';
 
 const deliveryTimeFilterOptions = [
@@ -18,6 +19,7 @@ const Filter = () => {
         <RatingGrid />
         <URLParamRadioGroup options={deliveryTimeFilterOptions} paramName="deliveryTime" legend="Delivery Time" />
         <URLParamRadioGroup options={minOrderPriceFilterOptions} paramName="minOrderPrice" legend="Min. Order Price" />
+        <ClearFiltersButton />
       </div>
     </div>
   );
