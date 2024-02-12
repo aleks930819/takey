@@ -6,12 +6,14 @@ import { User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AuthModal } from '@/components';
 
-const SignInButton = ({ className }: { className?: string }) => {
+const SignInButton = ({ className, isAuth }: { className?: string; isAuth: boolean }) => {
   const [isShownAuthModal, setIsShownAuthModal] = useState(false);
 
   const authModalHandler = () => {
     setIsShownAuthModal(!isShownAuthModal);
   };
+
+  console.log(isAuth);
 
   return (
     <>

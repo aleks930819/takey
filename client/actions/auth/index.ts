@@ -4,7 +4,23 @@ import { AxiosError } from 'axios';
 
 import { axiosInstance } from '@/utils/network';
 
+import { cookies } from 'next/headers';
+import { NextRequest, NextResponse } from 'next/server';
+
 import * as validation from '@/validation';
+
+export const getSession = () => {
+  const session = cookies().get('session')?.value;
+  if (!session) return null;
+  return JSON.parse(session);
+};
+
+export const isExpired = (request: NextRequest) => {
+  const decoded = getSession();
+
+  if (!decoded) return true;
+  return (decoded.createdAt + decoded.expiresIn) * 1000 <= Date.now();
+};
 
 /**
  * Sign in function that authenticates a user with the provided email and password.
@@ -41,6 +57,8 @@ export async function signIn(formState: any, formData: FormData) {
       email,
       password,
     });
+
+    cookies().set('session', JSON.stringify(data.token), { httpOnly: true });
 
     return {
       data,
