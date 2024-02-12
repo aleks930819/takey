@@ -8,11 +8,22 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 import * as validation from '@/validation';
+import { User } from '@/interfaces/user';
+
+export const logOut = () => {
+  cookies().set('session', '', { expires: new Date(0) });
+};
+
+interface Session {
+  accessToken: string;
+  expiresIn: number;
+  createdAt: number;
+}
 
 export const getSession = () => {
   const session = cookies().get('session')?.value;
   if (!session) return null;
-  return JSON.parse(session);
+  return JSON.parse(session) as Session;
 };
 
 export const isExpired = (request: NextRequest) => {
@@ -22,17 +33,17 @@ export const isExpired = (request: NextRequest) => {
   return (decoded.createdAt + decoded.expiresIn) * 1000 <= Date.now();
 };
 
+interface TokenResponse {
+  accessToken: string;
+  createdAt: number;
+  expiresIn: number;
+}
+
 /**
  * Sign in function that authenticates a user with the provided email and password.
  * @param formState - The state of the form.
  * @param formData - The form data containing the email and password.
- * @returns An object with the following properties:
- *   - If successful:
- *     - data: The response data from the server.
- *   - If there are validation errors:
- *     - message: The error message describing the validation error.
- *   - If there is an error during the sign-in process:
- *     - message: The error message describing the error.
+ * @returns An object with success or error messages and data(token).
  */
 export async function signIn(formState: any, formData: FormData) {
   try {
@@ -61,7 +72,7 @@ export async function signIn(formState: any, formData: FormData) {
     cookies().set('session', JSON.stringify(data.token), { httpOnly: true });
 
     return {
-      data,
+      data: data.token as TokenResponse,
     };
   } catch (error: unknown) {
     if (error instanceof AxiosError) {
@@ -80,13 +91,7 @@ export async function signIn(formState: any, formData: FormData) {
  * Sign up function that registers a new user with the provided name, email, and password.
  * @param formState - The state of the form.
  * @param formData - The form data containing the name, email, and password.
- * @returns An object with the following properties:
- *   - If successful:
- *     - data: The response data from the server.
- *   - If there are validation errors:
- *     - message: The error message describing the validation error.
- *   - If there is an error during the sign-up process:
- *     - message: The error message describing the error.
+ * @returns An object with success or error messages and data(token).
  */
 export async function signUp(formState: any, formData: FormData) {
   try {
@@ -137,11 +142,49 @@ export async function signUp(formState: any, formData: FormData) {
     });
 
     return {
-      data,
+      data: data.token as TokenResponse,
     };
   } catch (error: unknown) {
     if (error instanceof AxiosError) {
       console.log(error);
+      return {
+        message: error.response?.data.message,
+      };
+    } else {
+      return {
+        message: 'An error occurred',
+      };
+    }
+  }
+}
+
+interface GetMeResponse {
+  data: {
+    success: boolean;
+    data: {
+      user: User;
+    };
+  };
+}
+
+/**
+ *
+ * @param token  - The token of the user.
+ * @returns An object with the following properties:
+ */
+export async function getMe(token: string): Promise<GetMeResponse | { message: string }> {
+  try {
+    const { data } = await axiosInstance.get<GetMeResponse>('/users/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return {
+      data: data.data,
+    };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
       return {
         message: error.response?.data.message,
       };

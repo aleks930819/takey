@@ -13,7 +13,9 @@ import { Button } from '@/components/ui';
 const SignIn = ({ closeAuthModal }: { closeAuthModal: () => void }) => {
   const [state, formAction] = useFormState(actions.signIn, undefined);
   const { pending } = useFormStatus();
-  if (state?.data) {
+
+
+  if (state?.data?.accessToken) {
     closeAuthModal();
   }
 

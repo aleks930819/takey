@@ -13,7 +13,7 @@ const SignInButton = ({ className, isAuth }: { className?: string; isAuth: boole
 
   const authModalHandler = () => {
     if (!isAuth) {
-      setIsShownAuthModal(!isShownAuthModal);
+      setIsShownAuthModal(true);
     } else {
       router.push('/account');
     }
@@ -30,7 +30,7 @@ const SignInButton = ({ className, isAuth }: { className?: string; isAuth: boole
       >
         <User size={30} />
       </button>
-      {isShownAuthModal && <AuthModal closeAuthModal={authModalHandler} />}
+      {isShownAuthModal && <AuthModal closeAuthModal={() => setIsShownAuthModal(false)} />}
     </>
   );
 };

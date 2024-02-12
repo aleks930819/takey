@@ -8,3 +8,4 @@ export { default as GoBackButton } from '../common/go-back-button';
 export { default as Pagination } from './pagination';
 export { default as PaddingContainer } from './padding-container';
 export { default as Modal } from './modal';
+export { default as Accordion } from './accordion';
