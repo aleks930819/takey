@@ -29,6 +29,13 @@ declare global {
 const register = asnycHandler(async (req: Request, res: Response) => {
   const { name, email, password, passwordConfirm } = req.body;
 
+  const isUserExist = await User.exists({ email });
+
+  if (isUserExist) {
+    res.status(400);
+    throw new Error('User already exist');
+  }
+
   if (password !== passwordConfirm) {
     return res.status(400).json({
       status: RESPONSE_STATUS.FAIL,
@@ -56,14 +63,15 @@ const login = asnycHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }).select('+password');
 
-  const token = signToken(user._id);
-
   if (!user || !(await user.comparePassword(password))) {
     return res.status(401).json({
       status: RESPONSE_STATUS.FAIL,
       message: 'Invalid email or password'
     });
   }
+
+  const token = signToken(user._id);
+
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     token

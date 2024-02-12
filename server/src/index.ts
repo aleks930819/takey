@@ -6,6 +6,7 @@ import * as expressFileUpload from 'express-fileupload';
 import { cityRouter, cuisineRouter, restaurantRouter, reviewRouter, userRouter } from './routes';
 
 import { RESPONSE_STATUS } from './constants';
+import { errorMiddleware } from './middlewares';
 
 const app = Express();
 
@@ -29,11 +30,7 @@ app.use('/api/v1/restaurants', restaurantRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/users', userRouter);
 
-app.all('*', (req: Express.Request, res: Express.Response, next: Express.NextFunction) => {
-  res.status(404).json({
-    status: RESPONSE_STATUS.FAIL,
-    message: `Can't find ${req.originalUrl} on this server!`
-  });
-});
+app.use(errorMiddleware.notFound);
+app.use(errorMiddleware.errorHandler);
 
 export default app;
