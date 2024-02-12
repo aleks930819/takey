@@ -7,7 +7,6 @@
 }
 
 /* SCROLLBAR */
-
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -22,3 +21,11 @@
   border-radius: 10px;
 }
 
+/*_____Global tailwind classes_____*/
+a {
+  @apply transition-all duration-300 ease-in-out hover:text-primary focus-visible:outline focus-visible:outline-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-opacity-50;
+}
+
+input {
+  @apply rounded-md border-2 border-gray-400 transition-all duration-300 ease-in-out focus-visible:outline focus-visible:outline-gray-500 focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-opacity-50;
+}

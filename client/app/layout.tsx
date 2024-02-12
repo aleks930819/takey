@@ -23,6 +23,7 @@ export default function RootLayout({
       <body className={`${roboto.className} flex min-h-screen flex-col justify-between`}>
         <Navbar />
         <main className="">{children}</main>
+        <div id="modal-root" />
         <ScrollToTopButton />
         <Footer />
       </body>

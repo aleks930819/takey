@@ -6,15 +6,15 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { Virtual } from 'swiper/modules';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 
 import 'swiper/css/pagination';
 
+import { Cuisine } from '@/interfaces/cuisines';
 import { cn } from '@/lib/utils';
 import { ClientOnly } from '../common';
-import { Cuisine } from '@/interfaces/cuisines';
 import CuisinesSliderItem from './cuisinies-slider-item';
 
 const ArrowButton = ({
@@ -50,7 +50,7 @@ const ArrowButton = ({
 };
 
 const CuisinesSlider = ({ cuisines }: { cuisines: Cuisine[] }) => {
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperRef>(null);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isSliderEnd, setIsSliderEnd] = useState(false);
 
@@ -73,7 +73,6 @@ const CuisinesSlider = ({ cuisines }: { cuisines: Cuisine[] }) => {
     }
   };
 
-  console.log(currentSlideIndex);
   return (
     <ClientOnly>
       <div className="relative mx-auto w-full lg:w-[80%]">
