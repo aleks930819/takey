@@ -10,7 +10,6 @@ import { errorMiddleware } from './middlewares';
 
 const app = Express();
 
-// TODO: Add domain of the client app to the whitelist
 app.use(cors());
 app.use(Express.json());
 app.use(

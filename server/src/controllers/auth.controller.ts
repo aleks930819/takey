@@ -4,7 +4,8 @@ import { RESPONSE_STATUS } from '../constants';
 import { User } from '../models';
 import { IUser } from '../models/user.model';
 import { asnycHandler } from '../middlewares';
-import { signToken } from '../utils/token';
+import { decodeToken, signToken } from '../utils/token';
+import exp = require('constants');
 
 // Extend the Express Request interface
 declare global {
@@ -46,10 +47,15 @@ const register = asnycHandler(async (req: Request, res: Response) => {
   const user = await User.create({ name, email, password });
 
   const token = signToken(user._id);
+  const decoded = decodeToken(token);
 
   res.status(201).json({
     status: RESPONSE_STATUS.SUCCESS,
-    token
+    token: {
+      accessToken: token,
+      createdAt: decoded.iat,
+      expiresIn: Number(process.env.JWT_EXPIRES_IN)
+    }
   });
 });
 /**
@@ -71,10 +77,15 @@ const login = asnycHandler(async (req: Request, res: Response) => {
   }
 
   const token = signToken(user._id);
+  const decoded = decodeToken(token);
 
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
-    token
+    token: {
+      accessToken: token,
+      createdAt: decoded.iat,
+      expiresIn: Number(process.env.JWT_EXPIRES_IN)
+    }
   });
 });
 
