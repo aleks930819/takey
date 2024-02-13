@@ -11,6 +11,7 @@ import { MaxWidth, SpaceContainer } from '@/components/common';
 import { Reviews } from '@/components/reviews';
 import { Tooltip } from '@/components/ui';
 import { FavoritesButton } from '@/components/favorites';
+import { getSession } from '@/actions/auth';
 
 const RestaurantPage = async ({
   params,
@@ -19,8 +20,18 @@ const RestaurantPage = async ({
     id: string;
   };
 }) => {
+  const session = await getSession();
+
   const { data } = await getRestaurant(params.id);
-  const isInFavorite = await isInFavoritesList(params.id);
+  let isInFavorite = undefined;
+
+  if (session) {
+    isInFavorite = await isInFavoritesList({
+      reastaurantId: params.id,
+      userId: session.userId,
+      accessToken: session.accessToken,
+    });
+  }
 
   const { restaurant } = data;
 
@@ -60,7 +71,12 @@ const RestaurantPage = async ({
                 <Info size={18} />
               </Link>
             </Tooltip>
-            <FavoritesButton reastaurantId={restaurant._id} isInFavorite={isInFavorite || false} />
+            <FavoritesButton
+              reastaurantId={restaurant._id}
+              isInFavorite={!!isInFavorite}
+              accessToken={session?.accessToken ?? null}
+              userId={session?.userId ?? null}
+            />
           </div>
         </MaxWidth>
       </header>

@@ -29,9 +29,15 @@ const getAllRestaurants = asnycHandler(async (req: Request, res: Response) => {
     };
   });
 
+  const totalRestaruants = await Restaurant.countDocuments();
+
+  const totalPages = Math.ceil(Number(totalRestaruants) / (Number(req.query.limit) || 12));
+
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     results: restaurants.length,
+    totalRestaruants,
+    totalPages: totalPages,
     data: {
       restaurants: restaurantsWithOpenStatus
     }

@@ -3,14 +3,8 @@ import React, { Suspense } from 'react';
 import { MaxWidth, PaddingContainer, SpaceContainer } from '@/components/common';
 import { Spinner } from '@/components/ui';
 import { AccountNavigation } from '@/components/account';
-import { getMe, getSession } from '@/actions/auth';
 
-const AccountLayout = async ({ children }: { children: React.ReactNode }) => {
-  const session = await getSession();
-  if (session) {
-    const me = await getMe(session?.accessToken);
-  }
-
+const AccountLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <MaxWidth>
       <PaddingContainer>

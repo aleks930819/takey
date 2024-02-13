@@ -2,7 +2,6 @@
 
 import { cookies } from 'next/headers';
 
-import { getSession } from '../auth';
 import { axiosInstance } from '@/utils/network';
 import { Favorites } from '@/interfaces/favorites';
 
@@ -17,19 +16,15 @@ interface FavoritesResponse {
  * Creates a new favorite list for the user.
  *
  * @description Function creates a new favorite list for the user and stores the ID of the list in a cookie.
+ * @param userId - The ID of the user.
+ * @param accessToken - The user's access token.
  * @returns  A promise that resolves to a response object.
  */
-export const createFavoriteList = async () => {
-  const seasson = await getSession();
-
-  if (!seasson) {
-    return;
-  }
-
+export const createFavoriteList = async ({ userId, accessToken }: { userId: string; accessToken: string }) => {
   try {
-    const response = await axiosInstance.post<FavoritesResponse>(`/users/${seasson.userId}/favorites`, null, {
+    const response = await axiosInstance.post<FavoritesResponse>(`/users/${userId}/favorites`, null, {
       headers: {
-        Authorization: `Bearer ${seasson.accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     cookies().set('favoritesId', response.data.data.favorite._id, {
@@ -47,28 +42,29 @@ export const createFavoriteList = async () => {
  * Adds a restaurant to the user's favorite list.
  *
  * @param reastaurantId - The ID of the restaurant to add to the favorite list.
+   @param userId - The ID of the user.
+*  @param accessToken - The user's access token.
  * @returns A promise that resolves to a response object.
  */
-export const addToFavoritesList = async (reastaurantId: string) => {
-  const seasson = await getSession();
-
-  const favoritesId = cookies().get('favoritesId')?.value;
-
-  if (!seasson || !favoritesId) {
-    return;
-  }
-
+export const addToFavoritesList = async ({
+  reastaurantId,
+  userId,
+  accessToken,
+}: {
+  reastaurantId: string;
+  userId: string;
+  accessToken: string;
+}) => {
   try {
-    const response = await axiosInstance.patch<FavoritesResponse>(
-      `/users/${seasson.userId}/favorites/${favoritesId}`,
+    const response = await axiosInstance.post<FavoritesResponse>(
+      `/users/${userId}/favorites/add`,
       { reastaurantId },
       {
         headers: {
-          Authorization: `Bearer ${seasson.accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       },
     );
-    console.log(response.data);
     return response.data;
   } catch (error: unknown) {
     console.log(error);
@@ -79,24 +75,25 @@ export const addToFavoritesList = async (reastaurantId: string) => {
  * Removes a restaurant from the user's favorite list.
  *
  * @param reastaurantId - The ID of the restaurant to remove from the favorite list.
+ * @param userId - The ID of the user.
+ *  @param accessToken - The user's access token.
  * @returns A promise that resolves to a response object.
  */
-export const removeFromFavoritesList = async (reastaurantId: string) => {
-  const seasson = await getSession();
-
-  const favoritesId = cookies().get('favoritesId')?.value;
-
-  if (!seasson || !favoritesId) {
-    return;
-  }
-
+export const removeFromFavoritesList = async ({
+  reastaurantId,
+  userId,
+  accessToken,
+}: {
+  reastaurantId: string;
+  userId: string;
+  accessToken: string;
+}) => {
   try {
-    const response = await axiosInstance.patch<FavoritesResponse>(
-      `/users/${seasson.userId}/favorites/${favoritesId}/remove`,
-      { reastaurantId },
+    const response = await axiosInstance.delete<FavoritesResponse>(
+      `/users/${userId}/favorites/remove/${reastaurantId}`,
       {
         headers: {
-          Authorization: `Bearer ${seasson.accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       },
     );
@@ -109,21 +106,15 @@ export const removeFromFavoritesList = async (reastaurantId: string) => {
 /**
  * Get the user's favorite list.
  *
+ * @param userId - The ID of the user.
+ * @param accessToken - The user's access token.
  * @returns A promise that resolves to a response object.
  */
-export const getFavoritesList = async () => {
-  const seasson = await getSession();
-
-  const favoritesId = cookies().get('favoritesId')?.value;
-
-  if (!seasson || !favoritesId) {
-    return;
-  }
-
+export const getFavoritesList = async ({ userId, accessToken }: { userId: string; accessToken: string }) => {
   try {
-    const response = await axiosInstance.get<FavoritesResponse>(`/users/${seasson.userId}/favorites/${favoritesId}`, {
+    const response = await axiosInstance.get<FavoritesResponse>(`/users/${userId}/favorites`, {
       headers: {
-        Authorization: `Bearer ${seasson.accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     return response.data;
@@ -136,21 +127,23 @@ export const getFavoritesList = async () => {
  * Utility function to check if a restaurant is in the user's favorite list.
  *
  * @param reastaurantId - The ID of the restaurant to check.
+ * @param userId - The ID of the user.
+ * @param accessToken - The user's access token.
  * @returns A promise that resolves to a boolean value.
  */
-export const isInFavoritesList = async (reastaurantId: string) => {
-  const seasson = await getSession();
-
-  const favoritesId = cookies().get('favoritesId')?.value;
-
-  if (!seasson || !favoritesId) {
-    return;
-  }
-
+export const isInFavoritesList = async ({
+  reastaurantId,
+  userId,
+  accessToken,
+}: {
+  reastaurantId: string;
+  userId: string;
+  accessToken: string;
+}) => {
   try {
-    const response = await axiosInstance.get(`/users/${seasson.userId}/favorites/check/${reastaurantId}`, {
+    const response = await axiosInstance.get(`/users/${userId}/favorites/check/${reastaurantId}`, {
       headers: {
-        Authorization: `Bearer ${seasson.accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     const isRestaurantInFavorite = response.data.data.isRestaurantInFavorite;

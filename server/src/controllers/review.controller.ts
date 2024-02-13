@@ -39,7 +39,7 @@ const getAllReviews = asnycHandler(async (req: Request, res: Response) => {
 
   const totalReviews = await Review.countDocuments();
 
-  const totalPages = Math.ceil(Number(totalReviews) / (Number(req.query.limit) || features.query.limit));
+  const totalPages = Math.ceil(Number(totalReviews) / (Number(req.query.limit) || 12));
 
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
@@ -182,8 +182,8 @@ const updateReview = asnycHandler(async (req: Request, res: Response) => {
 
 const reviewController = {
   getAllReviews,
-  getReview,
   createReview,
+  getReview,
   deleteReview,
   updateReview
 };

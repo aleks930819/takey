@@ -27,8 +27,7 @@ const FavoriteSchema: Schema = new Schema(
   }
 );
 
-// Create index for user and restaurant
-FavoriteSchema.index({ user: 1, restaurants: 1 }, { unique: true });
+FavoriteSchema.index({ user: 1 }, { unique: true });
 
 // Populate restaurants
 FavoriteSchema.pre(/^find/, function(next) {

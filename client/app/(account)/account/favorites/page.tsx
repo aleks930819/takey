@@ -1,10 +1,18 @@
+import { getSession } from '@/actions/auth';
 import { getFavoritesList } from '@/actions/favorites';
-import { MaxWidth, SpaceContainer } from '@/components/common';
-import FavoritesCard from '@/components/favorites/favorites-card';
+
 import { FavoritesRestaurant } from '@/interfaces/favorites';
 
+import { MaxWidth, SpaceContainer } from '@/components/common';
+import FavoritesCard from '@/components/favorites/favorites-card';
+
 const FavoritesPage = async () => {
-  const favoritesList = await getFavoritesList();
+  const session = await getSession();
+
+  const favoritesList = await getFavoritesList({
+    userId: session!.userId,
+    accessToken: session!.accessToken,
+  });
   const restaurants = favoritesList?.data.favorite.restaurants;
 
   return (

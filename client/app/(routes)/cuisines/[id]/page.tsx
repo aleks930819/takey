@@ -1,5 +1,5 @@
 import { getAllRestaurants } from '@/actions/restaurants';
-import { MaxWidth, SpaceContainer } from '@/components/common';
+import { MaxWidth, Pagination, SpaceContainer } from '@/components/common';
 import { RestaruantCard } from '@/components/restaruant';
 
 const CuisinesRestaruantsPage = async ({
@@ -13,13 +13,13 @@ const CuisinesRestaruantsPage = async ({
     [key: string]: string;
   };
 }) => {
-  const data = await getAllRestaurants({ cuisineId: params.id, searchData: { ...searchParams } });
+  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+  const limit = searchParams.limit ? parseInt(searchParams.limit) : 12;
 
-  let restaruants = null;
+  const data = await getAllRestaurants({ cuisineId: params.id, limit, searchData: { ...searchParams } });
+  const totalPages = data?.totalPages;
 
-  if (data) {
-    restaruants = data.data.restaurants;
-  }
+  const restaruants = data?.data.restaurants;
 
   if (data && data.results === 0) {
     return (
@@ -29,7 +29,12 @@ const CuisinesRestaruantsPage = async ({
       </MaxWidth>
     );
   }
-  return <>{restaruants?.map((restaurant) => <RestaruantCard restaurant={restaurant} key={restaurant._id} />)}</>;
+  return (
+    <section>
+      {restaruants?.map((restaurant) => <RestaruantCard restaurant={restaurant} key={restaurant._id} />)}
+      <Pagination totalPages={totalPages} currentPage={page} />
+    </section>
+  );
 };
 
 export default CuisinesRestaruantsPage;

@@ -9,6 +9,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import * as validation from '@/validation';
 import { User } from '@/interfaces/user';
+import { createFavoriteList } from '../favorites';
 
 export const logOut = () => {
   cookies().set('session', '', { expires: new Date(0) });
@@ -69,6 +70,20 @@ export async function signIn(formState: any, formData: FormData) {
       email,
       password,
     });
+
+    const userFavoriteList = await axiosInstance.get(`/users/${data.token.userId}/favorites`, {
+      headers: {
+        Authorization: `Bearer ${data.token.accessToken}`,
+      },
+    });
+
+    // Get the user's favorite list if it doesn't have one
+    if (!userFavoriteList.data.data.favorite) {
+      await createFavoriteList({
+        userId: data.token.userId,
+        accessToken: data.token.accessToken,
+      });
+    }
 
     cookies().set('session', JSON.stringify(data.token), { httpOnly: true });
 
@@ -147,7 +162,6 @@ export async function signUp(formState: any, formData: FormData) {
     };
   } catch (error: unknown) {
     if (error instanceof AxiosError) {
-      console.log(error);
       return {
         message: error.response?.data.message,
       };

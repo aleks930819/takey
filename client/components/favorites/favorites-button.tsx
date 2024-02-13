@@ -8,24 +8,39 @@ import toast from 'react-hot-toast';
 
 import { addToFavoritesList, removeFromFavoritesList } from '@/actions/favorites';
 import FavoriteButtonIcon from './favorites-button-icon';
+import { useAuthModalState } from '@/lib/state';
 
 interface FavoritesButtonProps {
   reastaurantId: string;
   isInFavorite: boolean;
+  accessToken: string | null;
+  userId: string | null;
 }
 
-const FavoritesButton = ({ reastaurantId, isInFavorite }: FavoritesButtonProps) => {
+const FavoritesButton = ({ reastaurantId, isInFavorite, accessToken, userId }: FavoritesButtonProps) => {
   const [isPending, startTransition] = useTransition();
+  const { showAuthModal } = useAuthModalState();
 
   const router = useRouter();
 
   const onFavoritesClick = () => {
+    if (!accessToken || !userId) {
+      return showAuthModal();
+    }
     startTransition(() => {
       toast.success(isInFavorite ? 'Removed from favorites' : 'Added to favorites');
       if (isInFavorite) {
-        removeFromFavoritesList(reastaurantId);
+        removeFromFavoritesList({
+          reastaurantId,
+          userId,
+          accessToken,
+        });
       } else {
-        addToFavoritesList(reastaurantId);
+        addToFavoritesList({
+          reastaurantId,
+          userId,
+          accessToken,
+        });
       }
       router.refresh();
     });

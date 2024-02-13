@@ -1,18 +1,18 @@
 import { getAllRestaurants } from '@/actions/restaurants';
-import { ClientOnly, MaxWidth } from '@/components/common';
+import { MaxWidth, Pagination } from '@/components/common';
 import { RestaruantCard } from '@/components/restaruant';
 
 export default async function Home({ searchParams }: { searchParams: any }) {
   const searchData = {
     ...searchParams,
   };
-  const data = await getAllRestaurants({ searchData });
+  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+  const limit = searchParams.limit ? parseInt(searchParams.limit) : 12;
 
-  let restaruants = null;
+  const data = await getAllRestaurants({ searchData, limit });
 
-  if (data) {
-    restaruants = data.data.restaurants;
-  }
+  const totalPages = data?.totalPages;
+  const restaruants = data?.data?.restaurants;
 
   if (data && data.results === 0) {
     return (
@@ -22,9 +22,10 @@ export default async function Home({ searchParams }: { searchParams: any }) {
     );
   }
 
-  const restaurantsData = restaruants?.map((restaurant) => {
-    return <RestaruantCard restaurant={restaurant} key={restaurant._id} />;
-  });
-
-  return <ClientOnly>{restaurantsData}</ClientOnly>;
+  return (
+    <section>
+      {restaruants?.map((restaurant) => <RestaruantCard restaurant={restaurant} key={restaurant._id} />)}
+      <Pagination totalPages={totalPages} currentPage={page} />
+    </section>
+  );
 }

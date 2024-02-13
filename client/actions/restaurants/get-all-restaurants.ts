@@ -8,6 +8,8 @@ import queryString from 'query-string';
 interface RestaurantResponse {
   status: string;
   results: number;
+  totalRestaurants: number;
+  totalPages: number;
   data: {
     restaurants: Restaurant[];
   };
@@ -22,9 +24,12 @@ interface RestaurantResponse {
 const getAllRestaurants = async ({
   searchData,
   cuisineId,
+  limit = 12,
 }: {
   searchData?: any;
   cuisineId?: string;
+  limit?: number;
+  page?: number;
 }): Promise<RestaurantResponse | null> => {
   const constructQuery = (searchData: any) => {
     return queryString.stringify(searchData);
@@ -39,7 +44,7 @@ const getAllRestaurants = async ({
   const constructedUrl = cuisineId ? `/restaurants?cuisine=${cuisineId}&${query}` : `/restaurants?${query}`;
 
   try {
-    const response = await axiosInstance.get(`${constructedUrl}`);
+    const response = await axiosInstance.get(`${constructedUrl}&limit=${limit}`);
     return response.data;
   } catch (error: any) {
     return null;

@@ -5,17 +5,16 @@ import { Favorite } from '../models';
 import { asnycHandler } from '../middlewares';
 
 /**
- * Retrieves a favorite by its ID.
+ * Retrieves a favorite of a user by the user ID.
  *
- * @route GET /api/v1/users/:userId/favorites/:id
+ * @route GET /api/v1/users/:userId/favorites
  * @access Public
  * @returns A JSON response containing the Favorite.
  */
 const getFavorite = asnycHandler(async (req: Request, res: Response) => {
-  const id = req.params.id;
-  const favorite = await Favorite.findById(id)
-    .populate('restaurants')
-    .populate('user');
+  const userId = req.body.userId;
+
+  const favorite = await Favorite.findOne({ user: userId || req.user._id }).populate('restaurants');
 
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
@@ -32,7 +31,7 @@ const getFavorite = asnycHandler(async (req: Request, res: Response) => {
  * @returns A JSON response containing the new Favorite.
  */
 const createFavoriteList = asnycHandler(async (req: Request, res: Response) => {
-  const { userId } = req.body;
+  const userId = req.params.userId;
 
   const favorite = await Favorite.create({
     user: userId || req.user._id
@@ -48,25 +47,25 @@ const createFavoriteList = asnycHandler(async (req: Request, res: Response) => {
 /**
  * Delete from favorite list by its ID.
  *
- * @route PATCH /api/v1/users/:userId/favorites/:id/remove
+ * @route DELETE /api/v1/users/:userId/favorites/remove/:restaurantId
  * @access Private
  * @returns A JSON response containing the updated Favorite.
  */
 const removeFromTheFavoritesList = asnycHandler(async (req: Request, res: Response) => {
-  const id = req.params.id;
-  const reastaurantId = req.body.reastaurantId;
+  const userId = req.params.userId;
+  const restaurantId = req.params.restaurantId;
 
-  const checkIfTheCurrentUserIsOwner = await Favorite.findOne({ _id: id, user: req.user._id });
+  const favoriteslist = await Favorite.findOne({ user: userId || req.user._id });
 
-  if (!checkIfTheCurrentUserIsOwner) {
+  if (!favoriteslist) {
     res.status(403);
     throw new Error('You are not allowed to perform this action.');
   }
 
-  const favorite = await Favorite.findByIdAndUpdate(
-    id,
+  const newFavoritelist = await Favorite.findByIdAndUpdate(
+    favoriteslist._id,
     {
-      $pull: { restaurants: reastaurantId }
+      $pull: { restaurants: restaurantId }
     },
     { new: true, runValidators: true }
   );
@@ -74,26 +73,27 @@ const removeFromTheFavoritesList = asnycHandler(async (req: Request, res: Respon
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      favorite
+      newFavoritelist
     }
   });
 });
 
 /**
- * Update a favorite by its ID.
+ * Adds a restaurant to the user's favorite list.
  *
- * @route PATCH /api/v1/users/:userId/favorites/:id
+ * @route POST /api/v1/users/:userId/favorites/add
  * @access Private
  * @returns A JSON response containing the updated Favorite.
  */
 const addToFavoriteList = asnycHandler(async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const userId = req.params.userId;
   const reastaurantId = req.body.reastaurantId;
 
   const isRestaurantInFavorite = await Favorite.isRestaurantInFavorite(reastaurantId);
-  const checkIfTheCurrentUserIsOwner = await Favorite.findOne({ _id: id, user: req.user._id });
 
-  if (!checkIfTheCurrentUserIsOwner) {
+  const favoritesList = await Favorite.findOne({ user: userId || req.user._id });
+
+  if (!favoritesList) {
     res.status(403);
     throw new Error('You are not allowed to perform this action.');
   }
@@ -109,7 +109,7 @@ const addToFavoriteList = asnycHandler(async (req: Request, res: Response) => {
   }
 
   const favorite = await Favorite.findByIdAndUpdate(
-    id,
+    favoritesList._id,
     {
       $push: { restaurants: reastaurantId }
     },

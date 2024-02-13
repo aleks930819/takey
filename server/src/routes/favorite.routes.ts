@@ -8,9 +8,9 @@ const router = Express.Router();
 //__________ Favorites  __________//
 router.post('/', protect, favoriteController.createFavoriteList);
 //__________ Favorite  __________//
-router.get('/:id', protect, favoriteController.getFavorite);
-router.patch('/:id', protect, favoriteController.addToFavoriteList);
-router.patch('/:id/remove', protect, favoriteController.removeFromTheFavoritesList);
+router.get('/', protect, favoriteController.getFavorite);
+router.post('/add', protect, favoriteController.addToFavoriteList);
+router.delete('/remove/:restaurantId', protect, favoriteController.removeFromTheFavoritesList);
 // _________ Check  __________//
 router.get('/check/:restaurantId', protect, favoriteController.checkIfRestaurantIsInFavorites);
 

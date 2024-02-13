@@ -6,14 +6,15 @@ import { User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AuthModal } from '@/components';
 import { useRouter } from 'next/navigation';
+import { useAuthModalState } from '@/lib/state';
 
 const SignInButton = ({ className, isAuth }: { className?: string; isAuth: boolean }) => {
   const router = useRouter();
-  const [isShownAuthModal, setIsShownAuthModal] = useState(false);
+  const { showAuthModal, isShownAuthModal, hideAuthModal } = useAuthModalState();
 
   const authModalHandler = () => {
     if (!isAuth) {
-      setIsShownAuthModal(true);
+      showAuthModal();
     } else {
       router.push('/account');
     }
@@ -30,7 +31,7 @@ const SignInButton = ({ className, isAuth }: { className?: string; isAuth: boole
       >
         <User size={30} />
       </button>
-      {isShownAuthModal && <AuthModal closeAuthModal={() => setIsShownAuthModal(false)} />}
+      {isShownAuthModal && <AuthModal closeAuthModal={hideAuthModal} />}
     </>
   );
 };
