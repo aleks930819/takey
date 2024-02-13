@@ -5,6 +5,7 @@ import { Roboto } from 'next/font/google';
 import './globals.css';
 import { Footer, Navbar } from '@/components';
 import { ScrollToTopButton, SpaceContainer } from '@/components/common';
+import { Providers } from './providers';
 
 const roboto = Roboto({ weight: ['100', '300', '400', '500', '700', '900'], subsets: ['latin'] });
 
@@ -21,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.className} flex min-h-screen flex-col justify-between`}>
-        <Navbar />
-        <main className="">{children}</main>
-        <div id="modal-root" />
-        <ScrollToTopButton />
-        <Footer />
+        <Providers>
+          <Navbar />
+          <main className="">{children}</main>
+          <div id="modal-root" />
+          <ScrollToTopButton />
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

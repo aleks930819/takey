@@ -47,10 +47,9 @@ const protect = asnycHandler(async (req: Request, res: Response, next: NextFunct
   // because we will need it in the next middleware (restrictTo)!!!
   req.user = {
     role: user.role,
-    _id: user._id as string
+    _id: user._id.toString()
   };
 
-  console.log(req.user);
   next();
 });
 

@@ -1,15 +1,16 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { Info, ShoppingBag } from 'lucide-react';
 
 import { getRestaurant } from '@/actions/restaurants';
+import { isInFavoritesList } from '@/actions/favorites';
 
 import NotFound from '@/app/not-found';
 import { MaxWidth, SpaceContainer } from '@/components/common';
 import { Reviews } from '@/components/reviews';
-import { getAllReviews } from '@/actions/reviews';
-import { Info, ShoppingBag } from 'lucide-react';
-import Link from 'next/link';
 import { Tooltip } from '@/components/ui';
+import { FavoritesButton } from '@/components/favorites';
 
 const RestaurantPage = async ({
   params,
@@ -19,6 +20,7 @@ const RestaurantPage = async ({
   };
 }) => {
   const { data } = await getRestaurant(params.id);
+  const isInFavorite = await isInFavoritesList(params.id);
 
   const { restaurant } = data;
 
@@ -48,7 +50,7 @@ const RestaurantPage = async ({
               </p>
             </div>
           </div>
-          <div>
+          <div className="flex items-center gap-2">
             <Tooltip
               position="bottom"
               tooltip="Information such as opening hours, location and more about the restaurant."
@@ -58,6 +60,7 @@ const RestaurantPage = async ({
                 <Info size={18} />
               </Link>
             </Tooltip>
+            <FavoritesButton reastaurantId={restaurant._id} isInFavorite={isInFavorite || false} />
           </div>
         </MaxWidth>
       </header>

@@ -15,6 +15,7 @@ export const logOut = () => {
 };
 
 interface Session {
+  userId: string;
   accessToken: string;
   expiresIn: number;
   createdAt: number;

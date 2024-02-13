@@ -35,7 +35,7 @@ FavoriteSchema.pre(/^find/, function(next) {
   // @ts-expect-error
   this.populate({
     path: 'restaurants',
-    select: 'name image isOpen'
+    select: 'name image'
   });
   next();
 });

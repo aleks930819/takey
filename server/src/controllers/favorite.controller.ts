@@ -5,29 +5,6 @@ import { Favorite } from '../models';
 import { asnycHandler } from '../middlewares';
 
 /**
- * Retrieves all favorites lists from the database.
- *
- * @route GET /api/v1/users/:userId/favorites
- * @access Public
- * @returns A JSON response containing the favorites list.
- */
-const getAllFavoritesLists = asnycHandler(async (req: Request, res: Response) => {
-  const favorites = await Favorite.find();
-
-  if (!favorites) {
-    res.status(404);
-    throw new Error('No favorites found');
-  }
-
-  res.status(200).json({
-    status: RESPONSE_STATUS.SUCCESS,
-    results: favorites.length,
-    data: {
-      favorites
-    }
-  });
-});
-/**
  * Retrieves a favorite by its ID.
  *
  * @route GET /api/v1/users/:userId/favorites/:id
@@ -71,11 +48,11 @@ const createFavoriteList = asnycHandler(async (req: Request, res: Response) => {
 /**
  * Delete from favorite list by its ID.
  *
- * @route DELETE /api/v1/users/:userId/favorites/:id
+ * @route PATCH /api/v1/users/:userId/favorites/:id/remove
  * @access Private
  * @returns A JSON response containing the updated Favorite.
  */
-const deleteFromFavoriteList = asnycHandler(async (req: Request, res: Response) => {
+const removeFromTheFavoritesList = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
   const reastaurantId = req.body.reastaurantId;
 
@@ -147,12 +124,32 @@ const addToFavoriteList = asnycHandler(async (req: Request, res: Response) => {
   });
 });
 
+/**
+ * Check if a restaurant is in the favorites list.
+ *
+ * @route GET /api/v1/users/:userId/favorites/check/:restaurantId
+ * @access Private
+ * @returns A JSON response indicating whether the restaurant is in the favorites list.
+ */
+const checkIfRestaurantIsInFavorites = asnycHandler(async (req: Request, res: Response) => {
+  const restaurantId = req.params.restaurantId;
+
+  const isRestaurantInFavorite = await Favorite.isRestaurantInFavorite(restaurantId);
+
+  res.status(200).json({
+    status: RESPONSE_STATUS.SUCCESS,
+    data: {
+      isRestaurantInFavorite: !!isRestaurantInFavorite
+    }
+  });
+});
+
 const favoriteController = {
-  getAllFavoritesLists,
   createFavoriteList,
   getFavorite,
   addToFavoriteList,
-  deleteFromFavoriteList
+  checkIfRestaurantIsInFavorites,
+  removeFromTheFavoritesList
 };
 
 export default favoriteController;

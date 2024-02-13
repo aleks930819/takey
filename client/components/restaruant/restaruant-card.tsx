@@ -4,11 +4,12 @@ import { Clock, DollarSign, ShoppingBag, Star } from 'lucide-react';
 
 import { Restaurant } from '@/interfaces/restaurants';
 import { cn } from '@/lib/utils';
+import { paths } from '@/utils';
 
 const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
   return (
     <Link
-      href={`/restaurants/${restaurant._id}`}
+      href={paths.restaurant(restaurant._id)}
       key={restaurant._id}
       className={cn(
         'relative mb-10  flex h-full flex-col  overflow-hidden rounded-lg  shadow-md lg:h-[230px] lg:flex-row lg:gap-10',
