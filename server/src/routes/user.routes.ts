@@ -1,9 +1,9 @@
 import * as Express from 'express';
 
+import { protect, restrictTo } from '../middlewares';
+import favoriteRouter from './favorite.routes';
 import { userController } from '../controllers';
 import authController from '../controllers/auth.controller';
-import { protect, restrictTo } from '../middlewares';
-import { favoriteRouter } from '.';
 
 const router = Express.Router();
 
