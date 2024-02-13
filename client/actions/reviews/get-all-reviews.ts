@@ -1,3 +1,5 @@
+'use server';
+
 import { Review } from '@/interfaces/reviews';
 import { axiosInstance } from '@/utils/network';
 

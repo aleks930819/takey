@@ -1,3 +1,5 @@
+'use server';
+
 import { Restaurant } from '@/interfaces/restaurants';
 import { axiosInstance } from '@/utils/network';
 
