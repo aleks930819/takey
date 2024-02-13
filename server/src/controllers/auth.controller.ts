@@ -2,22 +2,8 @@ import { Request, Response } from 'express';
 
 import { RESPONSE_STATUS } from '../constants';
 import { User } from '../models';
-import { IUser } from '../models/user.model';
 import { asnycHandler } from '../middlewares';
 import { decodeToken, signToken } from '../utils/token';
-import exp = require('constants');
-
-// Extend the Express Request interface
-declare global {
-  namespace Express {
-    interface Request {
-      user?: {
-        role: string;
-        _id: string;
-      }; // Define the user property on the Request object
-    }
-  }
-}
 
 //_____ PUBLIC CONTROLLERS _____//
 /**
@@ -98,7 +84,9 @@ const login = asnycHandler(async (req: Request, res: Response) => {
  * @returns A JSON response containing the user.
  */
 const getMe = asnycHandler(async (req: Request, res: Response) => {
+  console.log(req.user._id);
   const user = await User.findById(req.user._id).select('-password');
+
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {

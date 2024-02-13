@@ -40,7 +40,7 @@ const ReviewSchema: Schema = new Schema(
 );
 
 ReviewSchema.pre(/^find/, function(next) {
-  // @ts-ignore
+  // @ts-expect-error
   this.populate({
     path: 'user',
     select: 'name photo'

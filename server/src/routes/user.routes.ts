@@ -3,9 +3,12 @@ import * as Express from 'express';
 import { userController } from '../controllers';
 import authController from '../controllers/auth.controller';
 import { protect, restrictTo } from '../middlewares';
+import { favoriteRouter } from '.';
 
 const router = Express.Router();
 
+//__________ Favorites  __________//
+router.use('/:userId/favorites', favoriteRouter);
 //__________ Auth  __________//
 router.post('/login', authController.login);
 router.post('/register', authController.register);
