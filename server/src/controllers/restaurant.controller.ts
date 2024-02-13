@@ -52,7 +52,7 @@ const getAllRestaurants = asnycHandler(async (req: Request, res: Response) => {
  */
 const getRestaurant = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
-  const restaurant = await Restaurant.findById(id);
+  const restaurant = await Restaurant.findById(id)
 
   const restaurantWithOpenStatus = {
     ...restaurant.toObject(),

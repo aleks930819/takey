@@ -97,9 +97,12 @@ const RestaruantSchema: Schema = new Schema(
     }
   },
   {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
     timestamps: true
   }
 );
+
 
 RestaruantSchema.methods.isOpen = function() {
   const date = new Date();
@@ -109,7 +112,7 @@ RestaruantSchema.methods.isOpen = function() {
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const currentDay = days[dayNumber];
 
-  for (let i = 0; i < this.openingHours.length; i++) {
+  for (let i = 0; i < this.openingHours?.length; i++) {
     if (this.openingHours[i].day === currentDay) {
       const [openHours, openMinutes] = this.openingHours[i].open.split(':').map(Number);
       const [closeHours, closeMinutes] = this.openingHours[i].close.split(':').map(Number);
@@ -125,6 +128,7 @@ RestaruantSchema.methods.isOpen = function() {
 
   return false;
 };
+
 
 const Restaurant = mongoose.model<IRestaurant>('Restaurant', RestaruantSchema);
 
