@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTransition } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import toast from 'react-hot-toast';
 

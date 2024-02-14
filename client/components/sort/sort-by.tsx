@@ -4,10 +4,10 @@ import { useUpdateUrlSearchParams } from '@/hooks';
 import { useSearchParams } from 'next/navigation';
 
 const options = [
-  { value: 'avgPrice', label: 'Avg. Price' },
   { value: 'createdAt', label: 'Newest' },
   { value: '-createdAt', label: 'Oldest' },
   { value: '-ratingsAverage', label: 'Reviews' },
+  { value: 'avgPrice', label: 'Avg. Price' },
 ];
 
 const SortBy = () => {

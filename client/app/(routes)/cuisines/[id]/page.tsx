@@ -16,7 +16,12 @@ const CuisinesRestaruantsPage = async ({
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
   const limit = searchParams.limit ? parseInt(searchParams.limit) : 12;
 
-  const data = await getAllRestaurants({ cuisineId: params.id, limit, searchData: { ...searchParams } });
+  const searchData = {
+    ...searchParams,
+    fields: 'name,ratingsAverage,image,ratingsQuantity,deliveryTime,minOrderPrice,avgPrice,isOpen,openingHours',
+  };
+
+  const data = await getAllRestaurants({ cuisineId: params.id, limit, searchData });
   const totalPages = data?.totalPages;
 
   const restaruants = data?.data.restaurants;

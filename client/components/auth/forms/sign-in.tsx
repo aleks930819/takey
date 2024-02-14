@@ -14,7 +14,6 @@ const SignIn = ({ closeAuthModal }: { closeAuthModal: () => void }) => {
   const [state, formAction] = useFormState(actions.signIn, undefined);
   const { pending } = useFormStatus();
 
-
   if (state?.data?.accessToken) {
     closeAuthModal();
   }

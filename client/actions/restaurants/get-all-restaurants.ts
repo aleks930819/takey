@@ -45,6 +45,8 @@ const getAllRestaurants = async ({
 
   try {
     const response = await axiosInstance.get(`${constructedUrl}&limit=${limit}`);
+
+    console.log(response);
     return response.data;
   } catch (error: any) {
     return null;

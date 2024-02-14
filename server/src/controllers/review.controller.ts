@@ -85,7 +85,6 @@ const createReview = asnycHandler(async (req: Request, res: Response) => {
   const { restaurantId } = req.params;
 
   // check if use already reviewed the restaurant
-
   const alreadyReviewed = await Review.findOne({
     restaurant: restaurantId,
     user: req.user._id

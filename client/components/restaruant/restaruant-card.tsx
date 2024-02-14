@@ -7,6 +7,10 @@ import { cn } from '@/lib/utils';
 import { paths } from '@/utils';
 
 const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
+  const isOpen = restaurant.isOpen;
+
+  console.log(isOpen);
+
   return (
     <Link
       href={paths.restaurant(restaurant._id)}

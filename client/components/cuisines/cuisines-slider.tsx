@@ -31,7 +31,7 @@ const ArrowButton = ({
   return (
     <>
       <button
-        aria-label={`${direction} image`}
+        aria-label={`${direction === 'left' ? 'Previous' : 'Next'}`}
         type="button"
         className={cn(
           `hidden rounded-full bg-primary-dark p-1  text-white lg:block ${
@@ -78,6 +78,8 @@ const CuisinesSlider = ({ cuisines }: { cuisines: Cuisine[] }) => {
       <div className="relative mx-auto w-full lg:w-[80%]">
         <Swiper
           ref={swiperRef}
+          tabIndex={0}
+          aria-label="Cuisines slider"
           modules={[Virtual]}
           spaceBetween={20}
           className="mySwiper"

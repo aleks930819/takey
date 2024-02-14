@@ -11,7 +11,7 @@ const Modal = ({
 }: ModalProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => {
   const modalContent = (
     <div
-      className="fixed left-0 top-0 z-50 mb-auto mt-auto flex h-full   w-full transform items-center justify-center bg-black bg-opacity-80 transition-all duration-300 ease-in-out"
+      className="fixed left-0 top-0 z-[999] mb-auto mt-auto flex h-full   w-full transform items-center justify-center bg-black bg-opacity-80 transition-all duration-300 ease-in-out"
       {...props}
     >
       <>{children}</>

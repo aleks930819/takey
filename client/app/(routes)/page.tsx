@@ -5,6 +5,7 @@ import { RestaruantCard } from '@/components/restaruant';
 export default async function Home({ searchParams }: { searchParams: any }) {
   const searchData = {
     ...searchParams,
+    fields: 'name,ratingsAverage,image,ratingsQuantity,deliveryTime,minOrderPrice,avgPrice,isOpen,openingHours',
   };
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
   const limit = searchParams.limit ? parseInt(searchParams.limit) : 12;
@@ -13,6 +14,7 @@ export default async function Home({ searchParams }: { searchParams: any }) {
 
   const totalPages = data?.totalPages;
   const restaruants = data?.data?.restaurants;
+  console.log(restaruants);
 
   if (data && data.results === 0) {
     return (

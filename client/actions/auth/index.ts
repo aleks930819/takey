@@ -32,7 +32,8 @@ export const isExpired = (request: NextRequest) => {
   const decoded = getSession();
 
   if (!decoded) return true;
-  return (decoded.createdAt + decoded.expiresIn) * 1000 <= Date.now();
+
+  return decoded.createdAt + decoded.expiresIn <= Math.floor(Date.now() / 1000);
 };
 
 interface TokenResponse {

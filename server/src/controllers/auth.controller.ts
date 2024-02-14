@@ -41,7 +41,7 @@ const register = asnycHandler(async (req: Request, res: Response) => {
       userId: user._id,
       accessToken: token,
       createdAt: decoded.iat,
-      expiresIn: Number(process.env.JWT_EXPIRES_IN)
+      expiresIn: process.env.JWT_EXPIRES_IN
     }
   });
 });
@@ -72,7 +72,7 @@ const login = asnycHandler(async (req: Request, res: Response) => {
       userId: user._id,
       accessToken: token,
       createdAt: decoded.iat,
-      expiresIn: Number(process.env.JWT_EXPIRES_IN)
+      expiresIn: process.env.JWT_EXPIRES_IN
     }
   });
 });

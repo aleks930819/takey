@@ -27,6 +27,8 @@ export interface IRestaurant {
   cuisine: mongoose.Types.ObjectId | string;
   createdAt?: Date;
   updatedAt?: Date;
+  avgPrice: number;
+  isClosed?: boolean;
   isOpen?: () => boolean;
 }
 
@@ -102,7 +104,21 @@ const RestaruantSchema: Schema = new Schema(
     timestamps: true
   }
 );
+RestaruantSchema.pre(/^find/, function(next) {
+  // @ts-expect-error
+  this._originalQuery = this.getQuery();
+  next();
+});
 
+RestaruantSchema.post(/^find/, async function(result) {
+  if (!Array.isArray(result)) {
+    result = [result];
+  }
+  for (const doc of result) {
+    doc.isClosed = doc.isOpen();
+    await doc.save();
+  }
+});
 
 RestaruantSchema.methods.isOpen = function() {
   const date = new Date();
@@ -128,7 +144,6 @@ RestaruantSchema.methods.isOpen = function() {
 
   return false;
 };
-
 
 const Restaurant = mongoose.model<IRestaurant>('Restaurant', RestaruantSchema);
 
