@@ -2,6 +2,7 @@ import * as Express from 'express';
 
 import { favoriteController } from '../controllers';
 import { protect } from '../middlewares';
+import { favoriteValidation } from '../middlewares/validation';
 
 const router = Express.Router();
 
@@ -9,7 +10,7 @@ const router = Express.Router();
 router.post('/', protect, favoriteController.createFavoriteList);
 //__________ Favorite  __________//
 router.get('/', protect, favoriteController.getFavorite);
-router.post('/add', protect, favoriteController.addToFavoriteList);
+router.post('/add', protect, favoriteValidation.validateFavorite, favoriteController.addToFavoriteList);
 router.delete('/remove/:restaurantId', protect, favoriteController.removeFromTheFavoritesList);
 // _________ Check  __________//
 router.get('/check/:restaurantId', protect, favoriteController.checkIfRestaurantIsInFavorites);

@@ -46,16 +46,13 @@ const UserSchema: Schema = new Schema(
     },
     address: {
       city: {
-        type: String,
-        required: true
+        type: String
       },
       streetName: {
-        type: String,
-        required: true
+        type: String
       },
       streetNumber: {
-        type: String,
-        required: true
+        type: String
       }
     },
     password: {

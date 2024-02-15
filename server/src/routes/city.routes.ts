@@ -1,13 +1,15 @@
 import * as Express from 'express';
 
-import { cityController } from '../controllers';
 import { protect, restrictTo } from '../middlewares';
+import { cityValidation } from '../middlewares/validation';
+
+import { cityController } from '../controllers';
 
 const router = Express.Router();
 
 //__________ Cities  __________//
 router.get('/', cityController.getAllCities);
-router.post('/', protect, restrictTo('admin'), cityController.createCity);
+router.post('/', protect, restrictTo('admin'), cityValidation.validateCity, cityController.createCity);
 
 //__________ City  __________//
 router.get('/:id', cityController.getCity);
