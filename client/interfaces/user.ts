@@ -4,6 +4,11 @@ export interface User {
   email: string;
   role: string;
   photo: string;
+  address: {
+    city: string;
+    streetName: string;
+    streetNumber: string;
+  };
   createdAt: string;
   updatedAt: string;
   __v: number;

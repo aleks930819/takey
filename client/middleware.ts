@@ -1,17 +1,8 @@
-import { isExpired } from './actions/auth/index';
-import { NextRequest, NextResponse } from 'next/server';
+import { authMiddleware, logoutMiddleware, chain } from './middlewares';
 
-const protectedPaths = ['/account'];
+const middlewares = chain([authMiddleware, logoutMiddleware]);
 
-export async function middleware(request: NextRequest) {
-  const isExpiredSession = isExpired(request);
-
-  const isProtectedPath = protectedPaths.some((path) => request.nextUrl.pathname.startsWith(path));
-
-  if (isExpiredSession && isProtectedPath) {
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_URL}/`);
-  }
-}
+export default middlewares;
 
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],

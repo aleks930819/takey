@@ -18,8 +18,7 @@ export const logOut = () => {
 interface Session {
   userId: string;
   accessToken: string;
-  expiresIn: number;
-  createdAt: number;
+  expiresAt: Date;
 }
 
 export const getSession = () => {
@@ -32,10 +31,11 @@ export const isExpired = (request: NextRequest) => {
   const decoded = getSession();
 
   if (!decoded) return true;
+  const expirationTime = new Date(decoded.expiresAt);
+  const currentTime = new Date();
 
-  return decoded.createdAt + decoded.expiresIn <= Math.floor(Date.now() / 1000);
+  return expirationTime < currentTime;
 };
-
 interface TokenResponse {
   accessToken: string;
   createdAt: number;
@@ -174,40 +174,19 @@ export async function signUp(formState: any, formData: FormData) {
   }
 }
 
-interface GetMeResponse {
-  data: {
-    success: boolean;
-    data: {
-      user: User;
-    };
-  };
-}
-
 /**
  *
  * @param token  - The token of the user.
  * @returns An object with the following properties:
  */
-export async function getMe(token: string): Promise<GetMeResponse | { message: string }> {
+export async function getMe(token: string) {
   try {
-    const { data } = await axiosInstance.get<GetMeResponse>('/users/me', {
+    const { data } = await axiosInstance.get('/users/me', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    return {
-      data: data.data,
-    };
-  } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      return {
-        message: error.response?.data.message,
-      };
-    } else {
-      return {
-        message: 'An error occurred',
-      };
-    }
-  }
+    return data.data.user as User;
+  } catch (error: unknown) {}
 }

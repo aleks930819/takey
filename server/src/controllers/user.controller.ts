@@ -63,7 +63,7 @@ const deleteUser = asnycHandler(async (req: Request, res: Response) => {
 /**
  * Updates a user by its ID.
  *
- * @route PUT /api/v1/users/:id
+ * @route PATCH /api/v1/users/:id
  * @access Private
  * @returns A JSON response containing the updated user.
  */

@@ -3,13 +3,14 @@ import { Request, Response } from 'express';
 import { RESPONSE_STATUS } from '../constants';
 import { User } from '../models';
 import { asnycHandler } from '../middlewares';
-import { decodeToken, signToken } from '../utils/token';
+import { signToken } from '../utils/token';
+import generateExpireDate from '../utils/token/generate-expire-date';
 
 //_____ PUBLIC CONTROLLERS _____//
 /**
  * Registers a new user.
  *
- * @route POST /api/v1/auth/register
+ * @route POST /api/v1/users/register
  * @access Public
  * @returns A JSON response containing the new user.
  */
@@ -33,22 +34,22 @@ const register = asnycHandler(async (req: Request, res: Response) => {
   const user = await User.create({ name, email, password });
 
   const token = signToken(user._id);
-  const decoded = decodeToken(token);
+
+  const expiresInSeconds = parseInt(process.env.JWT_EXPIRES_IN);
 
   res.status(201).json({
     status: RESPONSE_STATUS.SUCCESS,
     token: {
       userId: user._id,
       accessToken: token,
-      createdAt: decoded.iat,
-      expiresIn: process.env.JWT_EXPIRES_IN
+      expiresAt: generateExpireDate(expiresInSeconds)
     }
   });
 });
 /**
  * Logs in a user.
  *
- * @route POST /api/v1/auth/login
+ * @route POST /api/v1/userslogin
  * @access Public
  * @returns A JSON response containing the user's token.
  */
@@ -62,17 +63,16 @@ const login = asnycHandler(async (req: Request, res: Response) => {
       message: 'Invalid email or password'
     });
   }
+  const expiresInSeconds = parseInt(process.env.JWT_EXPIRES_IN);
 
   const token = signToken(user._id);
-  const decoded = decodeToken(token);
 
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     token: {
       userId: user._id,
       accessToken: token,
-      createdAt: decoded.iat,
-      expiresIn: process.env.JWT_EXPIRES_IN
+      expiresAt: generateExpireDate(expiresInSeconds)
     }
   });
 });
@@ -81,7 +81,7 @@ const login = asnycHandler(async (req: Request, res: Response) => {
 /**
  * Retrieves the currently logged in user.
  *
- * @route GET /api/v1/auth/me
+ * @route GET /api/v1/users/me
  * @access Private
  * @returns A JSON response containing the user.
  */
@@ -100,7 +100,7 @@ const getMe = asnycHandler(async (req: Request, res: Response) => {
 /**
  * Deletes the currently logged in user (sets the active field to false).
  *
- * @route DELETE /api/v1/auth/deleteMe
+ * @route DELETE /api/v1/users/me
  * @access Private
  * @returns A JSON response containing the deleted user.
  */
@@ -114,13 +114,13 @@ const deleteMe = asnycHandler(async (req: Request, res: Response) => {
 /**
  * Updates the currently logged in user.
  *
- * @route PATCH /api/v1/auth/updateMe
+ * @route PATCH /api/v1/user/me
  * @access Private
  * @returns A JSON response containing the updated user.
  */
 const updateMe = asnycHandler(async (req: Request, res: Response) => {
-  const { name, email } = req.body;
-  const user = await User.findByIdAndUpdate(req.user._id, { name, email }, { new: true });
+  console.log(req.body);
+  const user = await User.findByIdAndUpdate(req.user._id, req.body, { new: true });
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {

@@ -27,6 +27,8 @@ const protect = asnycHandler(async (req: Request, res: Response, next: NextFunct
 
   const decoded = (await verifyToken(token)) as { _id: string; iat: number; exp: number };
 
+  console.log(decoded);
+
   const user = await User.findById(decoded._id);
 
   if (!user) {

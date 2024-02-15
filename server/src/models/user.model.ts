@@ -9,6 +9,13 @@ export interface IUser {
   role: string;
   email: string;
   password: string;
+  photo: string;
+  active: boolean;
+  address: {
+    city: string;
+    streetName: string;
+    streetNumber: string;
+  };
   passwordChangedAt: Date;
   resetPasswordToken: number;
   resetPasswordExpires: Date;
@@ -36,6 +43,20 @@ const UserSchema: Schema = new Schema(
     active: {
       type: Boolean,
       default: true
+    },
+    address: {
+      city: {
+        type: String,
+        required: true
+      },
+      streetName: {
+        type: String,
+        required: true
+      },
+      streetNumber: {
+        type: String,
+        required: true
+      }
     },
     password: {
       type: String,

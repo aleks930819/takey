@@ -14,7 +14,6 @@ export default async function Home({ searchParams }: { searchParams: any }) {
 
   const totalPages = data?.totalPages;
   const restaruants = data?.data?.restaurants;
-  console.log(restaruants);
 
   if (data && data.results === 0) {
     return (

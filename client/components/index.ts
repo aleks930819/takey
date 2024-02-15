@@ -4,3 +4,4 @@ export { default as Filter } from './filter';
 export { default as Navbar } from './navbar';
 export { default as SortBy } from './sort';
 export { default as AuthModal } from './auth';
+export { default as UpdateAddressForm } from './address';
