@@ -24,13 +24,6 @@ const register = asnycHandler(async (req: Request, res: Response) => {
     throw new Error('User already exist');
   }
 
-  if (password !== passwordConfirm) {
-    return res.status(400).json({
-      status: RESPONSE_STATUS.FAIL,
-      message: 'Passwords do not match'
-    });
-  }
-
   const user = await User.create({ name, email, password });
 
   const token = signToken(user._id);
@@ -86,7 +79,6 @@ const login = asnycHandler(async (req: Request, res: Response) => {
  * @returns A JSON response containing the user.
  */
 const getMe = asnycHandler(async (req: Request, res: Response) => {
-  console.log(req.user._id);
   const user = await User.findById(req.user._id).select('-password');
 
   res.status(200).json({

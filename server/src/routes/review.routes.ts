@@ -3,6 +3,7 @@ import * as express from 'express';
 import { protect, restrictTo } from '../middlewares';
 
 import { reviewController } from '../controllers';
+import { reviewValidation } from '../middlewares/validation';
 
 // Merge params from restaruant router to access restaruant id
 const router = express.Router({ mergeParams: true });
@@ -11,7 +12,7 @@ const router = express.Router({ mergeParams: true });
 router
   .route('/')
   .get(reviewController.getAllReviews)
-  .post(protect, restrictTo('user'), reviewController.createReview);
+  .post(protect, restrictTo('user'), reviewValidation.validateReview, reviewController.createReview);
 //__________ REVIEW  __________//
 router
   .route('/:id')
