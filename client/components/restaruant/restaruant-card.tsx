@@ -9,10 +9,9 @@ import { paths } from '@/utils';
 const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
   const isOpen = restaurant.isOpen;
 
-  console.log(isOpen);
-
   return (
     <Link
+      data-testid="restaurant-card"
       href={paths.restaurant(restaurant._id)}
       key={restaurant._id}
       className={cn(
@@ -27,13 +26,13 @@ const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
       <div className="flex flex-col items-start  gap-3 px-4 py-4 lg:px-0  lg:py-6">
         <h2 className="text-lg font-bold lg:text-3xl">{restaurant.name}</h2>
         {/* TODO: Seperate this logic into own component  */}
-        <p className="flex items-center gap-1 text-gray-600">
+        <p className="flex items-center gap-1 text-gray-600" data-testid="rating">
           <span>
             <Star size={20} fill="orange" className="text-orange-400" />
           </span>
           <strong>{restaurant.ratingsAverage}</strong>({restaurant.ratingsQuantity}) Reviews <br />
         </p>
-        <p className="mb-1 flex items-center gap-2 text-sm text-gray-600 lg:text-base">
+        <p className="mb-1 flex items-center gap-2 text-sm text-gray-600 lg:text-base" data-testid="min-order">
           <span className="">
             <ShoppingBag size={20} />
           </span>
@@ -42,7 +41,7 @@ const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
           </p>
           ${restaurant.minOrderPrice.toFixed(2)}
         </p>
-        <p className="flex items-center gap-2 text-sm text-gray-600 lg:text-base">
+        <p className="flex items-center gap-2 text-sm text-gray-600 lg:text-base" data-testid="delivery-time">
           <span className="">
             <Clock size={20} />
           </span>
