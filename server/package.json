@@ -7,7 +7,8 @@
     "build": "rimraf dist && npx tsc",
     "prestart": "npm run build",
     "start": "node dist/server.js",
-    "dev": "npx tsc -w & nodemon dist/server.js"
+    "dev": "npx tsc -w & nodemon dist/server.js",
+    "lint-staged": "lint-staged"
   },
   "author": "",
   "license": "ISC",
