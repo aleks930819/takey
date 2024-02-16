@@ -8,12 +8,12 @@
     "prestart": "npm run build",
     "start": "node dist/server.js",
     "dev": "npx tsc -w & nodemon dist/server.js",
-    "lint-staged": "lint-staged",
+    "lint": "eslint . --ext .ts",
     "prepare": "husky"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yarn lint"
     }
   },
   "author": "",
