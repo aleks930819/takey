@@ -8,8 +8,7 @@
     "prestart": "npm run build",
     "start": "node dist/server.js",
     "dev": "npx tsc -w & nodemon dist/server.js",
-    "lint": "eslint . --ext .ts",
-    "prepare": "husky"
+    "lint": "eslint . --ext .ts"
   },
   "husky": {
     "hooks": {
