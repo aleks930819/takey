@@ -4,3 +4,4 @@ export { default as Review } from './review.model';
 export { default as Restaurant } from './restaurant.model';
 export { default as User } from './user.model';
 export { default as Favorite } from './favorite.model';
+export { default as Token } from './token.model';

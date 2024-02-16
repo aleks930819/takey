@@ -1,14 +1,13 @@
 import { DevEnviroment } from './environment.dev';
 import { ProdEnviroment } from './environment.prod';
 
-
 export interface Environment {
   db_uri: string;
   email_host: string;
   email_port: number;
   salt_rounds: number;
   port: number;
- 
+
   node_env: string;
   upload_path: string;
   cloudinary_cloud_name: string;
@@ -20,6 +19,7 @@ export interface Environment {
   };
   jwt_secret: string;
   jwt_expires_in: string;
+  jwt_refresh_expires_in: string;
 }
 /**
  * Retrieves the environment variables based on the current NODE_ENV value.

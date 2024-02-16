@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
 
-import { RESPONSE_STATUS } from '../constants';
-import { User } from '../models';
+import { RESPONSE_STATUS, TOKEN_TYPES } from '../constants';
+import { Token, User } from '../models';
 import { asnycHandler } from '../middlewares';
 import { signToken } from '../utils/token';
 import generateExpireDate from '../utils/token/generate-expire-date';
+import { tokenService } from '../services';
 
 //_____ PUBLIC CONTROLLERS _____//
 /**
@@ -60,8 +61,11 @@ const login = asnycHandler(async (req: Request, res: Response) => {
 
   const token = signToken(user._id);
 
+  const testToken = await tokenService.generateAuthTokens(user._id);
+
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
+    testToken,
     token: {
       userId: user._id,
       accessToken: token,
@@ -121,12 +125,48 @@ const updateMe = asnycHandler(async (req: Request, res: Response) => {
   });
 });
 
+/**
+ * Refreshes the user's authentication token.
+ *
+ * @route POST /api/v1/users/auth/refresh-token
+ * @access Public
+ * @returns A JSON response containing the new tokens.
+ */
+const refreshAuthToken = asnycHandler(async (req: Request, res: Response) => {
+  const { refreshToken } = req.body;
+
+  try {
+    const refreshTokenDoc = await tokenService.veirfyToken(refreshToken, TOKEN_TYPES.REFRESH);
+
+    const user = await User.findById(refreshTokenDoc.user);
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    await Token.deleteOne({ token: refreshToken });
+
+    const tokens = await tokenService.generateAuthTokens(user._id);
+
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: {
+        tokens
+      }
+    });
+  } catch (err) {
+    res.status(401);
+    throw new Error('Invalid token');
+  }
+});
+
 const authController = {
   register,
   login,
   getMe,
   updateMe,
-  deleteMe
+  deleteMe,
+  refreshAuthToken
 };
 
 export default authController;

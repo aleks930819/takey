@@ -17,6 +17,7 @@ router.post('/register', authValidation.validateRegister, authController.registe
 router.get('/me', protect, authController.getMe);
 router.patch('/me', protect, authController.updateMe);
 router.delete('/me', protect, authController.deleteMe);
+router.post('/auth/refresh-token', authController.refreshAuthToken);
 //__________ PROTECT ALL ROUTES AFTER THIS MIDDLEWARE __________//
 router.use(protect, restrictTo('admin'));
 //__________ Users  __________//
