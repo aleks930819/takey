@@ -8,7 +8,8 @@
     "prestart": "npm run build",
     "start": "node dist/server.js",
     "dev": "npx tsc -w & nodemon dist/server.js",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "prepare": "husky"
   },
   "author": "",
   "license": "ISC",
@@ -48,6 +49,7 @@
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
     "eslint": "^8.56.0",
+    "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "nodemon": "^3.0.3",
     "prettier": "^3.2.5",
