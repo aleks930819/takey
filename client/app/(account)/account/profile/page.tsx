@@ -1,8 +1,9 @@
-import { UpdateAddressForm } from '@/components';
 import { MaxWidth, SpaceContainer } from '@/components/common';
+import { UpdateProfileForm } from '@/components/profile';
 
 import * as actions from 'actions/auth';
-const AccountAddressPage = async () => {
+
+const ProfilePage = async () => {
   const token = await actions.getSession()?.accessToken;
 
   if (!token) return null;
@@ -13,11 +14,11 @@ const AccountAddressPage = async () => {
 
   return (
     <MaxWidth>
-      <h1 className="text-2xl font-bold text-heading">Your address information</h1>
+      <h1 className="text-2xl font-bold text-heading">Your profile information</h1>
       <SpaceContainer variant="xsmall" />
-      <UpdateAddressForm address={me?.address} />
+      <UpdateProfileForm name={me.name} email={me.email} />
     </MaxWidth>
   );
 };
 
-export default AccountAddressPage;
+export default ProfilePage;

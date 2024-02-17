@@ -11,9 +11,10 @@ const UpdateAddressForm = ({
   address,
 }: {
   address: {
-    streetName: string;
-    city: string;
-    streetNumber: string;
+    streetName: string | undefined;
+    city: string | undefined;
+    streetNumber: string | undefined;
+    phone: string | undefined;
   };
 }) => {
   const [state, formAction] = useFormState(actions.updateUserAddress, undefined);
@@ -21,33 +22,47 @@ const UpdateAddressForm = ({
 
   return (
     <form className="flex w-full flex-col gap-4" action={formAction}>
-      <label htmlFor="city">
-        <input
-          className="relative  w-full rounded-lg  px-4 py-2 "
-          placeholder="City"
-          type="text"
-          name="city"
-          defaultValue={address.city}
-        />
-      </label>
-      <label htmlFor="streetName">
-        <input
-          className="relative  w-full rounded-lg  px-4 py-2 "
-          placeholder="Street Name"
-          type="text"
-          name="streetName"
-          defaultValue={address.streetName}
-        />
-      </label>
-      <label htmlFor="streetNumber">
-        <input
-          className="relative  w-full rounded-lg  px-4 py-2 "
-          placeholder="Street Number"
-          type="text"
-          name="streetNumber"
-          defaultValue={address.streetNumber}
-        />
-      </label>
+      <div className="flex gap-2">
+        <label htmlFor="city" className="w-full">
+          <input
+            className="relative  w-full rounded-lg  px-4 py-2 "
+            placeholder="City"
+            type="text"
+            name="city"
+            defaultValue={address?.city || ''}
+          />
+        </label>
+        <label htmlFor="phone" className="w-full">
+          <input
+            className="relative  w-full rounded-lg  px-4 py-2 "
+            placeholder="Your phone number"
+            type="phone"
+            name="phone"
+            defaultValue={address?.phone || ''}
+          />
+        </label>
+      </div>
+      <div className="flex w-full gap-2">
+        <label htmlFor="streetName" className="w-full">
+          <input
+            className="relative  w-full rounded-lg  px-4 py-2 "
+            placeholder="Street Name"
+            type="text"
+            name="streetName"
+            defaultValue={address?.streetName || ''}
+          />
+        </label>
+        <label htmlFor="streetNumber" className="w-full">
+          <input
+            className="relative  w-full rounded-lg  px-4 py-2 "
+            placeholder="Street Number"
+            type="text"
+            name="streetNumber"
+            defaultValue={address?.streetNumber || ''}
+          />
+        </label>
+      </div>
+
       {state?.message && <p className="text-center text-base text-red-500">{state.message}</p>}
       <Button aria-disabled={pending} disabled={pending}>
         {pending ? 'Updating...' : 'Update Address'}

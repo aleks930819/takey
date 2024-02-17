@@ -1,4 +1,3 @@
-import { revalidatePath } from 'next/cache';
 import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
 
 const logoutMiddleware = (next: any) => {

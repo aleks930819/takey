@@ -15,7 +15,6 @@ const SortBy = () => {
 
   const choosedSort = useSearchParams().get('sort');
 
-
   const onSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     updateURL({ param: 'sort', value: e.target.value });
   };

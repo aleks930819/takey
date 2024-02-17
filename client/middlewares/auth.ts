@@ -16,7 +16,6 @@ const authMiddleware = (next: any) => {
     if (isExpiredSession && isProtectedPath) {
       return NextResponse.redirect(`${process.env.NEXT_PUBLIC_URL}/`);
     }
-
     return next(request, _next);
   };
 };

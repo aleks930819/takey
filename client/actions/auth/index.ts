@@ -5,7 +5,6 @@ import { AxiosError } from 'axios';
 import { axiosInstance } from '@/utils/network';
 
 import { cookies } from 'next/headers';
-import { NextRequest, NextResponse } from 'next/server';
 
 import * as validation from '@/validation';
 import { User } from '@/interfaces/user';
@@ -27,7 +26,7 @@ export const getSession = () => {
   return JSON.parse(session) as Session;
 };
 
-export const isExpired = (request: NextRequest) => {
+export const isExpired = () => {
   const decoded = getSession();
 
   if (!decoded) return true;
@@ -186,7 +185,6 @@ export async function getMe(token: string) {
         Authorization: `Bearer ${token}`,
       },
     });
-
     return data.data.user as User;
   } catch (error: unknown) {}
 }

@@ -8,6 +8,7 @@ export interface User {
     city: string;
     streetName: string;
     streetNumber: string;
+    phone: string;
   };
   createdAt: string;
   updatedAt: string;
