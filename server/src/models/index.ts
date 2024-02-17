@@ -5,6 +5,5 @@ export { default as Restaurant } from './restaurant.model';
 export { default as User } from './user.model';
 export { default as Favorite } from './favorite.model';
 export { default as MenuItem } from './menu-item.model';
-export { default as RestaurantMenu } from './restaurant-menu.model';
 export { default as Category } from './category.model';
 export { default as Token } from './token.model';

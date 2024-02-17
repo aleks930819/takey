@@ -19,8 +19,6 @@ const protect = asnycHandler(async (req: Request, res: Response, next: NextFunct
 
   const token = authorization.split(' ')[1];
 
-  console.log(token);
-
   if (!token) {
     return res.status(401).json({
       status: RESPONSE_STATUS.FAIL,

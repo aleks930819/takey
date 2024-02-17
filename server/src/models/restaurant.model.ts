@@ -30,7 +30,6 @@ export interface IRestaurant {
   avgPrice: number;
   isClosed?: boolean;
   isOpen?: () => boolean;
-  menu: mongoose.Types.ObjectId | string;
   categories: Array<{
     category: mongoose.Types.ObjectId | string;
     image: string;
@@ -100,11 +99,6 @@ const RestaruantSchema: Schema = new Schema(
     cuisine: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Cuisine',
-      required: true,
-    },
-    menu: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'RestaurantMenu',
       required: true,
     },
     categories: [
