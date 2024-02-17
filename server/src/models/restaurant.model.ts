@@ -1,14 +1,14 @@
 import mongoose, { Schema } from 'mongoose';
-import Review, { IReview } from './review.model';
+import { IReview } from './review.model';
 
 const OpeningHoursSchema = new Schema({
   day: {
     type: String,
     enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    required: true
+    required: true,
   },
   open: String,
-  close: String
+  close: String,
 });
 
 export interface IRestaurant {
@@ -30,6 +30,11 @@ export interface IRestaurant {
   avgPrice: number;
   isClosed?: boolean;
   isOpen?: () => boolean;
+  menu: mongoose.Types.ObjectId | string;
+  categories: Array<{
+    category: mongoose.Types.ObjectId | string;
+    image: string;
+  }>;
 }
 
 const RestaruantSchema: Schema = new Schema(
@@ -37,80 +42,94 @@ const RestaruantSchema: Schema = new Schema(
     name: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
     },
 
     location: {
       type: {
         type: String,
         enum: ['Point'],
-        default: 'Point'
+        default: 'Point',
       },
       coordinates: {
         type: [Number],
-        required: true
-      }
+        required: true,
+      },
     },
     deliveryTime: {
       type: String,
-      required: true
+      required: true,
     },
     minOrderPrice: {
       type: Number,
-      required: true
+      required: true,
     },
     image: {
       type: String,
-      required: true
+      required: true,
     },
     rating: {
       type: Number,
-      default: 4.5
+      default: 4.5,
     },
     avgPrice: {
       type: Number,
-      required: true
+      required: true,
     },
     ratingsAverage: {
       type: Number,
       default: 4.5,
       min: [1, 'Rating must be above 1.0'],
       max: [5, 'Rating must be below 5.0'],
-      set: vaul => Math.round(vaul * 10) / 10 // 4.666666, 46.66666, 47, 4.7
+      set: (vaul) => Math.round(vaul * 10) / 10, // 4.666666, 46.66666, 47, 4.7
     },
     ratingsQuantity: {
       type: Number,
-      default: 0
+      default: 0,
     },
     openingHours: [OpeningHoursSchema],
     isClosed: {
       type: Boolean,
-      default: false
+      default: false,
     },
     city: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'City',
-      required: true
+      required: true,
     },
     cuisine: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Cuisine',
-      required: true
-    }
+      required: true,
+    },
+    menu: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'RestaurantMenu',
+      required: true,
+    },
+    categories: [
+      {
+        category: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Category',
+          required: true,
+        },
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
-RestaruantSchema.pre(/^find/, function(next) {
+RestaruantSchema.pre(/^find/, function (next) {
   // @ts-expect-error
   this._originalQuery = this.getQuery();
   next();
 });
 
-RestaruantSchema.post(/^find/, async function(result) {
+RestaruantSchema.post(/^find/, async function (result) {
   if (!Array.isArray(result)) {
     result = [result];
   }
@@ -120,7 +139,7 @@ RestaruantSchema.post(/^find/, async function(result) {
   }
 });
 
-RestaruantSchema.methods.isOpen = function() {
+RestaruantSchema.methods.isOpen = function () {
   const date = new Date();
   const dayNumber = date.getDay();
   const currentTime = date.getHours() * 60 + date.getMinutes();

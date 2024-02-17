@@ -5,3 +5,4 @@ export { default as userController } from './user.controller';
 export { default as authCotnroller } from './auth.controller';
 export { default as reviewController } from './review.controller';
 export { default as favoriteController } from './favorite.controller';
+export { default as categoryController } from './category.controller';
