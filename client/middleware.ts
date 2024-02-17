@@ -1,6 +1,6 @@
 import { authMiddleware, logoutMiddleware, chain } from './middlewares';
 
-const middlewares = chain([authMiddleware, logoutMiddleware]);
+const middlewares = chain([logoutMiddleware, authMiddleware]);
 
 export default middlewares;
 

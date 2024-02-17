@@ -2,9 +2,9 @@ import * as Express from 'express';
 import * as cors from 'cors';
 import * as morgan from 'morgan';
 import * as expressFileUpload from 'express-fileupload';
-import * as xss from 'express-xss-sanitizer';
+import * as mongoSanitize from 'express-mongo-sanitize';
+import { xss } from 'express-xss-sanitizer';
 import rateLimit from 'express-rate-limit';
-import mongoSanitize from 'express-mongo-sanitize';
 import helmet from 'helmet';
 
 import {
@@ -14,7 +14,6 @@ import {
   reviewRouter,
   userRouter,
   favoriteRouter,
-  tokenRouter
 } from './routes';
 
 import { errorMiddleware } from './middlewares';
@@ -28,20 +27,21 @@ app.use(
   rateLimit({
     windowMs: 60 * 60 * 1000,
     max: 100,
-    message: 'Too many requests from this IP, please try again in an hour!'
-  })
+    message: 'Too many requests from this IP, please try again in an hour!',
+  }),
 );
 app.use(xss());
 app.use(helmet());
 // Data sanitization against NoSQL query injection
 // ex: "email": {"$gt": "" }
 app.use(mongoSanitize());
+
 app.use(
   expressFileUpload({
     limits: { fileSize: 50 * 1024 * 1024, files: 1 },
     abortOnLimit: true,
-    createParentPath: true
-  })
+    createParentPath: true,
+  }),
 );
 
 app.use(morgan('dev'));

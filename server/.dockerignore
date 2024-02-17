@@ -1,0 +1,11 @@
+# Exclude node_modules directory
+node_modules
+
+# Exclude any temporary files
+*.log
+*.tmp
+*.bak
+
+# Exclude development-specific files
+.DS_Store
+.vscode/
