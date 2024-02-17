@@ -16,7 +16,7 @@ import { tokenService } from '../services';
  * @returns A JSON response containing the new user.
  */
 const register = asnycHandler(async (req: Request, res: Response) => {
-  const { name, email, password, passwordConfirm } = req.body;
+  const { name, email, password } = req.body;
 
   const isUserExist = await User.exists({ email });
 
@@ -36,8 +36,8 @@ const register = asnycHandler(async (req: Request, res: Response) => {
     token: {
       userId: user._id,
       accessToken: token,
-      expiresAt: generateExpireDate(expiresInSeconds)
-    }
+      expiresAt: generateExpireDate(expiresInSeconds),
+    },
   });
 });
 /**
@@ -54,7 +54,7 @@ const login = asnycHandler(async (req: Request, res: Response) => {
   if (!user || !(await user.comparePassword(password))) {
     return res.status(401).json({
       status: RESPONSE_STATUS.FAIL,
-      message: 'Invalid email or password'
+      message: 'Invalid email or password',
     });
   }
   const expiresInSeconds = parseInt(process.env.JWT_EXPIRES_IN);
@@ -69,8 +69,8 @@ const login = asnycHandler(async (req: Request, res: Response) => {
     token: {
       userId: user._id,
       accessToken: token,
-      expiresAt: generateExpireDate(expiresInSeconds)
-    }
+      expiresAt: generateExpireDate(expiresInSeconds),
+    },
   });
 });
 
@@ -88,8 +88,8 @@ const getMe = asnycHandler(async (req: Request, res: Response) => {
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      user
-    }
+      user,
+    },
   });
 });
 
@@ -104,7 +104,7 @@ const deleteMe = asnycHandler(async (req: Request, res: Response) => {
   await User.findByIdAndUpdate(req.user._id, { active: false });
   res.status(204).json({
     status: RESPONSE_STATUS.SUCCESS,
-    data: null
+    data: null,
   });
 });
 /**
@@ -120,8 +120,8 @@ const updateMe = asnycHandler(async (req: Request, res: Response) => {
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      user
-    }
+      user,
+    },
   });
 });
 
@@ -151,8 +151,8 @@ const refreshAuthToken = asnycHandler(async (req: Request, res: Response) => {
     res.status(200).json({
       status: RESPONSE_STATUS.SUCCESS,
       data: {
-        tokens
-      }
+        tokens,
+      },
     });
   } catch (err) {
     res.status(401);
@@ -166,7 +166,7 @@ const authController = {
   getMe,
   updateMe,
   deleteMe,
-  refreshAuthToken
+  refreshAuthToken,
 };
 
 export default authController;

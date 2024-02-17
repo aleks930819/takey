@@ -15,6 +15,7 @@ export interface IUser {
     city: string;
     streetName: string;
     streetNumber: string;
+    phone: string;
   };
   passwordChangedAt: Date;
   resetPasswordToken: number;
@@ -29,56 +30,59 @@ const UserSchema: Schema = new Schema(
   {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     email: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
     },
     photo: {
       type: String,
-      default: 'https://res.cloudinary.com/dbrewse3d/image/upload/v1706957974/default-profiel_cd3lbd.jpg'
+      default: 'https://res.cloudinary.com/dbrewse3d/image/upload/v1706957974/default-profiel_cd3lbd.jpg',
     },
     active: {
       type: Boolean,
-      default: true
+      default: true,
     },
     address: {
       city: {
-        type: String
+        type: String,
       },
       streetName: {
-        type: String
+        type: String,
       },
       streetNumber: {
-        type: String
-      }
+        type: String,
+      },
+      phone: {
+        type: String,
+      },
     },
     password: {
       type: String,
-      required: true
+      required: true,
     },
     role: {
       type: String,
-      default: 'user'
+      default: 'user',
     },
     passwordChangedAt: {
-      type: Date
+      type: Date,
     },
     resetPasswordToken: {
-      type: Number
+      type: Number,
     },
     resetPasswordExpires: {
-      type: Date
-    }
+      type: Date,
+    },
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
-UserSchema.pre('save', async function(next: NextFunction) {
+UserSchema.pre('save', async function (next: NextFunction) {
   if (!this.isModified('password')) return next();
 
   const salt = await bcrypt.genSalt(12);
@@ -88,22 +92,19 @@ UserSchema.pre('save', async function(next: NextFunction) {
   next();
 });
 
-UserSchema.methods.comparePassword = async function(candidatePassword: string): Promise<boolean> {
+UserSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
   const user = this as IUser;
 
-  const userWithPassword = await mongoose
-    .model('User')
-    .findById(user._id)
-    .select('+password');
+  const userWithPassword = await mongoose.model('User').findById(user._id).select('+password');
 
   if (!userWithPassword) {
     return false;
   }
 
-  return bcrypt.compare(candidatePassword, userWithPassword.password).catch(err => false);
+  return bcrypt.compare(candidatePassword, userWithPassword.password).catch((err) => false);
 };
 
-UserSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
+UserSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   if (this.passwordChangedAt && JWTTimestamp) {
     const changedTimestamp = parseInt((this.passwordChangedAt.getTime() / 1000).toString(), 10);
     return JWTTimestamp < changedTimestamp;

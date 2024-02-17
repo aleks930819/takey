@@ -4,17 +4,10 @@ import * as morgan from 'morgan';
 import * as expressFileUpload from 'express-fileupload';
 import * as mongoSanitize from 'express-mongo-sanitize';
 import { xss } from 'express-xss-sanitizer';
-import rateLimit from 'express-rate-limit';
+// import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 
-import {
-  cityRouter,
-  cuisineRouter,
-  restaurantRouter,
-  reviewRouter,
-  userRouter,
-  favoriteRouter,
-} from './routes';
+import { cityRouter, cuisineRouter, restaurantRouter, reviewRouter, userRouter, favoriteRouter } from './routes';
 
 import { errorMiddleware } from './middlewares';
 
@@ -22,14 +15,14 @@ const app = Express();
 
 app.use(cors());
 app.use(Express.json());
-app.use(
-  '/api',
-  rateLimit({
-    windowMs: 60 * 60 * 1000,
-    max: 100,
-    message: 'Too many requests from this IP, please try again in an hour!',
-  }),
-);
+// app.use(
+//   '/api',
+//   rateLimit({
+//     windowMs: 60 * 60 * 1000,
+//     max: 100,
+//     message: 'Too many requests from this IP, please try again in an hour!',
+//   }),
+// );
 app.use(xss());
 app.use(helmet());
 // Data sanitization against NoSQL query injection
