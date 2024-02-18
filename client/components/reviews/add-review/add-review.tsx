@@ -48,7 +48,18 @@ const AddReview = ({ isAuthenticated, className }: AddReviewProps) => {
     <>
       <Button
         variant="primary"
-        className={cn('fixed bottom-0 right-56 flex items-center gap-2', className)}
+        className={cn(
+          `fixed 
+        bottom-0 
+        left-0 
+        right-0 
+        mx-auto 
+        flex 
+        items-center 
+        justify-center 
+        gap-2 `,
+          className,
+        )}
         onClick={handleAddReview}
       >
         {isAuthenticated ? <SignInUserMessage /> : <GuesstUserMessage />}

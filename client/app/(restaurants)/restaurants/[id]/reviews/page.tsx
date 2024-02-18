@@ -3,7 +3,7 @@ import { getRestaurant } from '@/actions/restaurants';
 import { getAllReviews } from '@/actions/reviews';
 
 import NotFound from '@/app/not-found';
-import { MaxWidth, SpaceContainer, GoBackButton, Pagination } from '@/components/common';
+import { MaxWidth, SpaceContainer, Pagination } from '@/components/common';
 import { AddReview, ReviewCard } from '@/components/reviews';
 
 interface RestaruantReviewsPageProps {
@@ -57,8 +57,7 @@ const RestaruantReviews = async ({ params, searchParams }: RestaruantReviewsPage
               <span className="ml-2 text-base text-gray-600">({totalReviews})</span>
             </h1>
             <p className="flex items-center">
-              Аverage rating:
-              <strong>{restaruantData.restaurant.ratingsAverage}</strong>
+              Аverage rating: <strong>{restaruantData.restaurant.ratingsAverage}</strong>
             </p>
           </header>
           <SpaceContainer variant="small" />

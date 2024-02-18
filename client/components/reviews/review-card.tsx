@@ -17,24 +17,24 @@ const ReviewCard = ({ review, currentUserId }: ReviewCardProps) => {
   const isOwner = user._id === currentUserId;
 
   return (
-    <div className="mx-auto flex h-auto w-full flex-col  py-4 shadow-xl lg:h-[200px] lg:w-1/2 lg:flex-row lg:gap-10 lg:py-0">
-      <figure className="relative  hidden h-[50px] w-[50px] overflow-hidden lg:block  lg:h-full lg:w-[30%]">
-        <Image src={user.photo} alt={user.name} fill className="object-cover" />
-      </figure>
-      <div>
-        <div className="flex flex-col items-start gap-2 px-4 py-4 lg:px-0 lg:py-6">
-          <p className="flex flex-col gap-2 text-lg font-bold">
-            <span className="text-sm font-normal text-gray-600">{formatDate(updatedAt)}</span>
+    <div className="mx-auto  flex h-full w-full flex-col justify-start  border-b   py-4  lg:w-1/2   lg:py-0">
+      <div className="mb-auto flex items-center gap-4">
+        <figure className="relative  hidden h-[50px] w-[50px] overflow-hidden rounded-full  lg:block">
+          <Image src={user.photo} alt={user.name} fill className="object-cover" />
+        </figure>
+        <div className=" px-4 py-4 lg:px-0 lg:py-6">
+          <p className="flex flex-col text-lg font-bold">
             {user.name}
+            <span className="text-sm font-normal text-gray-600">{formatDate(updatedAt)}</span>
           </p>
-          <p>{reviewText}</p>
         </div>
-
-        <div className="mb-2 flex items-center justify-start gap-2 px-4 text-gray-600    lg:px-0">
-          <strong>Rating:</strong>
+      </div>
+      <div className="mb-2 flex flex-col  items-start justify-start gap-2 px-4 text-gray-600 ">
+        <div className="flex gap-2">
           <RatingStars rating={review.rating} />
-          {isOwner && <OwnerActions />}
         </div>
+        <p>{reviewText}</p>
+        {isOwner && <OwnerActions />}
       </div>
     </div>
   );
