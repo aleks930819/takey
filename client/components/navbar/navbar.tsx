@@ -7,7 +7,7 @@ const Navbar = async () => {
   const session = await getSession();
 
   return (
-    <header className="z-50 bg-white shadow-lg">
+    <header className="z-50 border-b border-gray-300 bg-white">
       <MaxWidth>
         <PaddingContainer>
           <nav className="flex items-center justify-between px-4 py-4 text-heading lg:px-0">

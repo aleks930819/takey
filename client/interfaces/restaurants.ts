@@ -22,6 +22,7 @@ export interface Restaurant {
   ratingsQuantity: number;
   ratingsAverage: number;
   city: string;
+  categories: string[];
   cuisine: string;
   createdAt: Date;
   updatedAt: Date;

@@ -18,19 +18,26 @@ const Reviews = ({
   reviewsCount,
   rating,
   reviewsLink,
+  averageRating,
 }: {
   reviewsCount: number;
   rating: number;
   reviewsLink: string;
+  averageRating: number;
 }) => {
   return (
-    <div className="flex items-center gap-1">
-      <ReviewsStars rating={rating} />
-      <Tooltip position="bottom" tooltip="See all reviews">
-        <Link href={reviewsLink} className="text-heading underline">
-          <p>{reviewsCount} Reviews</p>
-        </Link>
-      </Tooltip>
+    <div className="flex flex-col gap-2 text-gray-600">
+      <p className="text-lg ">
+        Rating: <strong>{averageRating.toFixed(2)}</strong>
+      </p>
+      <div className="flex">
+        <ReviewsStars rating={rating} />
+        <Tooltip position="bottom" tooltip="See all reviews">
+          <Link href={reviewsLink} className="ml-2 underline">
+            <p>{reviewsCount} Reviews</p>
+          </Link>
+        </Tooltip>
+      </div>
     </div>
   );
 };

@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { Key, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Info, ShoppingBag } from 'lucide-react';
+import { Clock, Info, ShoppingBag } from 'lucide-react';
 
 import { getRestaurant } from '@/actions/restaurants';
+import { getSession } from '@/actions/auth';
 import { isInFavoritesList } from '@/actions/favorites';
+import { getCategory } from '@/actions/categories';
 
 import NotFound from '@/app/not-found';
 import { MaxWidth, SpaceContainer } from '@/components/common';
 import { Reviews } from '@/components/reviews';
-import { Tooltip } from '@/components/ui';
+import { Spinner, Tooltip } from '@/components/ui';
 import { FavoritesButton } from '@/components/favorites';
-import { getSession } from '@/actions/auth';
+import { Categories } from '@/components';
 
 const RestaurantPage = async ({
   params,
@@ -41,48 +43,72 @@ const RestaurantPage = async ({
 
   return (
     <>
-      <div className="relative h-[200px] w-full">
-        <Image src={restaurant.image} alt={restaurant.name} fill className="h-full w-full object-cover" />
-      </div>
-      <header className=" bg-white   py-10 shadow-lg">
-        <MaxWidth className="flex w-full items-center justify-between">
-          <div className="flex flex-col items-start justify-start">
-            <h1 className="text-3xl font-bold  text-heading">{restaurant.name}</h1>
-            <SpaceContainer variant="xsmall" />
-            <Reviews
-              reviewsCount={restaurant.ratingsQuantity as number}
-              rating={restaurant.ratingsAverage as number}
-              reviewsLink={`/restaurants/${restaurant._id}/reviews`}
-            />
-            <div className="mt-3">
-              <p className="flex items-center gap-2">
-                <ShoppingBag size={18} />
-                <strong>Min. Order:</strong>${restaurant.minOrderPrice.toFixed(2)}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <Tooltip
-              position="bottom"
-              tooltip="Information such as opening hours, location and more about the restaurant."
-            >
-              <Link href={`/restaurants/${restaurant._id}/info`} className=" flex items-center gap-2 underline">
-                See information about the restaurant
-                <Info size={18} />
-              </Link>
-            </Tooltip>
-            <FavoritesButton
-              reastaurantId={restaurant._id}
-              isInFavorite={!!isInFavorite}
-              accessToken={session?.accessToken ?? null}
-              userId={session?.userId ?? null}
-            />
-          </div>
-        </MaxWidth>
-      </header>
-      <MaxWidth>
-        <section></section>
+      <MaxWidth className="flex flex-col lg:px-4">
+        <SpaceContainer variant="xsmall" />
+        <div className="flex h-full w-full flex-col items-center gap-2 lg:flex-row ">
+          <section className="h-full w-[80%] ">
+            <header className="flex gap-6">
+              <figure className="relative h-[300px] w-[50%] overflow-hidden rounded-lg">
+                <Image
+                  src={restaurant.image}
+                  alt={restaurant.name}
+                  fill
+                  className="h-full w-full rounded-lg object-cover"
+                />
+              </figure>
+              <div className="flex flex-col gap-4 py-6 text-gray-600">
+                <div className="flex flex-col gap-2">
+                  <p className="flex items-center gap-2">
+                    <ShoppingBag size={18} />
+                    <strong>Min. Order:</strong>${restaurant.minOrderPrice.toFixed(2)}
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <Clock size={18} />
+                    <strong>Delivery Time:</strong>
+                    {restaurant.deliveryTime} - min
+                  </p>
+                </div>
+                <h1 className="flex items-center gap-2 text-3xl font-bold  text-heading">
+                  {restaurant.name}
+                  <span>
+                    <Tooltip
+                      position="bottom"
+                      tooltip="Information such as opening hours, location and more about the restaurant."
+                    >
+                      <Link href={`/restaurants/${restaurant._id}/info`} className=" flex items-center gap-2 underline">
+                        <Info size={18} />
+                      </Link>
+                    </Tooltip>
+                  </span>
+                </h1>
+                <div className="flex w-full justify-center gap-2">
+                  <FavoritesButton
+                    className="w-full"
+                    isInFavorite={isInFavorite}
+                    accessToken={session?.accessToken}
+                    reastaurantId={restaurant._id}
+                    userId={session?.userId}
+                  />
+                </div>
+                <Reviews
+                  averageRating={restaurant.ratingsAverage as number}
+                  reviewsCount={restaurant.ratingsQuantity as number}
+                  rating={restaurant.ratingsAverage as number}
+                  reviewsLink={`/restaurants/${restaurant._id}/reviews`}
+                />
+              </div>
+            </header>
+            <SpaceContainer variant="medium" />
+            <MaxWidth>
+              <Suspense fallback={<Spinner color="primary" size="md" />}>
+                <Categories categoriesIds={restaurant.categories} />
+              </Suspense>
+            </MaxWidth>
+          </section>
+          <aside className="mb-auto h-full w-[20%] bg-red-500 lg:sticky lg:top-4">CHECKOUT</aside>
+        </div>
       </MaxWidth>
+      <SpaceContainer />
     </>
   );
 };

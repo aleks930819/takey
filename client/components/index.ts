@@ -5,3 +5,4 @@ export { default as Navbar } from './navbar';
 export { default as SortBy } from './sort';
 export { default as AuthModal } from './auth';
 export { default as UpdateAddressForm } from './address';
+export { default as Categories } from './categories';

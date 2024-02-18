@@ -2,7 +2,7 @@ import { Heart } from 'lucide-react';
 import { Spinner } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
-const FavoriteButtonIcon = ({ isLoading, isInFavorite }: { isLoading: boolean; isInFavorite: boolean }) => {
+const FavoriteButtonIcon = ({ isLoading, isInFavorite }: { isLoading: boolean; isInFavorite: boolean | undefined }) => {
   return (
     <>
       {isLoading ? (

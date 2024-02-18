@@ -16,14 +16,14 @@ const ToolTip = ({ children, tooltip, position = 'left' }: ToolTipProps) => {
 
   const positionOfTheToolTip = () => {
     switch (position) {
-      case 'top':
-        return '-top-12';
-      case 'bottom':
-        return '-bottom-12';
-      case 'left':
-        return '-translate-x-full -translate-y-1/2 top-1/2';
-      case 'right':
-        return '-translate-x-full -translate-y-1/2 top-1/2';
+    case 'top':
+      return '-top-12';
+    case 'bottom':
+      return '-bottom-10';
+    case 'left':
+      return '-translate-x-full -translate-y-1/2 top-1/2';
+    case 'right':
+      return '-translate-x-full -translate-y-1/2 top-1/2';
     }
   };
 
@@ -34,7 +34,7 @@ const ToolTip = ({ children, tooltip, position = 'left' }: ToolTipProps) => {
         <span
           className={`
           ${positionOfTheToolTip()}
-          absolute z-[999] hidden   scale-0 rounded bg-primary-dark px-3 py-2 text-xs text-white transition-all lg:block
+          absolute z-[999] hidden scale-0  whitespace-nowrap rounded bg-primary-dark px-3 py-2 text-xs text-white transition-all lg:block
           ${show ? 'scale-100' : ''}
           `}
         >

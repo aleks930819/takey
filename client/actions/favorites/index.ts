@@ -84,7 +84,7 @@ export const removeFromFavoritesList = async ({
   userId,
   accessToken,
 }: {
-  reastaurantId: string;
+  reastaurantId: string 
   userId: string;
   accessToken: string;
 }) => {
