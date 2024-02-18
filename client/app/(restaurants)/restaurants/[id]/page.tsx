@@ -1,4 +1,4 @@
-import React, { Key, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Info, ShoppingBag } from 'lucide-react';
@@ -6,7 +6,6 @@ import { Clock, Info, ShoppingBag } from 'lucide-react';
 import { getRestaurant } from '@/actions/restaurants';
 import { getSession } from '@/actions/auth';
 import { isInFavoritesList } from '@/actions/favorites';
-import { getCategory } from '@/actions/categories';
 
 import NotFound from '@/app/not-found';
 import { MaxWidth, SpaceContainer } from '@/components/common';
@@ -47,7 +46,7 @@ const RestaurantPage = async ({
       <MaxWidth className="flex flex-col lg:px-4">
         <SpaceContainer variant="xsmall" />
         <div className="flex h-full w-full flex-col items-center gap-10 lg:flex-row ">
-          <section className="h-full w-[80%] ">
+          <section className="h-full w-[70%] ">
             <header className="flex gap-6">
               <figure className="relative h-[300px] w-[50%] overflow-hidden rounded-lg">
                 <Image
@@ -106,7 +105,7 @@ const RestaurantPage = async ({
               </Suspense>
             </MaxWidth>
           </section>
-          <aside className="mb-auto h-full w-[40%] lg:sticky lg:top-4">
+          <aside className="mb-auto h-full w-[30%] lg:sticky lg:top-4">
             <Cart />
           </aside>
         </div>

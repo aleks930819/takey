@@ -8,13 +8,22 @@ import PasswordInputField from './password-input-field';
 import { Button } from '@/components/ui';
 
 const SignUp = ({ closeAuthModal }: { closeAuthModal: () => void }) => {
+  const formRef = React.useRef<HTMLFormElement>(null);
+
   const [state, formAction] = useFormState(actions.signUp, undefined);
   const { pending } = useFormStatus();
   if (state?.data) {
     closeAuthModal();
   }
+
+  React.useEffect(() => {
+    if (formRef.current) {
+      formRef.current.focus();
+    }
+  }, []);
+
   return (
-    <form className="flex w-full flex-col gap-4" action={formAction}>
+    <form tabIndex={0} ref={formRef} className="flex w-full flex-col gap-4" action={formAction}>
       <span className="relative">
         <input className="relative  w-full rounded-lg  px-4 py-2 " placeholder="Name" type="text" name="name" />
         <User className="absolute right-4 top-1/2 -translate-y-1/2 transform" />

@@ -38,7 +38,7 @@ const AuthModal = ({ closeAuthModal }: { closeAuthModal: () => void }) => {
         )}
         <div className="flex flex-wrap items-center justify-center gap-2">
           <button onClick={changeAuthModalState}>
-            <p>{authModalState === 'login' ? `Don't have an account?` : 'Already have an account?'}</p>
+            <p>{authModalState === 'login' ? 'Don\'t have an account?' : 'Already have an account?'}</p>
           </button>
           <Link href="/forgot-password" className="underline">
             <p>Forgot Password?</p>
