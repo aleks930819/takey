@@ -2,7 +2,8 @@ export interface MenuItem {
   _id: string;
   name: string;
   price: number;
-  quantity: number;
+  weight: string;
+  cartItemQuantity: number;
   description: string;
   createdAt: string;
   category: string;

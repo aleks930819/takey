@@ -6,3 +6,4 @@ export { default as SortBy } from './sort';
 export { default as AuthModal } from './auth';
 export { default as UpdateAddressForm } from './address';
 export { default as Categories } from './categories';
+export { default as TrackCurrentRestaurantId } from './track-current-restaurant-id';
