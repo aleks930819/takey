@@ -14,6 +14,7 @@ import { Reviews } from '@/components/reviews';
 import { Spinner, Tooltip } from '@/components/ui';
 import { FavoritesButton } from '@/components/favorites';
 import { Categories } from '@/components';
+import { Cart } from '@/components/cart';
 
 const RestaurantPage = async ({
   params,
@@ -45,7 +46,7 @@ const RestaurantPage = async ({
     <>
       <MaxWidth className="flex flex-col lg:px-4">
         <SpaceContainer variant="xsmall" />
-        <div className="flex h-full w-full flex-col items-center gap-2 lg:flex-row ">
+        <div className="flex h-full w-full flex-col items-center gap-10 lg:flex-row ">
           <section className="h-full w-[80%] ">
             <header className="flex gap-6">
               <figure className="relative h-[300px] w-[50%] overflow-hidden rounded-lg">
@@ -105,7 +106,9 @@ const RestaurantPage = async ({
               </Suspense>
             </MaxWidth>
           </section>
-          <aside className="mb-auto h-full w-[20%] bg-red-500 lg:sticky lg:top-4">CHECKOUT</aside>
+          <aside className="mb-auto h-full w-[40%] lg:sticky lg:top-4">
+            <Cart />
+          </aside>
         </div>
       </MaxWidth>
       <SpaceContainer />

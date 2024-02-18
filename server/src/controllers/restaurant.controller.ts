@@ -14,18 +14,14 @@ import { ApiFeatures } from '../utils';
  * @returns A JSON response containing the list of restaurants.
  */
 const getAllRestaurants = asnycHandler(async (req: Request, res: Response) => {
-  const features = new ApiFeatures(Restaurant.find(), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .pagination();
+  const features = new ApiFeatures(Restaurant.find(), req.query).filter().sort().limitFields().pagination();
 
   const restaurants = await features.query;
 
   const restaurantsWithOpenStatus = restaurants.map((restaurant: any) => {
     return {
       ...restaurant.toObject(),
-      isOpen: restaurant.isOpen()
+      isOpen: restaurant.isOpen(),
     };
   });
 
@@ -39,8 +35,8 @@ const getAllRestaurants = asnycHandler(async (req: Request, res: Response) => {
     totalRestaruants,
     totalPages: totalPages,
     data: {
-      restaurants: restaurantsWithOpenStatus
-    }
+      restaurants: restaurantsWithOpenStatus,
+    },
   });
 });
 /**
@@ -52,18 +48,23 @@ const getAllRestaurants = asnycHandler(async (req: Request, res: Response) => {
  */
 const getRestaurant = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
+
   const restaurant = await Restaurant.findById(id);
+
+  // TODO: Find a better way to get the categories
+  const categoriesIds = restaurant?.categories.map((category) => category.category);
 
   const restaurantWithOpenStatus = {
     ...restaurant.toObject(),
-    isOpen: restaurant.isOpen()
+    isOpen: restaurant.isOpen(),
+    categories: categoriesIds,
   };
 
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      restaurant: restaurantWithOpenStatus
-    }
+      restaurant: restaurantWithOpenStatus,
+    },
   });
 });
 /**
@@ -86,8 +87,8 @@ const createRestaurant = asnycHandler(async (req: Request, res: Response) => {
   res.status(201).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      restaurant
-    }
+      restaurant,
+    },
   });
 });
 
@@ -103,7 +104,7 @@ const deleteRestaurant = asnycHandler(async (req: Request, res: Response) => {
   await Restaurant.findByIdAndDelete(id);
   res.status(204).json({
     status: RESPONSE_STATUS.SUCCESS,
-    data: null
+    data: null,
   });
 });
 
@@ -124,13 +125,13 @@ const updateRestaurant = asnycHandler(async (req: Request, res: Response) => {
 
   const restaurant = await Restaurant.findByIdAndUpdate(id, req.body, {
     new: true,
-    runValidators: true
+    runValidators: true,
   });
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      restaurant
-    }
+      restaurant,
+    },
   });
 });
 
@@ -139,7 +140,7 @@ const RestaurantController = {
   getRestaurant,
   createRestaurant,
   deleteRestaurant,
-  updateRestaurant
+  updateRestaurant,
 };
 
 export default RestaurantController;

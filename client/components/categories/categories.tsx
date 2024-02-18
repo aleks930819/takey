@@ -5,7 +5,6 @@ import { MenuItem } from '@/interfaces/category';
 
 import { getCategory } from '@/actions/categories';
 import CategoryMenuItem from './category-menu-item';
-import { SpaceContainer } from '../common';
 
 const Categories = async ({ categoriesIds }: { categoriesIds: string[] }) => {
   const categoryData = await Promise.all(
@@ -15,7 +14,7 @@ const Categories = async ({ categoriesIds }: { categoriesIds: string[] }) => {
   );
 
   return (
-    <div className="flex h-full w-full items-center gap-4 pr-20  ">
+    <div className="flex h-full w-full items-center gap-4 pr-0  ">
       {categoryData.map((category, index) => (
         <div className=" flex w-full flex-col gap-4" key={index}>
           <div className=" flex  h-[300px] w-full flex-col  gap-2">

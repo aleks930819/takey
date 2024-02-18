@@ -13,7 +13,7 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "indent": ["error", 2],
-
+    "no-unused-vars": "error",
     "quotes": ["error", "single"],
     "semi": ["error", "always"]
   }

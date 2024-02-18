@@ -14,15 +14,24 @@ const CategorySchema: Schema = new Schema(
       required: true,
       unique: true,
     },
+
     image: {
       type: String,
       required: true,
     },
   },
   {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
     timestamps: true,
   },
 );
+
+CategorySchema.virtual('menuItems', {
+  ref: 'MenuItem',
+  localField: '_id',
+  foreignField: 'category',
+});
 
 const Category = mongoose.model<ICategory>('Category', CategorySchema);
 

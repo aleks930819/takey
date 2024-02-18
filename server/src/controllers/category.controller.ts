@@ -25,12 +25,20 @@ const getAllCategories = asnycHandler(async (req: Request, res: Response) => {
 /**
  * Get a category.
  *
- * @route GET /api/v1/categories/:id
+ * @route GET /api/v1/categories/:categoryId
  * @access Public
  * @returns A JSON response containing the category.
  */
 const getCategory = asnycHandler(async (req: Request, res: Response) => {
-  const category = await Category.findById(req.params.id);
+  const id = req.params.categoryId;
+  console.log(id);
+  const category = await await Category.findById(id).populate('menuItems').exec();
+  if (!category) {
+    return res.status(404).json({
+      status: RESPONSE_STATUS.ERROR,
+      message: 'Category not found',
+    });
+  }
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
