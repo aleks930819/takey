@@ -21,11 +21,56 @@
   border-radius: 10px;
 }
 
-/*_____Global tailwind classes_____*/
+/*_____Global classes_____*/
 a {
   @apply transition-all duration-300  ease-in-out focus-visible:outline focus-visible:outline-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-opacity-50;
 }
 
 input {
   @apply rounded-md border-2 border-gray-400 transition-all duration-300 ease-in-out focus-visible:outline focus-visible:outline-gray-500 focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-opacity-50;
+}
+
+/*___ Static Page ___*/
+.static-page h1 {
+  @apply mb-4 text-4xl font-bold;
+}
+
+.static-page h2 {
+  @apply mb-4 text-3xl font-bold;
+}
+
+.static-page h3 {
+  @apply mb-4 text-2xl font-bold;
+}
+
+.static-page h4 {
+  @apply mb-4 text-xl font-bold;
+}
+
+.static-page h5 {
+  @apply mb-4 text-lg font-bold;
+}
+
+.static-page h6 {
+  @apply mb-4 text-base font-bold;
+}
+
+.static-page p {
+  @apply mb-4 text-base;
+}
+
+.static-page a {
+  @apply text-blue-600 underline;
+}
+
+.static-page ul {
+  @apply list-inside list-disc;
+}
+
+.static-page ol {
+  @apply list-inside list-decimal;
+}
+
+.static-page li {
+  @apply mb-2 ml-4;
 }
