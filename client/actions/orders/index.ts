@@ -31,7 +31,8 @@ export const createOrder = async (initialState: any, formData: FormData) => {
         Authorization: `Bearer ${initialState.accessToken}`,
       },
     });
-    console.log(response.data);
+
+    return response.data.data.order;
   } catch (err: unknown) {
     console.log(err);
   }

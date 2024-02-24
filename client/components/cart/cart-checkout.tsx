@@ -42,6 +42,8 @@ const CartCheckout = ({ userInfo, cartsItems, totalCartItemsPrice }: ICartChecko
     paymentMethod: 'cash',
   });
 
+
+
   return (
     <form className="flex flex-col gap-4" action={createOrder}>
       <FormInput label="Name" id="name" type="name" required defaultValue={userInfo.name} />

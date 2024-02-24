@@ -1,13 +1,21 @@
-import { MaxWidth } from '../common';
+import { getNavigation } from '@/actions/navigation';
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
+import { MaxWidth, SpaceContainer } from '@/components/common';
+
+import BottomFooter from './bottom-footer';
+import FooterNavigation from './footer-links';
+
+const Footer = async () => {
+  const navigation = await getNavigation('footer');
+
   return (
-    <div className="bg-primary-dark mt-auto py-6">
+    <div className="mt-auto border-t border-gray-300  py-6">
       <footer>
         <MaxWidth>
-          <p className="text-heading text-sm lg:text-base  text-center">&copy; {currentYear} Takey. All rights reserved. </p>
+          <FooterNavigation navigation={navigation} />
         </MaxWidth>
+        <SpaceContainer variant="xsmall" />
+        <BottomFooter />
       </footer>
     </div>
   );
