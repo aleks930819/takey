@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Info, ShoppingBag } from 'lucide-react';
 
+import * as actions from 'actions/auth';
+
 import { getRestaurant } from '@/actions/restaurants';
 import { getSession } from '@/actions/auth';
 import { isInFavoritesList } from '@/actions/favorites';
@@ -14,6 +16,14 @@ import { Spinner, Tooltip } from '@/components/ui';
 import { FavoritesButton } from '@/components/favorites';
 import { Categories } from '@/components';
 import { Cart } from '@/components/cart';
+import { User } from '@/interfaces/user';
+
+export interface IUserInfo {
+  name: string;
+  _id: string;
+  address: User['address'];
+  accessToken: string;
+}
 
 const RestaurantPage = async ({
   params,
@@ -23,6 +33,21 @@ const RestaurantPage = async ({
   };
 }) => {
   const session = await getSession();
+  let userInfo: IUserInfo | undefined = undefined;
+
+  if (session) {
+    const me = await actions.getMe(session?.accessToken as string);
+    userInfo = {
+      _id: me?._id as string,
+      name: me?.name as string,
+      address: {
+        streetName: me?.address.streetName,
+        streetNumber: me?.address.streetNumber,
+        phone: me?.address.phone,
+      } as User['address'],
+      accessToken: session.accessToken,
+    };
+  }
 
   const { data } = await getRestaurant(params.id);
   let isInFavorite = undefined;
@@ -106,7 +131,7 @@ const RestaurantPage = async ({
             </MaxWidth>
           </section>
           <aside className="mb-auto h-full w-[30%] lg:sticky lg:top-4">
-            <Cart />
+            <Cart userInfo={userInfo} />
           </aside>
         </div>
       </MaxWidth>

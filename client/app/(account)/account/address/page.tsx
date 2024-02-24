@@ -2,6 +2,7 @@ import { UpdateAddressForm } from '@/components';
 import { MaxWidth, SpaceContainer } from '@/components/common';
 
 import * as actions from 'actions/auth';
+
 const AccountAddressPage = async () => {
   const token = await actions.getSession()?.accessToken;
 
