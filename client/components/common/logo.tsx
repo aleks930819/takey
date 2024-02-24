@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 
 const Logo = ({ className }: { className?: string }) => {
   return (
-    <Link href={'/'} className={cn('relative inline-block', className)}>
+    <Link href={'/'} className={cn('relative inline-block', className)} data-testid="logo">
       <Image src={logoImage} alt="Takey Logo" fill className=" object-cover" />
     </Link>
   );

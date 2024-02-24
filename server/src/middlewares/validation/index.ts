@@ -4,3 +4,4 @@ export { default as cuisineValidation } from './cuisine.validation';
 export { default as reviewValidation } from './review.validation';
 export { default as categoryValidation } from './category.validation';
 export { default as menuItemValidation } from './menu-item.validation';
+export { default as cartValidation } from './cart.validation';

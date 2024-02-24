@@ -14,7 +14,7 @@ export default function RootLayout({
         <MaxWidth>
           <PaddingContainer>
             <SpaceContainer variant="small" />
-            <Cuisines />
+            {/* <Cuisines /> */}
             <SpaceContainer variant="small" />
             <div className="flex items-end justify-between">
               <h1 className="text-2xl font-bold">

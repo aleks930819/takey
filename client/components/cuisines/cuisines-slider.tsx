@@ -38,7 +38,7 @@ const ArrowButton = ({
             direction === 'left' ? '-left-16' : '-right-16'
           } hover:primary-dark/60 absolute top-[40%]
           ${isVisible ? 'opacity-100' : 'pointer-events-none opacity-0'}
-           z-50 -translate-y-1/2 transform transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50`,
+            z-50 -translate-y-1/2 transform transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50`,
           className,
         )}
         onClick={onClick}

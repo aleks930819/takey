@@ -4,6 +4,8 @@ export interface IMenuItem {
   _id: mongoose.Types.ObjectId | string;
   name: string;
   price: number;
+  weight: string;
+  cartQuantity?: number;
   description: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -23,8 +25,12 @@ const MenuItemSchema: Schema = new Schema(
       type: String,
       required: true,
     },
-    quantity: {
+    cartQuantity: {
       type: Number,
+      default: 0,
+    },
+    weight: {
+      type: String,
       required: true,
     },
     category: {

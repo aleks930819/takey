@@ -2,8 +2,8 @@ import * as Express from 'express';
 
 import { restaurantController } from '../controllers';
 
-import reviewRouter from './review.routes';
 import { protect, restrictTo } from '../middlewares';
+import reviewRouter from './review.routes';
 
 const router = Express.Router();
 

@@ -10,6 +10,7 @@
     "test": "jest --watch"
   },
   "dependencies": {
+    "@jest/globals": "^29.7.0",
     "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.6.7",
     "clsx": "^2.1.0",
@@ -37,6 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
     "autoprefixer": "^10.0.1",
+    "cypress": "^13.6.4",
     "eslint": "^8.56.0",
     "eslint-config-next": "14.1.0",
     "jest": "^29.7.0",

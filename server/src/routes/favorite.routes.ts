@@ -2,7 +2,6 @@ import * as Express from 'express';
 
 import { favoriteController } from '../controllers';
 import { protect } from '../middlewares';
-import { favoriteValidation } from '../middlewares/validation';
 
 const router = Express.Router();
 

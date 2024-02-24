@@ -1,0 +1,227 @@
+{
+    "status": "success",
+    "results": 3,
+    "totalRestaruants": 3,
+    "totalPages": 1,
+    "data": {
+    "restaurants": [
+    {
+    "location": {
+    "type": "Point",
+    "coordinates": [
+    42.870513076375396,
+    25.32905142576396
+    ]
+    },
+    "_id": "65bfd797638ed223ce293434",
+    "name": "Timeless Taverna",
+    "deliveryTime": "20",
+    "minOrderPrice": 15,
+    "image": "https://images.unsplash.com/photo-1534172658052-3766e8c102d8?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "rating": 4.5,
+    "ratingsAverage": 2,
+    "ratingsQuantity": 1,
+    "isClosed": true,
+    "city": "65bbeec74872f4acd01f8061",
+    "cuisine": "65be479a0ff58d5000a23074",
+    "openingHours": [
+    {
+    "day": "Monday",
+    "open": "09:00",
+    "close": "23:00",
+    "_id": "65c10afa1799ce5dc0e19f75"
+    },
+    {
+    "day": "Tuesday",
+    "open": "09:00",
+    "close": "23:00",
+    "_id": "65c10afa1799ce5dc0e19f76"
+    },
+    {
+    "day": "Wednesday",
+    "open": "09:00",
+    "close": "23:00",
+    "_id": "65c10afa1799ce5dc0e19f77"
+    },
+    {
+    "day": "Thursday",
+    "open": "09:00",
+    "close": "23:00",
+    "_id": "65c10afa1799ce5dc0e19f78"
+    },
+    {
+    "day": "Friday",
+    "open": "09:00",
+    "close": "23:00",
+    "_id": "65c10afa1799ce5dc0e19f79"
+    },
+    {
+    "day": "Saturday",
+    "open": "10:00",
+    "close": "22:00",
+    "_id": "65c10afa1799ce5dc0e19f7a"
+    },
+    {
+    "day": "Sunday",
+    "open": "10:00",
+    "close": "22:00",
+    "_id": "65c10afa1799ce5dc0e19f7b"
+    }
+    ],
+    "createdAt": "2024-02-04T18:29:43.301Z",
+    "updatedAt": "2024-02-18T15:48:57.362Z",
+    "avgPrice": 10,
+    "categories": [],
+    "id": "65bfd797638ed223ce293434",
+    "isOpen": true
+    },
+    {
+    "location": {
+    "type": "Point",
+    "coordinates": [
+    42.870513076375396,
+    25.32905142576396
+    ]
+    },
+    "_id": "65bf8bcf09a2346a151f38bb",
+    "name": "Mehana Gostilnica",
+    "deliveryTime": "30",
+    "minOrderPrice": 25,
+    "image": "http://res.cloudinary.com/dbrewse3d/image/upload/v1707051983/takey/fxqrgddhasuplupiqj4z.jpg",
+    "rating": 4.5,
+    "ratingsAverage": 4,
+    "ratingsQuantity": 1,
+    "city": "65bbeec74872f4acd01f8061",
+    "cuisine": "65be479a0ff58d5000a23074",
+    "createdAt": "2024-02-04T13:06:23.951Z",
+    "updatedAt": "2024-02-18T15:48:57.563Z",
+    "openingHours": [
+    {
+    "day": "Monday",
+    "open": "09:00",
+    "close": "23:00",
+    "_id": "65c10b0b1799ce5dc0e19f84"
+    },
+    {
+    "day": "Tuesday",
+    "open": "09:00",
+    "close": "23:00",
+    "_id": "65c10b0b1799ce5dc0e19f85"
+    },
+    {
+    "day": "Wednesday",
+    "open": "09:00",
+    "close": "23:00",
+    "_id": "65c10b0b1799ce5dc0e19f86"
+    },
+    {
+    "day": "Thursday",
+    "open": "09:00",
+    "close": "23:00",
+    "_id": "65c10b0b1799ce5dc0e19f87"
+    },
+    {
+    "day": "Friday",
+    "open": "09:00",
+    "close": "23:00",
+    "_id": "65c10b0b1799ce5dc0e19f88"
+    },
+    {
+    "day": "Saturday",
+    "open": "10:00",
+    "close": "22:00",
+    "_id": "65c10b0b1799ce5dc0e19f89"
+    },
+    {
+    "day": "Sunday",
+    "open": "10:00",
+    "close": "22:00",
+    "_id": "65c10b0b1799ce5dc0e19f8a"
+    }
+    ],
+    "avgPrice": 20,
+    "isClosed": true,
+    "categories": [],
+    "id": "65bf8bcf09a2346a151f38bb",
+    "isOpen": true
+    },
+    {
+    "location": {
+    "type": "Point",
+    "coordinates": [
+    42.870513076375396,
+    25.32905142576396
+    ]
+    },
+    "_id": "65bf8a8b1ce2879547176833",
+    "name": "Mehana Starata Kushta",
+    "deliveryTime": "20",
+    "minOrderPrice": 15,
+    "image": "http://res.cloudinary.com/dbrewse3d/image/upload/v1707051659/takey/tm2b4p0w02c7putld1fa.jpg",
+    "rating": 4.5,
+    "ratingsAverage": 3.4,
+    "ratingsQuantity": 9,
+    "city": "65bbeec74872f4acd01f8061",
+    "cuisine": "65be479a0ff58d5000a23074",
+    "createdAt": "2024-02-04T13:00:59.843Z",
+    "updatedAt": "2024-02-18T15:48:57.653Z",
+    "openingHours": [
+    {
+    "day": "Monday",
+    "open": "09:00",
+    "close": "18:00",
+    "_id": "65bfd80e638ed223ce29344e"
+    },
+    {
+    "day": "Tuesday",
+    "open": "09:00",
+    "close": "18:00",
+    "_id": "65bfd80e638ed223ce29344f"
+    },
+    {
+    "day": "Wednesday",
+    "open": "09:00",
+    "close": "18:00",
+    "_id": "65bfd80e638ed223ce293450"
+    },
+    {
+    "day": "Thursday",
+    "open": "09:00",
+    "close": "18:00",
+    "_id": "65bfd80e638ed223ce293451"
+    },
+    {
+    "day": "Friday",
+    "open": "09:00",
+    "close": "20:00",
+    "_id": "65bfd80e638ed223ce293452"
+    },
+    {
+    "day": "Saturday",
+    "open": "10:00",
+    "close": "22:00",
+    "_id": "65bfd80e638ed223ce293453"
+    },
+    {
+    "day": "Sunday",
+    "open": "10:00",
+    "close": "17:00",
+    "_id": "65bfd80e638ed223ce293454"
+    }
+    ],
+    "avgPrice": 15,
+    "isClosed": false,
+    "categories": [
+    {
+    "category": "65d0d1b46ab8b4ffc2901328",
+    "_id": "65d1aaf348f04c395560f400",
+    "id": "65d1aaf348f04c395560f400"
+    }
+    ],
+    "id": "65bf8a8b1ce2879547176833",
+    "isOpen": false
+    }
+    ]
+    }
+    }
+    

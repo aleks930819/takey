@@ -21,5 +21,5 @@ it('should render the restaruant card in the correct way', () => {
   expect(screen.getByTestId('rating')).toHaveTextContent(
     `${mockRestaraunts[0].ratingsAverage}(${mockRestaraunts[0].ratingsQuantity}) Reviews`,
   );
-  expect(screen.getByText(`Open`)).toBeInTheDocument();
+  expect(screen.getByText('Open')).toBeInTheDocument();
 });

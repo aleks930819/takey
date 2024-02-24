@@ -1,30 +1,9 @@
 import { Restaurant } from '@/interfaces/restaurants';
-
-// export interface Restaurant {
-//   _id: string;
-//   name: string;
-//   location: {
-//     type: string;
-//     coordinates: number[];
-//   };
-//   deliveryTime: string;
-//   minOrderPrice: number;
-//   image: string;
-//   isClosed: boolean;
-//   isOpen: boolean;
-//   avgPrice: number;
-//   openingHours: OpeningHours[];
-//   rating: number;
-//   ratingsQuantity: number;
-//   ratingsAverage: number;
-//   city: string;
-//   cuisine: string;
-//   createdAt: Date;
-//   updatedAt: Date;
-// }
+import { Cuisine } from '@/interfaces/cuisines';
 
 export const mockRestaraunts: Restaurant[] = [
   {
+    categories: ['1', '2'],
     _id: '1',
     name: 'Restaurant 1',
     location: {
@@ -33,7 +12,8 @@ export const mockRestaraunts: Restaurant[] = [
     },
     deliveryTime: '30 min',
     minOrderPrice: 10,
-    image: 'https://images.unsplash.com/photo-1531917115039-473b5a388f40?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image:
+      'https://images.unsplash.com/photo-1531917115039-473b5a388f40?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     isClosed: false,
     isOpen: true,
     avgPrice: 20,
@@ -83,6 +63,8 @@ export const mockRestaraunts: Restaurant[] = [
     updatedAt: new Date(),
   },
   {
+    categories: ['1', '2'],
+
     _id: '2',
     name: 'Restaurant 2',
     location: {
@@ -91,7 +73,8 @@ export const mockRestaraunts: Restaurant[] = [
     },
     deliveryTime: '20',
     minOrderPrice: 10,
-    image: 'https://images.unsplash.com/photo-1531917115039-473b5a388f40?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image:
+      'https://images.unsplash.com/photo-1531917115039-473b5a388f40?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     isClosed: true,
     isOpen: false,
     avgPrice: 15,
@@ -142,3 +125,26 @@ export const mockRestaraunts: Restaurant[] = [
   },
 ];
 
+export const mockCuisines: Cuisine[] = [
+  {
+    _id: '1',
+    name: 'Italian',
+    imageCover: 'italian.jpg',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: '2',
+    name: 'Mexican',
+    imageCover: 'mexican.jpg',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: '3',
+    name: 'Japanese',
+    imageCover: 'japanese.jpg',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
