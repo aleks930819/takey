@@ -31,8 +31,8 @@ const CartCheckout = ({ userInfo, cartsItems, totalCartItemsPrice }: ICartChecko
   const restaurantId = useRestaurantIdState((state) => state.restaurantId);
 
   const createOrder = actions.createOrder.bind(null, {
-    accessToken: userInfo?.accessToken || '',
-    user: userInfo?._id || '',
+    accessToken: userInfo?.accessToken || null,
+    user: userInfo?._id || null,
     restaurant: restaurantId,
     menuItems: cartsItems.map((item: CartItem) => ({
       menuItem: item._id,
@@ -42,19 +42,23 @@ const CartCheckout = ({ userInfo, cartsItems, totalCartItemsPrice }: ICartChecko
     paymentMethod: 'cash',
   });
 
-
-
   return (
     <form className="flex flex-col gap-4" action={createOrder}>
-      <FormInput label="Name" id="name" type="name" required defaultValue={userInfo.name} />
-      <FormInput label="Phone" id="phone" type="tel" required defaultValue={userInfo.address.phone} />
-      <FormInput label="Street name" id="streetName" type="text" required defaultValue={userInfo.address.streetName} />
+      <FormInput label="Name" id="name" type="name" required defaultValue={userInfo?.name || ''} />
+      <FormInput label="Phone" id="phone" type="tel" required defaultValue={userInfo?.address.phone || ''} />
+      <FormInput
+        label="Street name"
+        id="streetName"
+        type="text"
+        required
+        defaultValue={userInfo?.address?.streetName || ''}
+      />
       <FormInput
         label="Street Number"
         id="streetNumber"
         type="text"
         required
-        defaultValue={userInfo.address.streetNumber}
+        defaultValue={userInfo?.address?.streetNumber || ''}
       />
       <Button type="submit" variant="primary" className="w-full rounded-lg">
         {/* {pending ? <Spinner color="white" size="sm" /> : 'Checkout'} */}

@@ -22,7 +22,13 @@ const createOrder = async (req: Request, res: Response) => {
 
   //TODO: Check if the restaurant have the menu items
 
-  const order = await Order.create(req.body);
+  // If there's no user field in the request body, set it to null to avoid errors
+  const user = req.body.user ? req.body.user : null;
+
+  const order = await Order.create({
+    ...req.body,
+    user,
+  });
 
   res.status(201).json({
     status: RESPONSE_STATUS.SUCCESS,
@@ -41,7 +47,7 @@ const createOrder = async (req: Request, res: Response) => {
  */
 
 const getAllOrders = async (req: Request, res: Response) => {
-  const orders = await Order.find();
+  const orders = await Order.find().sort('-createdAt').exec();
 
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
@@ -88,7 +94,7 @@ const getOrder = async (req: Request, res: Response) => {
 const getUserOrders = async (req: Request, res: Response) => {
   const userId = req.user._id || req.body.userId;
 
-  const orders = await Order.find({ user: userId });
+  const orders = await Order.find({ user: userId }).sort('-createdAt').exec();
 
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import slugify from 'slugify';
 
 import { RESPONSE_STATUS } from '../constants';
 import { StaticPage } from '../models';
@@ -22,15 +23,15 @@ const getAllStaticPages = asnycHandler(async (req: Request, res: Response) => {
   });
 });
 /**
- * Retrieves a static page by its ID.
+ * Retrieves a static page by its slug.
  *
- * @route GET /api/v1/static-pages/:id
+ * @route GET /api/v1/static-pages/:slug
  * @access Public
  * @returns A JSON response containing the city.
  */
 const getStaticPage = asnycHandler(async (req: Request, res: Response) => {
-  const id = req.params.id;
-  const page = await StaticPage.findById(id);
+  const slug = req.params.id;
+  const page = await StaticPage.findOne({ slug });
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
@@ -81,10 +82,16 @@ const deleteStaticPage = asnycHandler(async (req: Request, res: Response) => {
  */
 const updateStaticPage = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
+
+  // TODO: Change this logic to be done in the model
+  if (req.body.title) {
+    req.body.slug = slugify(req.body.title, { lower: true });
+  }
   const page = await StaticPage.findByIdAndUpdate(id, req.body, {
     new: true,
     runValidators: true,
   });
+
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {

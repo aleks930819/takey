@@ -13,17 +13,32 @@ interface CreateOrderResponse {
 export const createOrder = async (initialState: any, formData: FormData) => {
   try {
     const city = formData.get('city');
+    const name = formData.get('name');
     const streetName = formData.get('streetName');
     const streetNumber = formData.get('streetNumber');
     const phone = formData.get('phone');
 
-    const data = {
-      city,
-      streetName,
-      streetNumber,
-      phone,
-      ...initialState,
-    };
+    let data = {};
+
+    if (!initialState.accessToken) {
+      data = {
+        guest: {
+          name,
+          phone,
+          streetName,
+          streetNumber,
+        },
+        ...initialState,
+      };
+    } else {
+      data = {
+        city,
+        streetName,
+        streetNumber,
+        phone,
+        ...initialState,
+      };
+    }
 
     const response = await axiosInstance.post<CreateOrderResponse>('/orders', data, {
       headers: {
