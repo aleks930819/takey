@@ -9,3 +9,4 @@ export { default as Category } from './category.model';
 export { default as Token } from './token.model';
 export { default as Order } from './order.model';
 export { default as Navigation } from './navigation.model';
+export { default as StaticPage } from './static-page.model';
