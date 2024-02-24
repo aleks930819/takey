@@ -1,6 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
-export interface IMenuItem {
+export interface IMenuItem extends Document {
   _id: mongoose.Types.ObjectId | string;
   name: string;
   price: number;

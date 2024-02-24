@@ -61,11 +61,8 @@ const login = asnycHandler(async (req: Request, res: Response) => {
 
   const token = signToken(user._id);
 
-  const testToken = await tokenService.generateAuthTokens(user._id);
-
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
-    testToken,
     token: {
       userId: user._id,
       accessToken: token,

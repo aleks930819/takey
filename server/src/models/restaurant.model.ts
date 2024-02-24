@@ -1,4 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
+
 import { IReview } from './review.model';
 
 const OpeningHoursSchema = new Schema({
@@ -11,7 +12,7 @@ const OpeningHoursSchema = new Schema({
   close: String,
 });
 
-export interface IRestaurant {
+export interface IRestaurant extends Document {
   _id: mongoose.Types.ObjectId | string;
   name: string;
   location?: [number];
@@ -117,7 +118,7 @@ const RestaruantSchema: Schema = new Schema(
   },
 );
 RestaruantSchema.pre(/^find/, function (next) {
-  // @ts-expect-error
+  // @ts-expect-error: Explanation: TypeScript cannot infer the type of 'this' in Mongoose schema hooks, so we use @ts-expect-error to suppress the error.
   this._originalQuery = this.getQuery();
   next();
 });

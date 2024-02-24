@@ -1,6 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema,Document } from 'mongoose';
 
-export interface ICuisine {
+export interface ICuisine extends Document {
   _id: mongoose.Types.ObjectId | string;
   name: string;
   imageCover: string;

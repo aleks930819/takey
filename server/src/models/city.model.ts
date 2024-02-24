@@ -1,6 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
-export interface ICity {
+export interface ICity extends Document {
   _id: mongoose.Types.ObjectId | string;
   name: string;
   location: [number];

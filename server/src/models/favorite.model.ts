@@ -1,4 +1,5 @@
-import mongoose, { Model, Schema } from 'mongoose';
+/* eslint-disable no-unused-vars */
+import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export interface IFavorite extends Document {
   user: mongoose.Types.ObjectId | string;
@@ -16,35 +17,35 @@ const FavoriteSchema: Schema = new Schema(
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true
+      required: true,
     },
     restaurants: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Restaurant'
-      }
-    ]
+        ref: 'Restaurant',
+      },
+    ],
   },
   {
     timestamps: true,
     toJSON: { virtuals: true },
-    toObject: { virtuals: true }
-  }
+    toObject: { virtuals: true },
+  },
 );
 
 FavoriteSchema.index({ user: 1 }, { unique: true });
 
 // Populate restaurants
-FavoriteSchema.pre(/^find/, function(next) {
-  // @ts-expect-error
+FavoriteSchema.pre(/^find/, function (next) {
+  // @ts-expect-error: Explanation: TypeScript cannot infer the type of 'this' in Mongoose schema hooks, so we use @ts-expect-error to suppress the error.
   this.populate({
     path: 'restaurants',
-    select: 'name image'
+    select: 'name image',
   });
   next();
 });
 
-FavoriteSchema.statics.isRestaurantInFavorite = async function(restaurantId) {
+FavoriteSchema.statics.isRestaurantInFavorite = async function (restaurantId) {
   const favorite = await this.findOne({ restaurants: restaurantId });
 
   return favorite;

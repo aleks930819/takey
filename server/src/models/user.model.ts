@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
+import mongoose, { Schema, Document } from 'mongoose';
 import { NextFunction } from 'express';
-import mongoose, { Schema } from 'mongoose';
 
 import * as bcrypt from 'bcrypt';
 
-export interface IUser {
+export interface IUser extends Document {
   _id: mongoose.Types.ObjectId | string;
   name: string;
   role: string;
