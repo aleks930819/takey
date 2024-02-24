@@ -12,13 +12,15 @@ import { Order } from '../models';
  * @returns A JSON response containing the new order.
  */
 const createOrder = async (req: Request, res: Response) => {
-  // Check if logged in user made the request and if the user is the same as the one in the request body
-  if (req.body.user && req.body.user !== req.user._id) {
-    return res.status(403).json({
-      status: RESPONSE_STATUS.FAIL,
-      message: 'You are not authorized to perform this action',
-    });
-  }
+  // TODO: Check if logged in user made the request and if the user is the same as the one in the request body
+  // if (req.body.user) {
+  //   return res.status(403).json({
+  //     status: RESPONSE_STATUS.FAIL,
+  //     message: 'You are not authorized to perform this action',
+  //   });
+  // }
+
+  //TODO: Check if the restaurant have the menu items
 
   const order = await Order.create(req.body);
 

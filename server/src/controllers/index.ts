@@ -8,3 +8,4 @@ export { default as favoriteController } from './favorite.controller';
 export { default as categoryController } from './category.controller';
 export { default as menuItemController } from './menu-item.controller';
 export { default as orderController } from './order.controller';
+export { default as navigationController } from './navigation.controller';

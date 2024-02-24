@@ -17,6 +17,7 @@ import {
   categoryRouter,
   menuItemRouter,
   orderRouter,
+  navigationRouter,
 } from './routes';
 
 import { errorMiddleware } from './middlewares';
@@ -59,6 +60,7 @@ app.use('/api/v1/categories', categoryRouter);
 app.use('/api/v1/menu-items', menuItemRouter);
 app.use('/api/v1/favorites', favoriteRouter);
 app.use('/api/v1/orders', orderRouter);
+app.use('/api/v1/navigation', navigationRouter);
 
 app.use(errorMiddleware.notFound);
 app.use(errorMiddleware.errorHandler);

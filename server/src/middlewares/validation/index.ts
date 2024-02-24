@@ -5,3 +5,4 @@ export { default as reviewValidation } from './review.validation';
 export { default as categoryValidation } from './category.validation';
 export { default as menuItemValidation } from './menu-item.validation';
 export { default as orderValidation } from './order.validation';
+export { default as navigationValidation } from './navigation.validation';
