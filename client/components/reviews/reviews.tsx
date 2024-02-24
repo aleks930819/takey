@@ -26,8 +26,8 @@ const Reviews = ({
   averageRating: number;
 }) => {
   return (
-    <div className="flex flex-col gap-2 text-gray-600">
-      <p className="text-lg ">
+    <div className="flex flex-col gap-2 text-sm text-gray-600 lg:text-base">
+      <p className="text-base lg:text-lg ">
         Rating: <strong>{averageRating.toFixed(2)}</strong>
       </p>
       <div className="flex">

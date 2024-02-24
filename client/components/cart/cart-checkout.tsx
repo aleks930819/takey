@@ -1,10 +1,10 @@
 'use client';
 import React from 'react';
 import { IUserInfo } from '@/app/(restaurants)/restaurants/[id]/page';
-import { Button, Spinner } from '@/components/ui';
+import { Button } from '@/components/ui';
 
 import * as actions from '@/actions/orders';
-import { useCartState, useRestaurantIdState } from '@/lib/state';
+import { useRestaurantIdState } from '@/lib/state';
 import { CartItem } from '@/lib/state/cart';
 
 interface IFormInput extends React.InputHTMLAttributes<HTMLInputElement> {

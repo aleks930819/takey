@@ -17,7 +17,7 @@ const StaticPages = async ({
   return (
     <MaxWidth>
       <SpaceContainer variant="small" />
-      <PaddingContainer>
+      <PaddingContainer className="lg:px-4">
         <section className="static-page">
           <h1>{staticPage.title}</h1>
           <SpaceContainer variant="xsmall" />

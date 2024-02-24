@@ -6,7 +6,7 @@ const FooterNavigation = ({ navigation }: { navigation: Navigation[] | undefined
   return (
     <nav className="flex flex-wrap justify-start">
       {navigation?.map((nav, index) => (
-        <ul key={index} className="mx-4 flex flex-col items-start justify-center">
+        <ul key={index} className=" flex flex-col items-start justify-center">
           <p className="mb-4 text-lg font-bold text-heading">{nav.title}</p>
           {nav.items?.map((item, index) => (
             <li key={index} className="mb-2 text-sm text-heading">

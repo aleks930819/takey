@@ -10,9 +10,9 @@ const CartItem = ({ item }: { item: CartItem }) => {
         <RemoveCartItemButton cartItemId={item._id} cartItemName={item.name} />
       </span>
       {item.name}
-      <span className="flex items-center gap-2">
+      <span className="flex  max-w-[120px] min-w-[120px]  items-center gap-2">
         <CartQuantityButtons cartItemId={item._id} />
-        <p className="flex flex-col items-center gap-1">
+        <p className="ml-auto text-[14px] flex flex-col items-center gap-1">
           <strong>
             {item.cartItemQuantity} ({item.weight})
           </strong>
@@ -25,7 +25,7 @@ const CartItem = ({ item }: { item: CartItem }) => {
 
 const CartItems = ({ currentCart }: { currentCart: CartItem[] }) => {
   return (
-    <ul className="mb-10 flex flex-col gap-4">
+    <ul className="mb-5 flex flex-col gap-4 lg:mb-10">
       {currentCart.map((item) => (
         <CartItem key={item._id} item={item} />
       ))}
