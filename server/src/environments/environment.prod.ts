@@ -2,6 +2,8 @@ import { Environment } from './environments';
 
 export const ProdEnviroment: Environment = {
   db_uri: process.env.DB_URI,
+  test_db_uri: process.env.TEST_DB_URI,
+  client_url: process.env.CLIENT_URL,
   email_host: process.env.EMAIL_HOST,
   email_port: Number(process.env.EMAIL_PORT),
   port: Number(process.env.PORT),
@@ -13,9 +15,9 @@ export const ProdEnviroment: Environment = {
   upload_path: process.env.UPLOAD_PATH,
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+    pass: process.env.EMAIL_PASS,
   },
   jwt_secret: process.env.JWT_SECRET,
   jwt_expires_in: process.env.JWT_EXPIRES_IN,
-  jwt_refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN
+  jwt_refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN,
 };

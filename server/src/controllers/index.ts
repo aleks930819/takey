@@ -10,3 +10,4 @@ export { default as menuItemController } from './menu-item.controller';
 export { default as orderController } from './order.controller';
 export { default as navigationController } from './navigation.controller';
 export { default as staticPageController } from './static-page.controller';
+export { default as paymentController } from './payment.controller';

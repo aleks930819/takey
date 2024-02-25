@@ -3,6 +3,8 @@ import { ProdEnviroment } from './environment.prod';
 
 export interface Environment {
   db_uri: string;
+  test_db_uri: string;
+  client_url: string;
   email_host: string;
   email_port: number;
   salt_rounds: number;

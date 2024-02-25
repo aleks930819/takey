@@ -9,5 +9,5 @@
   },
   "files": ["./node_modules/@types/node/index.d.ts"],
   "include": ["src/**/*.ts", "/*.ts", "package.json"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "./*.ts", "__test__"]
 }

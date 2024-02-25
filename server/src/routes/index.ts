@@ -10,3 +10,4 @@ export { default as menuItemRouter } from './menu-item.routes';
 export { default as orderRouter } from './order.routes';
 export { default as navigationRouter } from './navigation.routes';
 export { default as staticPageRouter } from './static-page.routes';
+export { default as paymentRouter } from './payment.routes';

@@ -3,7 +3,9 @@ import * as cors from 'cors';
 import * as morgan from 'morgan';
 import * as expressFileUpload from 'express-fileupload';
 import * as mongoSanitize from 'express-mongo-sanitize';
+// import * as swagerUi from 'swagger-ui-express';
 import { xss } from 'express-xss-sanitizer';
+
 // import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 
@@ -19,6 +21,7 @@ import {
   orderRouter,
   navigationRouter,
   staticPageRouter,
+  paymentRouter,
 } from './routes';
 
 import { errorMiddleware } from './middlewares';
@@ -40,6 +43,8 @@ app.use(helmet());
 // Data sanitization against NoSQL query injection
 // ex: "email": {"$gt": "" }
 app.use(mongoSanitize());
+
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(document));
 
 app.use(
   expressFileUpload({
@@ -63,6 +68,7 @@ app.use('/api/v1/favorites', favoriteRouter);
 app.use('/api/v1/orders', orderRouter);
 app.use('/api/v1/navigation', navigationRouter);
 app.use('/api/v1/static-pages', staticPageRouter);
+app.use('/api/v1/payments', paymentRouter);
 
 app.use(errorMiddleware.notFound);
 app.use(errorMiddleware.errorHandler);
