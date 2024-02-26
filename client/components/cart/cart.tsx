@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react';
 
+import { X } from 'lucide-react';
 import { useCartState, useRestaurantIdState } from '@/lib/state';
 import { DELIVERY_FEE } from '@/constants';
+import { cn } from '@/lib/utils';
 
 import { IUserInfo } from '@/app/(restaurants)/restaurants/[id]/page';
 
@@ -11,11 +13,8 @@ import CartItems from './cart-items';
 import CartCheckout from './cart-checkout';
 import { useWindowSize } from '@uidotdev/usehooks';
 import ShowCartButton from './show-cart-button';
-import { cn } from '@/lib/utils';
-import { Button } from '../ui';
-import { X } from 'lucide-react';
 
-const Cart = ({ userInfo }: { userInfo: IUserInfo | undefined }) => {
+const Cart = ({ userInfo, isOpen }: { userInfo: IUserInfo | undefined; isOpen: boolean }) => {
   const [showCartOnMobile, setShowCartOnMobile] = useState(false);
   const restaurantId = useRestaurantIdState((state) => state.restaurantId);
   const { width } = useWindowSize();
@@ -38,6 +37,15 @@ const Cart = ({ userInfo }: { userInfo: IUserInfo | undefined }) => {
     setShowCartOnMobile(!showCartOnMobile);
   };
 
+  if (!isOpen) {
+    return (
+      <div className="">
+        <p className="text-lg">You cant add items to the cart because the restaurant is closed</p>
+        <p className="text-sm text-gray-500">Please try again when the restaurant is open</p>
+      </div>
+    );
+  }
+
   if (currentCart.length === 0) {
     return (
       <>
@@ -56,7 +64,7 @@ const Cart = ({ userInfo }: { userInfo: IUserInfo | undefined }) => {
         className={cn('w-full rounded-lg  px-2 py-6 text-gray-600', {
           hidden: isMobile && !showCartOnMobile,
           block: !isMobile,
-          'trasnlate-y-0 fixed bottom-0 left-0 overflow-y-auto  right-0 top-0 z-[90] flex h-screen w-full flex-col gap-4  bg-white':
+          'trasnlate-y-0 fixed bottom-0 left-0 right-0  top-0 z-[90] flex h-screen w-full flex-col gap-4 overflow-y-auto  bg-white':
             isMobile && showCartOnMobile,
         })}
       >

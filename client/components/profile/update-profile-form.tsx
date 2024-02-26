@@ -13,7 +13,7 @@ const UpdateProfileForm = ({ name, email }: { name: string; email: string }) => 
 
   return (
     <form className="flex w-full flex-col gap-4" action={formAction}>
-      <div className="flex gap-2">
+      <div className="flex flex-col gap-2 lg:flex-row">
         <label htmlFor="name" className="w-full">
           <input
             className="relative  w-full rounded-lg  px-4 py-2 "
@@ -35,8 +35,8 @@ const UpdateProfileForm = ({ name, email }: { name: string; email: string }) => 
       </div>
 
       {state?.message && <p className="text-center text-base text-red-500">{state.message}</p>}
-      <Button aria-disabled={pending} disabled={pending}>
-        {pending ? 'Updating...' : 'Update Address'}
+      <Button aria-disabled={pending} disabled={pending} className="lg:w-1/2 p-2">
+        {pending ? 'Updating...' : 'Update Profile'}
       </Button>
     </form>
   );

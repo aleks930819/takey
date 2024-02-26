@@ -9,14 +9,14 @@ const IsOpenSwitcher = () => {
 
   const searchParams = useSearchParams();
 
-  const paramValue = searchParams.get(`isClosed[eq]`);
+  const paramValue = searchParams.get('isClosed[eq]');
 
   const handleOptionChange = () => {
     if (paramValue) {
-      updateURL({ param: `isClosed[eq]`, value: '' });
+      updateURL({ param: 'isClosed[eq]', value: '' });
       return;
     }
-    updateURL({ param: `isClosed[eq]`, value: '1' });
+    updateURL({ param: 'isClosed[eq]', value: '1' });
   };
 
   return (

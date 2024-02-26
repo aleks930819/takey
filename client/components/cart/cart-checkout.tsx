@@ -6,6 +6,7 @@ import { Button } from '@/components/ui';
 import * as actions from '@/actions/orders';
 import { useRestaurantIdState } from '@/lib/state';
 import { CartItem } from '@/lib/state/cart';
+import { RadioInput } from '../ui/radio-input';
 
 interface IFormInput extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -27,8 +28,21 @@ interface ICartCheckout {
   totalCartItemsPrice: number;
 }
 
+const paymentOptiosn = [
+  {
+    label: 'Cash',
+    value: 'cash',
+  },
+  {
+    label: 'Credit Card',
+    value: 'credit-card',
+  },
+];
+
 const CartCheckout = ({ userInfo, cartsItems, totalCartItemsPrice }: ICartCheckout) => {
   const restaurantId = useRestaurantIdState((state) => state.restaurantId);
+
+  const [paymentMethod, setPaymentMethod] = React.useState<string>('cash');
 
   const createOrder = actions.createOrder.bind(null, {
     accessToken: userInfo?.accessToken || null,
@@ -36,10 +50,12 @@ const CartCheckout = ({ userInfo, cartsItems, totalCartItemsPrice }: ICartChecko
     restaurant: restaurantId,
     menuItems: cartsItems.map((item: CartItem) => ({
       menuItem: item._id,
+      name: item.name,
+      price: item.price,
       quantity: item.cartItemQuantity,
     })),
     total: totalCartItemsPrice,
-    paymentMethod: 'cash',
+    paymentMethod: paymentMethod,
   });
 
   return (
@@ -60,6 +76,22 @@ const CartCheckout = ({ userInfo, cartsItems, totalCartItemsPrice }: ICartChecko
         required
         defaultValue={userInfo?.address?.streetNumber || ''}
       />
+      <div className="flex flex-col items-start justify-start gap-4">
+        <fieldset>
+          <legend className="mb-4 text-lg font-bold ">{'Payment Method'}</legend>
+          {paymentOptiosn.map((option) => (
+            <RadioInput
+              key={option.value}
+              label={option.label}
+              name={'paymentMethod'}
+              value={option.value}
+              checked={option.value === paymentMethod}
+              onChange={() => setPaymentMethod(option.value)}
+              id={option.value.toString()}
+            />
+          ))}
+        </fieldset>
+      </div>
       <Button type="submit" variant="primary" className="w-full rounded-lg">
         {/* {pending ? <Spinner color="white" size="sm" /> : 'Checkout'} */}
         Checkout

@@ -22,7 +22,7 @@ const UpdateAddressForm = ({
 
   return (
     <form className="flex w-full flex-col gap-4" action={formAction}>
-      <div className="flex gap-2">
+      <div className="flex flex-col gap-2 lg:flex-row">
         <label htmlFor="city" className="w-full">
           <input
             className="relative  w-full rounded-lg  px-4 py-2 "
@@ -42,7 +42,7 @@ const UpdateAddressForm = ({
           />
         </label>
       </div>
-      <div className="flex w-full gap-2">
+      <div className="flex w-full flex-col gap-2 lg:flex-row">
         <label htmlFor="streetName" className="w-full">
           <input
             className="relative  w-full rounded-lg  px-4 py-2 "
@@ -64,7 +64,7 @@ const UpdateAddressForm = ({
       </div>
 
       {state?.message && <p className="text-center text-base text-red-500">{state.message}</p>}
-      <Button aria-disabled={pending} disabled={pending}>
+      <Button aria-disabled={pending} disabled={pending} className="lg:w-1/2 p-2">
         {pending ? 'Updating...' : 'Update Address'}
       </Button>
     </form>

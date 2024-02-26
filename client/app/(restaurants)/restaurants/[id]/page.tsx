@@ -41,9 +41,9 @@ const RestaurantPage = async ({
       _id: me?._id as string,
       name: me?.name as string,
       address: {
-        streetName: me?.address.streetName,
-        streetNumber: me?.address.streetNumber,
-        phone: me?.address.phone,
+        streetName: me?.address?.streetName,
+        streetNumber: me?.address?.streetNumber,
+        phone: me?.address?.phone,
       } as User['address'],
       accessToken: session.accessToken,
     };
@@ -94,7 +94,7 @@ const RestaurantPage = async ({
                       {restaurant.deliveryTime} - min
                     </p>
                   </div>
-                  <h1 className="flex items-center gap-2 text-xl lg:text-3xl font-bold  text-heading">
+                  <h1 className="flex items-center gap-2 text-xl font-bold text-heading  lg:text-3xl">
                     {restaurant.name}
                     <span>
                       <Tooltip
@@ -135,7 +135,9 @@ const RestaurantPage = async ({
               </MaxWidth>
             </section>
             <aside className="mb-auto h-full w-full lg:sticky lg:top-4 lg:w-[30%]">
-              <Cart userInfo={userInfo} />
+              <Suspense fallback={<Spinner color="primary" size="md" />}>
+                <Cart userInfo={userInfo} isOpen={restaurant.isOpen} />
+              </Suspense>
             </aside>
           </div>
         </PaddingContainer>
