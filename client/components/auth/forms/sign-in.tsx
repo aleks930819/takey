@@ -11,7 +11,6 @@ import PasswordInputField from './password-input-field';
 import { Button } from '@/components/ui';
 
 const SignIn = ({ closeAuthModal }: { closeAuthModal: () => void }) => {
-  const formRef = React.useRef<HTMLFormElement>(null);
   const [state, formAction] = useFormState(actions.signIn, undefined);
   const { pending } = useFormStatus();
 
@@ -19,14 +18,8 @@ const SignIn = ({ closeAuthModal }: { closeAuthModal: () => void }) => {
     closeAuthModal();
   }
 
-  React.useEffect(() => {
-    if (formRef.current) {
-      formRef.current.focus();
-    }
-  }, []);
-
   return (
-    <form ref={formRef} tabIndex={0} className="flex w-full flex-col gap-4" action={formAction}>
+    <form tabIndex={0} className="flex w-full flex-col gap-4" action={formAction} autoFocus>
       <label htmlFor="email">
         <span className="relative">
           <input className="relative  w-full rounded-lg  px-4 py-2 " placeholder="Email" type="email" name="email" />

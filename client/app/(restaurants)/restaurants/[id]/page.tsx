@@ -130,7 +130,7 @@ const RestaurantPage = async ({
               <SpaceContainer variant="medium" />
               <MaxWidth>
                 <Suspense fallback={<Spinner color="primary" size="md" />}>
-                  <Categories categoriesIds={restaurant.categories} />
+                  <Categories categoriesIds={restaurant.categories} isOpen={restaurant.isOpen} />
                 </Suspense>
               </MaxWidth>
             </section>

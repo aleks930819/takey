@@ -12,16 +12,14 @@ import { Tooltip } from '@/components/ui';
 import { MenuItem } from '@/interfaces/category';
 import { CartItem } from '@/lib/state/cart';
 
-interface AddToCartButtonProps {
+interface AddToCartButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   menuItem: MenuItem;
-
   className?: string;
+  disabled?: boolean;
 }
 
-const AddToCartButton = ({ className, menuItem }: AddToCartButtonProps) => {
+const AddToCartButton = ({ className, menuItem, disabled, ...props }: AddToCartButtonProps) => {
   const restaurantId = useRestaurantIdState((state) => state.restaurantId);
-
-  console.log('restaurantId', restaurantId);
 
   const addItem = useCartState((state) => state.addItem);
 
@@ -39,10 +37,15 @@ const AddToCartButton = ({ className, menuItem }: AddToCartButtonProps) => {
   };
 
   return (
-    <Tooltip tooltip="Add to cart" position="bottom">
+    <Tooltip tooltip={disabled ? 'You cant add this items' : 'Add to cart'} position="bottom">
       <button
+        {...props}
+        disabled={disabled}
         aria-label="Add to cart"
-        className={cn('flex h-10 w-10 items-center justify-center rounded-full bg-white', className)}
+        className={cn(
+          'flex h-10 w-10 items-center justify-center rounded-full bg-white disabled:cursor-not-allowed disabled:opacity-60',
+          className,
+        )}
         onClick={handleAddToCart}
       >
         <ShoppingCart size={20} />

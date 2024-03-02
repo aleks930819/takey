@@ -6,7 +6,7 @@ import { MenuItem } from '@/interfaces/category';
 import { getCategory } from '@/actions/categories';
 import CategoryMenuItem from './category-menu-item';
 
-const Categories = async ({ categoriesIds }: { categoriesIds: string[] }) => {
+const Categories = async ({ categoriesIds, isOpen }: { categoriesIds: string[]; isOpen: boolean }) => {
   const categoryData = await Promise.all(
     categoriesIds.map(async (categoryId: string) => {
       return await getCategory(categoryId);
@@ -34,7 +34,7 @@ const Categories = async ({ categoriesIds }: { categoriesIds: string[] }) => {
             <ul>
               {category?.menuItems.map((menuItem: MenuItem) => (
                 <li key={menuItem._id}>
-                  <CategoryMenuItem menuItem={menuItem} />
+                  <CategoryMenuItem menuItem={menuItem} isOpen={isOpen} />
                 </li>
               ))}
             </ul>

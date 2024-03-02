@@ -8,3 +8,4 @@ export { default as UpdateAddressForm } from './address';
 export { default as Categories } from './categories';
 export { default as TrackCurrentRestaurantId } from './track-current-restaurant-id';
 export { default as OrdersList } from './orders';
+export { default as CookiesBanner } from './cookies-banner';
