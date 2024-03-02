@@ -18,7 +18,7 @@ const notFound = (req, res, next) => {
  * @param {Response} res - The Express response object.
  * @param {NextFunction} next - The Express next function.
  */
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res) => {
   let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   let message = err.message;
 
