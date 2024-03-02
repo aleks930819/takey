@@ -43,24 +43,26 @@ const handleImageUpload = async (req: Request, res: Response) => {
   });
 
   try {
-    await cloduinary.v2.uploader.upload(`src/uploads/${imageName}`, { folder: 'takey' }, (error, result) => {
-      if (error) {
-        console.error(error);
-        return res.status(500).json({
-          status: 'fail',
-          message: 'Failed to upload image',
-        });
-      }
-      imageUrl = result.url;
-    });
+    const response = await cloduinary.v2.uploader.upload(
+      `src/uploads/${imageName}`,
+      { folder: 'takey' },
+      (error, result) => {
+        if (error) {
+          console.error(error);
+          return res.status(500).json({
+            status: 'fail',
+            message: 'Failed to upload image',
+          });
+        }
+        imageUrl = result.url;
+      },
+    );
+    await handleDeleteImageByPath(`src/uploads/${imageName}`);
   } catch (error) {
-    console.error(error);
     return res.status(500).json({
       status: 'fail',
       message: 'Failed to upload image',
     });
-  } finally {
-    handleDeleteImageByPath(`src/uploads/${imageName}`);
   }
 
   // return `/src/uploads/${imageName}`;

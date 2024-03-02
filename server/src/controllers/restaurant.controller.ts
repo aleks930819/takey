@@ -125,7 +125,7 @@ const updateRestaurant = asnycHandler(async (req: Request, res: Response) => {
 
   if (req.files) {
     const image = await handleImageUpload(req, res);
-    req.body.imageCover = image;
+    req.body.image = image;
   }
 
   const restaurant = await Restaurant.findByIdAndUpdate(id, req.body, {
