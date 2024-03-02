@@ -72,12 +72,12 @@ const createCategory = asnycHandler(async (req: Request, res: Response) => {
 /**
  * Update a category.
  *
- * @route PATCH /api/v1/categories/:id
+ * @route PATCH /api/v1/categories/:categoryId
  * @access Private
  * @returns A JSON response containing the updated category.
  */
 const updateCategory = asnycHandler(async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const id = req.params.categoryId;
 
   // check if image is uploaded and update the imageCover
   if (req.files) {
@@ -85,7 +85,9 @@ const updateCategory = asnycHandler(async (req: Request, res: Response) => {
     req.body.image = image;
   }
 
-  const category = await Category.findByIdAndUpdate(id, req.body, { new: true });
+  const category = await Category.findByIdAndUpdate(id, req.body);
+
+  console.log(category);
 
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,

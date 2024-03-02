@@ -52,11 +52,11 @@ const getMenuItem = asnycHandler(async (req: Request, res: Response) => {
 const createMenuItem = asnycHandler(async (req: Request, res: Response) => {
   const categoryId = req.params.categoryId;
 
-  console.log(req.params);
-  //   console.log('categoryId', categoryId);
-
   const menuItem = await MenuItem.create({
     name: req.body.name,
+    description: req.body.description,
+    price: req.body.price,
+    weight: req.body.weight,
     category: categoryId || req.body.category,
   });
 

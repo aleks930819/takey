@@ -9,6 +9,8 @@ const validateMenuItem = [
     .withMessage('Name must be at least 3 characters long')
     .isLength({ max: 50 })
     .withMessage('Name must be at most 50 characters long'),
+  body('price').exists().withMessage('Price is required').isNumeric().withMessage('Price must be a number'),
+  body('weight').exists().withMessage('Weight is required'),
   handleValidationErrors,
 ];
 
