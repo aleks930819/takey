@@ -52,6 +52,7 @@ const RestaruantSchema: Schema = new Schema(
       },
       coordinates: {
         type: [Number],
+        required: true,
       },
     },
     deliveryTime: {

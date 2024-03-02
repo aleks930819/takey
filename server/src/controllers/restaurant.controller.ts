@@ -81,6 +81,11 @@ const createRestaurant = asnycHandler(async (req: Request, res: Response) => {
 
   req.body.location = location.map((loc: string) => parseFloat(loc));
 
+  req.body.location = {
+    type: 'Point',
+    coordinates: req.body.location,
+  };
+
   req.body.image = image;
 
   const restaurant = await Restaurant.create(req.body);
