@@ -4,12 +4,10 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "rimraf": "./node_modules/rimraf/bin.js",
-    "build": "rimraf dist && npx tsc",
-    "prestart": "npm run build",
-    "start": "node dist/server.js",
+    "build": "npx tsc",
+    "start": "npm run build && node dist/server.js",
     "dev": "npx tsc -w & nodemon dist/server.js",
-    "prod": "npm run build && npm run start",
+    "prod": "npm run start",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix"
   },
