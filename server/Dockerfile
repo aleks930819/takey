@@ -17,6 +17,9 @@ EXPOSE 8080
 ARG PORT=8080
 ENV PORT=$PORT
 
+# Build the app
+RUN npm run build
+
 # Start the server
 CMD [ "node", "dist/server.js" ]
 
