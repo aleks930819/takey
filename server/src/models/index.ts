@@ -6,7 +6,6 @@ export { default as User } from './user.model';
 export { default as Favorite } from './favorite.model';
 export { default as MenuItem } from './menu-item.model';
 export { default as Category } from './category.model';
-export { default as Token } from './token.model';
 export { default as Order } from './order.model';
 export { default as Navigation } from './navigation.model';
 export { default as StaticPage } from './static-page.model';

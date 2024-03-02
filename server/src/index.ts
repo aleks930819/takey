@@ -3,7 +3,6 @@ import * as cors from 'cors';
 import * as morgan from 'morgan';
 import * as expressFileUpload from 'express-fileupload';
 import * as mongoSanitize from 'express-mongo-sanitize';
-// import * as swagerUi from 'swagger-ui-express';
 import { xss } from 'express-xss-sanitizer';
 
 // import rateLimit from 'express-rate-limit';
@@ -43,8 +42,6 @@ app.use(helmet());
 // Data sanitization against NoSQL query injection
 // ex: "email": {"$gt": "" }
 app.use(mongoSanitize());
-
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(document));
 
 app.use(
   expressFileUpload({

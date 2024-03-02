@@ -30,7 +30,7 @@ const createCheckoutSession = asyncHandler(async (req: Request, res: Response) =
 
   const session = await stripe.checkout.sessions.create({
     success_url: `${environment.client_url}/success`,
-    cancel_url: `${req.protocol}://${req.get('host')}/`,
+    cancel_url: `${environment.client_url}/`,
     mode: 'payment',
     line_items: [
       ...lineItems,

@@ -9,6 +9,7 @@
     "prestart": "npm run build",
     "start": "node dist/server.js",
     "dev": "npx tsc -w & nodemon dist/server.js",
+    "prod": "npm run build && npm run start",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix"
   },

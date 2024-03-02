@@ -138,16 +138,16 @@ const sednResetPasswordToken = asyncHandler(async (req: Request, res: Response) 
  * @returns A JSON response containing a success message.
  */
 const setNewPassword = asyncHandler(async (req: Request, res: Response) => {
-  const { resetPasswordToken, newPassword, email } = req.body;
+  const { token, password, email } = req.body;
 
   const user = await User.findOneAndUpdate(
     {
       email,
-      resetPasswordToken,
+      resetPasswordToken: token,
       resetPasswordTokenTime: { $gt: Date.now() },
     },
     {
-      password: newPassword,
+      password,
       resetPasswordToken: undefined,
       resetPasswordTokenTime: undefined,
     },
