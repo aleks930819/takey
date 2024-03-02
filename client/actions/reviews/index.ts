@@ -5,7 +5,7 @@ import { axiosInstance } from '@/utils/network';
 import { getSession } from '../auth';
 import { Review } from '@/interfaces/reviews';
 
-const addReview = async (formState: any, formData: FormData) => {
+export const addReview = async (formState: any, formData: FormData) => {
   try {
     const review = formData.get('review');
     const rating = Number(formData.get('rating'));
@@ -33,8 +33,6 @@ const addReview = async (formState: any, formData: FormData) => {
     throw err;
   }
 };
-
-export default addReview;
 
 interface ReviewResponse {
   status: string;
@@ -108,7 +106,6 @@ export const deleteReview = async (restaurantId: string, reviewId: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    revalidatePath(`/restaurants/${restaurantId}/reviews`);
     return response.data;
   } catch (error: any) {
     let err = new Error(error.response.data.message);

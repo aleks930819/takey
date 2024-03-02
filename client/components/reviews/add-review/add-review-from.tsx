@@ -3,15 +3,16 @@
 import { useFormState, useFormStatus } from 'react-dom';
 
 import { useClickAway } from '@uidotdev/usehooks';
-import { addReview } from '@/actions/reviews';
+
+import * as action from '@/actions/reviews';
 
 import { Modal } from '@/components/common';
 import { Button } from '@/components/ui';
-import { usePathname } from 'next/navigation';
+import { useRestaurantIdState } from '@/lib/state';
 
 const AddReviewForm = ({ closeModal }: { closeModal: () => void }) => {
-  const [state, formAction] = useFormState(addReview, undefined);
-  const restaurantId = usePathname().split('/')[2];
+  const [state, formAction] = useFormState(action.addReview, undefined);
+  const restaruantId = useRestaurantIdState((state) => state.restaurantId);
 
   const ref = useClickAway(() => {
     closeModal();
@@ -28,7 +29,7 @@ const AddReviewForm = ({ closeModal }: { closeModal: () => void }) => {
           id="review"
           rows={4}
         />
-        <input name="restaurantId" id="restaurantId" type="text" value={restaurantId} className="hidden" />
+        <input name="restaurantId" id="restaurantId" type="text" value={restaruantId} className="hidden" />
         <input
           type="number"
           name="rating"

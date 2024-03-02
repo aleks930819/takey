@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, cache } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Info, ShoppingBag } from 'lucide-react';
@@ -17,6 +17,42 @@ import { FavoritesButton } from '@/components/favorites';
 import { Categories } from '@/components';
 import { Cart } from '@/components/cart';
 import { User } from '@/interfaces/user';
+import { Metadata } from 'next';
+
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+const getSingleRestaurant = cache(async (id: string) => {
+  const { data } = await getRestaurant(id);
+  return data;
+});
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const restaraunt = await getSingleRestaurant(params.id);
+
+  if (!restaraunt) {
+    return {
+      title: 'Page not found',
+    };
+  }
+  return {
+    title: restaraunt.restaurant.name,
+    openGraph: {
+      title: restaraunt.restaurant.name,
+      images: [
+        {
+          url: restaraunt.restaurant.image,
+          width: 600,
+          height: 400,
+          alt: restaraunt.restaurant.name,
+        },
+      ],
+    },
+  };
+}
 
 export interface IUserInfo {
   name: string;
@@ -25,13 +61,7 @@ export interface IUserInfo {
   accessToken: string;
 }
 
-const RestaurantPage = async ({
-  params,
-}: {
-  params: {
-    id: string;
-  };
-}) => {
+const RestaurantPage = async ({ params }: Props) => {
   const session = await getSession();
   let userInfo: IUserInfo | undefined = undefined;
 
@@ -49,7 +79,8 @@ const RestaurantPage = async ({
     };
   }
 
-  const { data } = await getRestaurant(params.id);
+  const data = await getSingleRestaurant(params.id);
+
   let isInFavorite = undefined;
 
   if (session) {

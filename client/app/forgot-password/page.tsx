@@ -15,7 +15,7 @@ const ForgotPassword = () => {
         <section className="flex h-full w-full flex-col items-center justify-center gap-4 rounded-lg bg-white px-4 py-12 text-heading ">
           <h1 className=" text-center text-3xl font-bold tracking-wider">Forgot Password</h1>
           <p className="mb-2 w-3/4 text-center text-sm text-gray-500">Enter your email to receive a reset link</p>
-          <form tabIndex={0} className="flex w-1/2 flex-col gap-4" action={formAction} autoFocus>
+          <form tabIndex={0} className="flex w-[90%] lg:w-1/2 flex-col gap-4" action={formAction} autoFocus>
             <label className="flex w-full flex-col gap-1" htmlFor="email">
               <input
                 type="email"

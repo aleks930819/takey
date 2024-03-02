@@ -31,7 +31,7 @@ const URLParamRadioGroup = ({ paramName, options, legend, mongoDBOperator = 'lte
   return (
     <div className="flex flex-col items-start justify-start gap-4">
       <fieldset>
-        <legend className="mb-4 text-lg font-bold lg:text-2xl">{legend}</legend>
+        <legend className="mb-4 text-lg font-bold ">{legend}</legend>
         {options.map((option) => (
           <RadioInput
             key={option.value}

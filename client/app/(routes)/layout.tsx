@@ -1,7 +1,13 @@
 import React from 'react';
+import { Metadata } from 'next';
 
 import { ClientOnly, MaxWidth, PaddingContainer, ScrollToTopButton, SpaceContainer } from '@/components/common';
-import { Cuisines, Filter, SortBy } from '@/components';
+import { Filter, SortBy } from '@/components';
+
+export const metadata: Metadata = {
+  title: 'Takey',
+  description: 'Takey is a ordering app for restaurants.',
+};
 
 export default function RootLayout({
   children,
@@ -16,11 +22,7 @@ export default function RootLayout({
             <SpaceContainer variant="small" />
             {/* <Cuisines /> */}
             <SpaceContainer variant="small" />
-            <div className="flex items-end justify-between">
-              <h1 className="text-2xl font-bold">
-                Restaurants
-                <span className="ml-2 text-sm font-normal text-gray-500">(12 restaurants found)</span>
-              </h1>
+            <div className="flex items-end justify-end">
               <SortBy />
             </div>
             <SpaceContainer variant="small" />
