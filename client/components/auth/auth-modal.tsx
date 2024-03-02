@@ -40,7 +40,7 @@ const AuthModal = ({ closeAuthModal }: { closeAuthModal: () => void }) => {
           <button onClick={changeAuthModalState}>
             <p>{authModalState === 'login' ? "Don't have an account?" : 'Already have an account?'}</p>
           </button>
-          <Link href="/forgot-password" className="underline">
+          <Link href="/forgot-password" className="underline" onClick={closeAuthModal}>
             <p>Forgot Password?</p>
           </Link>
         </div>
