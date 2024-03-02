@@ -34,7 +34,7 @@ const ReviewCard = ({ review, currentUserId }: ReviewCardProps) => {
           <RatingStars rating={review.rating} />
         </div>
         <p>{reviewText}</p>
-        {isOwner && <OwnerActions />}
+        {isOwner && <OwnerActions review={review} />}
       </div>
     </div>
   );

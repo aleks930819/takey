@@ -14,7 +14,7 @@ const ProfilePage = async () => {
 
   return (
     <MaxWidth>
-      <h1 className="text-2xl font-bold text-heading">Your profile information</h1>
+      <h1 className="text-2xl font-bold tracking-wider text-heading">Your profile information</h1>
       <SpaceContainer variant="xsmall" />
       <UpdateProfileForm name={me.name} email={me.email} />
     </MaxWidth>

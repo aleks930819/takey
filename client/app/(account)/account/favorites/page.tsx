@@ -18,7 +18,7 @@ const FavoritesPage = async () => {
   return (
     <MaxWidth>
       <section>
-        <h1 className="text-2xl font-bold text-heading">
+        <h1 className="text-2xl tracking-wider font-bold text-heading">
           Your favorite restaurants
           <span className="ml-2 text-base font-normal text-gray-500">({restaurants?.length})</span>
         </h1>

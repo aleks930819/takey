@@ -64,7 +64,7 @@ const UpdateAddressForm = ({
       </div>
 
       {state?.message && <p className="text-center text-base text-red-500">{state.message}</p>}
-      <Button aria-disabled={pending} disabled={pending} className="lg:w-1/2 p-2">
+      <Button aria-disabled={pending} disabled={pending} className="lg:w-[30%] p-2">
         {pending ? 'Updating...' : 'Update Address'}
       </Button>
     </form>

@@ -14,7 +14,7 @@ const AccountAddressPage = async () => {
 
   return (
     <MaxWidth>
-      <h1 className="text-2xl font-bold text-heading">Your address information</h1>
+      <h1 className="text-2xl font-bold tracking-wider text-heading">Your address information</h1>
       <SpaceContainer variant="xsmall" />
       <UpdateAddressForm address={me?.address} />
     </MaxWidth>
