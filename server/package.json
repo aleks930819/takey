@@ -5,7 +5,7 @@
   "main": "src/server.ts",
   "scripts": {
     "rimraf": "./node_modules/rimraf/bin.js",
-    "build": "rimraf dist && npx tsc",
+    "build": "npx tsc",
     "prestart": "npm run build",
     "start": "node dist/server.js",
     "dev": "npx tsc -w & nodemon dist/server.js",
