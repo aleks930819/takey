@@ -8,7 +8,7 @@ import { environment } from '../../environments';
 cloduinary.v2.config({
   cloud_name: environment.cloudinary_cloud_name,
   api_key: environment.cloudinary_api_key,
-  api_secret: environment.cloudinary_api_secret
+  api_secret: environment.cloudinary_api_secret,
 });
 
 /**
@@ -21,38 +21,43 @@ cloduinary.v2.config({
 const handleImageUpload = async (req: Request, res: Response) => {
   const id = uuidv4();
 
-  const constructImageName = (image: UploadedFile) => {
+  const constructBannerImageName = (image: UploadedFile) => {
     const fileExtension = image.mimetype.split('/')[1];
     return `${id}.${fileExtension}`;
   };
   const image = req.files?.image as UploadedFile;
-  const imageName = constructImageName(image);
-  let imageUrl = '';
+  const imageName = constructBannerImageName(image);
 
   image.mv(`src/uploads/${imageName}`, (err: any) => {
-    console.log(err);
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        status: 'fail',
+        message: 'Failed to upload image'
+      });
+    }
   });
 
-  try {
-    await cloduinary.v2.uploader.upload(`src/uploads/${imageName}`, { folder: 'takey' }, (error, result) => {
-      if (error) {
-        console.error(error);
-        return res.status(500).json({
-          status: 'fail',
-          message: 'Failed to upload image'
-        });
-      }
-      imageUrl = result.url;
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      status: 'fail',
-      message: 'Failed to upload image'
-    });
-  }
+  return `/src/uploads/${imageName}`;
 
-  return imageUrl;
+  // try {
+  //   await cloduinary.v2.uploader.upload(`src/uploads/${imageName}`, { folder: 'takey' }, (error, result) => {
+  //     if (error) {
+  //       console.error(error);
+  //       return res.status(500).json({
+  //         status: 'fail',
+  //         message: 'Failed to upload image',
+  //       });
+  //     }
+  //     imageUrl = result.url;
+  //   });
+  // } catch (error) {
+  //   console.error(error);
+  //   return res.status(500).json({
+  //     status: 'fail',
+  //     message: 'Failed to upload image',
+  //   });
+  // }
 };
 
 export default handleImageUpload;

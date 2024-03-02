@@ -19,8 +19,8 @@ const getAllCuisines = asnycHandler(async (req: Request, res: Response) => {
     status: RESPONSE_STATUS.SUCCESS,
     results: cuisines.length,
     data: {
-      cuisines
-    }
+      cuisines,
+    },
   });
 });
 
@@ -37,8 +37,8 @@ const getCuisine = asnycHandler(async (req: Request, res: Response) => {
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      cuisine
-    }
+      cuisine,
+    },
   });
 });
 
@@ -54,13 +54,15 @@ const createCuisine = asnycHandler(async (req: Request, res: Response) => {
 
   const imagePath = await handleImageUpload(req, res);
 
+  console.log(imagePath);
+
   const cuisine = await Cuisine.create({ name, imageCover: imagePath });
 
   res.status(201).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      cuisine
-    }
+      cuisine,
+    },
   });
 });
 
@@ -77,7 +79,7 @@ const deleteCuisine = asnycHandler(async (req: Request, res: Response) => {
 
   res.status(204).json({
     status: RESPONSE_STATUS.SUCCESS,
-    data: null
+    data: null,
   });
 });
 /**
@@ -98,13 +100,13 @@ const updateCuisine = asnycHandler(async (req: Request, res: Response) => {
 
   const cuisine = await Cuisine.findByIdAndUpdate(id, req.body, {
     new: true,
-    runValidators: true
+    runValidators: true,
   });
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      cuisine
-    }
+      cuisine,
+    },
   });
 });
 
@@ -113,7 +115,7 @@ const cuisineController = {
   getCuisine,
   createCuisine,
   deleteCuisine,
-  updateCuisine
+  updateCuisine,
 };
 
 export default cuisineController;

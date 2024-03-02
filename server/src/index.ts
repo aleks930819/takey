@@ -54,6 +54,7 @@ app.use(
 app.use(morgan('dev'));
 
 app.use('/src/uploads', Express.static('src/uploads'));
+
 app.use('/api/v1/cities', cityRouter);
 app.use('/api/v1/cuisines', cuisineRouter);
 app.use('/api/v1/restaurants', restaurantRouter);
