@@ -3,7 +3,8 @@ import { Response } from 'express';
 import { RESPONSE_STATUS } from '../../constants';
 
 import { IUser } from '../../models/user.model';
-import signToken from './sign-token';
+
+import { signToken } from '.';
 
 /**
  * Creates and sends a token to the client.
@@ -22,8 +23,8 @@ const createSendToken = (user: IUser, statusCode: number, res: Response) => {
     status: RESPONSE_STATUS.SUCCESS,
     token,
     data: {
-      user
-    }
+      user,
+    },
   });
 };
 

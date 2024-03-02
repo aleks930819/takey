@@ -18,6 +18,8 @@ router.get('/me', protect, authController.getMe);
 router.patch('/me', protect, authController.updateMe);
 router.delete('/me', protect, authController.deleteMe);
 router.post('/auth/refresh-token', authController.refreshAuthToken);
+router.post('/reset-password', userController.sednResetPasswordToken);
+router.post('/set-new-password', userController.setNewPassword);
 //__________ PROTECT ALL ROUTES AFTER THIS MIDDLEWARE __________//
 router.use(protect, restrictTo('admin'));
 //__________ Users  __________//

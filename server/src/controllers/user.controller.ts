@@ -3,6 +3,9 @@ import { Request, Response } from 'express';
 import { User } from '../models';
 import { asnycHandler } from '../middlewares';
 import { RESPONSE_STATUS } from '../constants';
+import asyncHandler from '../middlewares/async-handler';
+import { NodeMailer } from '../services';
+import { generateVerificationToken } from '../utils/token';
 
 //_____ ADMIN CONTROLLERS _____//
 /**
@@ -19,8 +22,8 @@ const getAllUsers = asnycHandler(async (req: Request, res: Response) => {
     status: RESPONSE_STATUS.SUCCESS,
     results: users.length,
     data: {
-      users
-    }
+      users,
+    },
   });
 });
 
@@ -37,8 +40,8 @@ const getUser = asnycHandler(async (req: Request, res: Response) => {
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      user
-    }
+      user,
+    },
   });
 });
 
@@ -55,8 +58,8 @@ const deleteUser = asnycHandler(async (req: Request, res: Response) => {
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      user: null
-    }
+      user: null,
+    },
   });
 });
 
@@ -71,13 +74,96 @@ const updateUser = asnycHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
   const user = await User.findByIdAndUpdate(id, req.body, {
     new: true,
-    runValidators: true
+    runValidators: true,
   });
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      user
-    }
+      user,
+    },
+  });
+});
+
+/**
+ * Sends a reset password email to the user.
+ *
+ * @route POST /api/v1/users/reset-password
+ * @access Public
+ * @returns A JSON response containing a success message.
+ */
+const sednResetPasswordToken = asyncHandler(async (req: Request, res: Response) => {
+  const { email } = req.body;
+  const resetPasswordToken = generateVerificationToken();
+  const MAX_TOKEN_TIME = 30 * 60 * 1000; // 30 minutes
+
+  const user = await User.findOneAndUpdate(
+    {
+      email,
+    },
+    {
+      resetPasswordToken,
+      resetPasswordTokenTime: Date.now() + MAX_TOKEN_TIME,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  }
+
+  await NodeMailer.sendMail({
+    to: user.email,
+    subject: 'Reset Password',
+    html: `<h3>Hi there!</h3>
+      <p>Thanks for using our service!</p>
+      <p>Your reset password token is <b>${resetPasswordToken}</b>.</p>
+      <p>The token expires in 30 minutes.</p>
+      <p>Have a pleasant day.</p>`,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: 'Reset password email sent successfully',
+  });
+});
+
+/**
+ * Sets a new password for the user.
+ *
+ * @route POST /api/v1/users/set-new-password
+ * @access Public
+ * @returns A JSON response containing a success message.
+ */
+const setNewPassword = asyncHandler(async (req: Request, res: Response) => {
+  const { resetPasswordToken, newPassword, email } = req.body;
+
+  const user = await User.findOneAndUpdate(
+    {
+      email,
+      resetPasswordToken,
+      resetPasswordTokenTime: { $gt: Date.now() },
+    },
+    {
+      password: newPassword,
+      resetPasswordToken: undefined,
+      resetPasswordTokenTime: undefined,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!user) {
+    res.status(400);
+    throw new Error('Invalid token');
+  }
+
+  res.status(200).json({
+    success: true,
+    message: 'Password reset successfully',
   });
 });
 
@@ -93,8 +179,8 @@ const createUser = asnycHandler(async (req: Request, res: Response) => {
   res.status(201).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
-      user
-    }
+      user,
+    },
   });
 });
 
@@ -103,7 +189,9 @@ const userController = {
   getUser,
   deleteUser,
   updateUser,
-  createUser
+  createUser,
+  sednResetPasswordToken,
+  setNewPassword,
 };
 
 export default userController;
