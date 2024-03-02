@@ -4,7 +4,7 @@ import { RESPONSE_STATUS } from '../../constants';
 
 import { IUser } from '../../models/user.model';
 
-import { signToken } from '.';
+import { signToken } from './index';
 
 /**
  * Creates and sends a token to the client.
