@@ -6,7 +6,6 @@ const OpeningHoursSchema = new Schema({
   day: {
     type: String,
     enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    required: true,
   },
   open: String,
   close: String,
