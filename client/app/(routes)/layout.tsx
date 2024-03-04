@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 
 import { ClientOnly, MaxWidth, PaddingContainer, ScrollToTopButton, SpaceContainer } from '@/components/common';
-import { Filter, SortBy } from '@/components';
+import { Cuisines, Filter, SortBy } from '@/components';
 
 export const metadata: Metadata = {
   title: 'Takey',
@@ -20,7 +20,7 @@ export default function RootLayout({
         <MaxWidth>
           <PaddingContainer>
             <SpaceContainer variant="small" />
-            {/* <Cuisines /> */}
+            <Cuisines />
             <SpaceContainer variant="small" />
             <div className="flex items-end justify-end">
               <SortBy />
@@ -32,7 +32,7 @@ export default function RootLayout({
                   <Filter />
                 </div>
               </aside>
-              <div className="w-full px-4 ">{children}</div>
+              <div className="w-full px-4">{children}</div>
             </section>
           </PaddingContainer>
         </MaxWidth>

@@ -15,7 +15,7 @@ const minOrderPriceFilterOptions = [
 const Filter = () => {
   return (
     <div>
-      <div className="flex flex-col items-start gap-4 px-4 py-4 lg:px-0 lg:py-6">
+      <div className="flex flex-col items-start gap-2 lg:gap-4 px-4 py-4 lg:px-0 lg:py-6">
         <IsOpenSwitcher />
         <div className="h-[1.5px] w-full bg-gray-300" />
         <p className="text-lg font-bold ">Rating</p>

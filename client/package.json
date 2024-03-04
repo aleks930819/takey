@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@jest/globals": "^29.7.0",
+    "@next/third-parties": "^14.1.1",
     "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.6.7",
     "clsx": "^2.1.0",

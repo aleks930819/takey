@@ -8,9 +8,9 @@ const CategoryMenuItem = ({ menuItem, isOpen }: { menuItem: MenuItem; isOpen: bo
         <p className="mb-2 text-lg lg:text-xl">
           <strong>{menuItem?.name}</strong>
         </p>
-        <p className="mb-2 text-sm text-gray-700 lg:text-base">{menuItem?.description}</p>
+        <p className="mb-2 text-sm text-gray-700 lg:text-base pr-4">{menuItem?.description}</p>
         <p className="mb-2 text-sm text-gray-700 lg:text-base">
-          <em>{menuItem?.weight}</em>
+          Weight: <em>{menuItem?.weight}</em>
         </p>
         <strong className="text-lg lg:text-xl">${menuItem?.price?.toFixed(2)}</strong>
       </div>

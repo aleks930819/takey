@@ -99,13 +99,16 @@ const RestaurantPage = async ({ params }: Props) => {
 
   return (
     <>
+      <figure className="relative block h-[150px] w-full overflow-hidden lg:hidden  lg:h-[300px] lg:w-[50%]">
+        <Image src={restaurant.image} alt={restaurant.name} fill className="h-full w-full  object-cover" />
+      </figure>
       <MaxWidth className="flex flex-col lg:px-4">
         <SpaceContainer variant="xsmall" />
         <PaddingContainer>
           <div className="flex h-full w-full flex-col items-center gap-5 lg:flex-row lg:gap-10 ">
             <section className="h-full w-full lg:w-[70%] ">
               <header className="flex flex-col gap-6 lg:flex-row">
-                <figure className="relative h-[150px] w-full overflow-hidden rounded-lg lg:h-[300px] lg:w-[50%]">
+                <figure className="relative hidden h-[150px] w-full overflow-hidden rounded-lg lg:block lg:h-[300px] lg:w-[50%]">
                   <Image
                     src={restaurant.image}
                     alt={restaurant.name}
@@ -125,7 +128,7 @@ const RestaurantPage = async ({ params }: Props) => {
                       {restaurant.deliveryTime} - min
                     </p>
                   </div>
-                  <h1 className="flex items-center gap-2 text-xl font-bold text-heading  lg:text-3xl">
+                  <h1 className="flex items-center gap-2 text-xl font-bold tracking-wider text-heading  lg:text-2xl">
                     {restaurant.name}
                     <span>
                       <Tooltip
@@ -160,8 +163,18 @@ const RestaurantPage = async ({ params }: Props) => {
               </header>
               <SpaceContainer variant="medium" />
               <MaxWidth>
-                <Suspense fallback={<Spinner color="primary" size="md" />}>
-                  <Categories categoriesIds={restaurant.categories} isOpen={restaurant.isOpen} />
+                <Suspense
+                  fallback={
+                    <div className="flex h-full w-full items-center justify-center">
+                      <Spinner color="primary" size="md" />
+                    </div>
+                  }
+                >
+                  <Categories
+                    categoriesIds={restaurant.categories}
+                    isOpen={restaurant.isOpen}
+                    restaruantId={restaurant._id}
+                  />
                 </Suspense>
               </MaxWidth>
             </section>

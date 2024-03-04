@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import logoImage from '@/public/images/logo.png';
+import logoImage from '@/public/images/openart-image_qPco7FOK_1709477157277_raw-removebg-preview.png';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 

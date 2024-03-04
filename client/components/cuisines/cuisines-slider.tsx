@@ -87,7 +87,7 @@ const CuisinesSlider = ({ cuisines }: { cuisines: Cuisine[] }) => {
           pagination={{ clickable: true }}
           breakpoints={{
             0: {
-              slidesPerView: 2,
+              slidesPerView: 2.1,
             },
             640: {
               slidesPerView: 3,
@@ -97,9 +97,9 @@ const CuisinesSlider = ({ cuisines }: { cuisines: Cuisine[] }) => {
             },
           }}
         >
-          {cuisines.map((cuisine, i) => (
+          {cuisines.map((cuisine, index: number) => (
             <SwiperSlide key={cuisine._id}>
-              <CuisinesSliderItem cuisine={cuisine} />
+              <CuisinesSliderItem cuisine={cuisine} index={index} />
             </SwiperSlide>
           ))}
         </Swiper>

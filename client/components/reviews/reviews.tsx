@@ -28,7 +28,7 @@ const Reviews = ({
   return (
     <div className="flex flex-col gap-2 text-sm text-gray-600 lg:text-base">
       <p className="text-base lg:text-lg ">
-        Rating: <strong>{averageRating.toFixed(2)}</strong>
+        Rating: <strong>{averageRating.toFixed(1)}</strong>
       </p>
       <div className="flex">
         <ReviewsStars rating={rating} />

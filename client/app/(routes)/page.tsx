@@ -1,6 +1,7 @@
 import { getAllRestaurants } from '@/actions/restaurants';
 import { MaxWidth, Pagination } from '@/components/common';
 import { RestaruantCard } from '@/components/restaruant';
+import { NoRestaurantsMessage } from '@/components/ui';
 
 export default async function Home({ searchParams }: { searchParams: any }) {
   const searchData = {
@@ -16,11 +17,7 @@ export default async function Home({ searchParams }: { searchParams: any }) {
   const restaruants = data?.data?.restaurants;
 
   if (data && data.results === 0) {
-    return (
-      <MaxWidth>
-        <h1 className="text-2xl font-bold text-black">No restaurants found</h1>
-      </MaxWidth>
-    );
+    return <NoRestaurantsMessage />;
   }
 
   return (

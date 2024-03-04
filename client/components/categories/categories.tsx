@@ -3,19 +3,29 @@ import Image from 'next/image';
 
 import { MenuItem } from '@/interfaces/category';
 
-import { getCategory } from '@/actions/categories';
+import { getAllCategoriesForRestaurant, getCategory } from '@/actions/categories';
 import CategoryMenuItem from './category-menu-item';
 
-const Categories = async ({ categoriesIds, isOpen }: { categoriesIds: string[]; isOpen: boolean }) => {
+const Categories = async ({
+  categoriesIds,
+  isOpen,
+  restaruantId,
+}: {
+  categoriesIds: string[];
+  isOpen: boolean;
+  restaruantId: string;
+}) => {
   const categoryData = await Promise.all(
     categoriesIds.map(async (categoryId: string) => {
       return await getCategory(categoryId);
     }),
   );
+  categoryData.sort((a, b) => a.order - b.order);
+  // const categories = await getAllCategoriesForRestaurant(restaruantId);
 
   return (
-    <div className="flex h-full w-full items-center gap-4 pr-0  ">
-      {categoryData.map((category, index) => (
+    <div className="flex h-full w-full flex-col items-center gap-4 pr-0  ">
+      {categoryData?.map((category, index) => (
         <div className=" flex w-full flex-col gap-4" key={index}>
           <div className=" flex h-[150px]  w-full flex-col gap-2  lg:h-[300px]">
             <figure className="relative  h-full w-full overflow-hidden rounded-lg " key={category?._id}>

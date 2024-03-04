@@ -26,7 +26,7 @@ const RestaruantInfoPage = async ({
       <MaxWidth>
         <div>
           <header className="mb-10">
-            <figure className="relative h-[200px] w-full overflow-hidden rounded-lg">
+            <figure className="relative h-[200px] w-full overflow-hidden lg:rounded-lg">
               <Image src={data.restaurant.image} fill className="object-cover " alt={data.restaurant.image} />
             </figure>
             <PaddingContainer>

@@ -19,7 +19,9 @@ const Spinner = ({ size, color }: SpinnerProps) => {
   };
 
   return (
-    <div role="status">
+    <div role="status"
+
+    >
       <svg
         aria-hidden="true"
         className={`inline ${sizes[size]}  animate-spin  ${colors[color]}`}

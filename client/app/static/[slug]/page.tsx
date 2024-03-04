@@ -1,6 +1,34 @@
 import { getStaticPageBySlug } from '@/actions/static-pages';
 import NotFound from '@/app/not-found';
 import { MaxWidth, PaddingContainer, SpaceContainer } from '@/components/common';
+import { Metadata } from 'next';
+import { cache } from 'react';
+
+interface Props {
+  params: {
+    slug: string;
+  };
+}
+
+const getSingleStaticPage = cache(async (slug: string) => {
+  const staticPage = await getStaticPageBySlug(slug);
+  return staticPage;
+});
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const staticPage = await getSingleStaticPage(params.slug);
+  if (!staticPage) {
+    return {
+      title: 'Page not found',
+    };
+  }
+  return {
+    title: staticPage.title,
+    openGraph: {
+      title: staticPage.title,
+    },
+  };
+}
 
 const StaticPages = async ({
   params,
@@ -9,7 +37,7 @@ const StaticPages = async ({
     slug: string;
   };
 }) => {
-  const staticPage = await getStaticPageBySlug(params.slug);
+  const staticPage = await getSingleStaticPage(params.slug);
 
   if (!staticPage) {
     return <NotFound />;

@@ -54,7 +54,7 @@ const RestaruantReviews = async ({ params, searchParams }: RestaruantReviewsPage
           <header className="flex flex-col items-center justify-center gap-2">
             <h1 className="text-3xl font-bold text-heading">
               Reviews
-              <span className="ml-2 text-base text-gray-600">({totalReviews})</span>
+              <span className="ml-2 text-base text-gray-600">({restaruantData.restaurant.ratingsQuantity})</span>
             </h1>
             <p className="flex items-center">
               Аverage rating: <strong>{restaruantData.restaurant.ratingsAverage}</strong>

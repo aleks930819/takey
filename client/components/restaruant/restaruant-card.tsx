@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { paths } from '@/utils';
 
 const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
-  // const isOpen = restaurant.isOpen;
+
 
   return (
     <Link

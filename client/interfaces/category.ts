@@ -13,6 +13,7 @@ export interface MenuItem {
 export interface Category {
   _id: string;
   name: string;
+  order:number;
   image: string;
   createdAt: string;
   updatedAt: string;
