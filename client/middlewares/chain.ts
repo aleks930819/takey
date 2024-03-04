@@ -1,5 +1,6 @@
 import { NextMiddleware, NextResponse } from 'next/server';
 
+// eslint-disable-next-line no-unused-vars
 type MiddlewareFactory = (middleware: NextMiddleware) => NextMiddleware;
 
 /**

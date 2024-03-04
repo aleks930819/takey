@@ -51,7 +51,7 @@ export const addToFavoritesList = async ({
   userId,
   accessToken,
 }: {
-  reastaurantId: string;
+  reastaurantId: string | undefined;
   userId: string;
   accessToken: string;
 }) => {
@@ -84,7 +84,7 @@ export const removeFromFavoritesList = async ({
   userId,
   accessToken,
 }: {
-  reastaurantId: string 
+  reastaurantId: string | undefined;
   userId: string;
   accessToken: string;
 }) => {

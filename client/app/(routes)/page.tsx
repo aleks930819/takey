@@ -1,5 +1,5 @@
 import { getAllRestaurants } from '@/actions/restaurants';
-import { MaxWidth, Pagination } from '@/components/common';
+import { Pagination } from '@/components/common';
 import { RestaruantCard } from '@/components/restaruant';
 import { NoRestaurantsMessage } from '@/components/ui';
 

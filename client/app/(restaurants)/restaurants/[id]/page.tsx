@@ -173,7 +173,6 @@ const RestaurantPage = async ({ params }: Props) => {
                   <Categories
                     categoriesIds={restaurant.categories}
                     isOpen={restaurant.isOpen}
-                    restaruantId={restaurant._id}
                   />
                 </Suspense>
               </MaxWidth>

@@ -5,6 +5,7 @@ import { resetPassword } from '@/actions/reset-password';
 import { MaxWidth, SpaceContainer } from '@/components/common';
 
 const ForgotPassword = () => {
+  // eslint-disable-next-line no-unused-vars
   const [state, formAction] = useFormState(resetPassword, undefined);
   const { pending } = useFormStatus();
 

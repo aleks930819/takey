@@ -3,24 +3,16 @@ import Image from 'next/image';
 
 import { MenuItem } from '@/interfaces/category';
 
-import { getAllCategoriesForRestaurant, getCategory } from '@/actions/categories';
+import { getCategory } from '@/actions/categories';
 import CategoryMenuItem from './category-menu-item';
 
-const Categories = async ({
-  categoriesIds,
-  isOpen,
-  restaruantId,
-}: {
-  categoriesIds: string[];
-  isOpen: boolean;
-  restaruantId: string;
-}) => {
+const Categories = async ({ categoriesIds, isOpen }: { categoriesIds: string[]; isOpen: boolean }) => {
   const categoryData = await Promise.all(
     categoriesIds.map(async (categoryId: string) => {
       return await getCategory(categoryId);
     }),
   );
-  categoryData.sort((a, b) => a.order - b.order);
+  categoryData.sort((a, b) => (a?.order || 0) - (b?.order || 0));
   // const categories = await getAllCategoriesForRestaurant(restaruantId);
 
   return (

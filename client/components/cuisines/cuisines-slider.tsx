@@ -97,9 +97,9 @@ const CuisinesSlider = ({ cuisines }: { cuisines: Cuisine[] }) => {
             },
           }}
         >
-          {cuisines.map((cuisine, index: number) => (
+          {cuisines.map((cuisine) => (
             <SwiperSlide key={cuisine._id}>
-              <CuisinesSliderItem cuisine={cuisine} index={index} />
+              <CuisinesSliderItem cuisine={cuisine} />
             </SwiperSlide>
           ))}
         </Swiper>

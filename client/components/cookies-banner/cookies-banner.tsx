@@ -28,9 +28,9 @@ const CookiesBanner = () => {
   return (
     <ClientOnly>
       <div
-        className="bg-gray-200 fixed
-      bottom-0 z-50 flex  w-full justify-between
-    text-black"
+        className="fixed bottom-0
+      z-[999] flex w-full flex-col bg-gray-200  text-black lg:flex-row
+    lg:justify-between"
       >
         <p className="px-2 py-4">
           We use cookies to improve your experience on our website. By browsing this website, you agree to our use of
@@ -44,7 +44,7 @@ const CookiesBanner = () => {
         <button
           aria-label="Accept cookies"
           onClick={acceptCookie}
-          className="bg-primary-dark p-1 px-10 py-1 text-lg font-semibold uppercase text-white"
+          className="bg-primary-dark  p-1 px-10 py-1 text-lg font-semibold uppercase text-white"
         >
           Accept
         </button>

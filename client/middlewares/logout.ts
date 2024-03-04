@@ -2,8 +2,8 @@ import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
 
 const logoutMiddleware = (next: any) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
-    const response = NextResponse.redirect(new URL('/', request.url), {});
     if (request.url.includes('/logout')) {
+      const response = NextResponse.redirect(new URL('/', request.url), {});
       response.cookies.delete('session');
       return response;
     }

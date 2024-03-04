@@ -5,10 +5,11 @@ const protectedPaths = ['/account'];
 
 const authMiddleware = (next: any) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
-    const isExpiredSession = isExpired(request);
+    const isExpiredSession = isExpired();
     const response = NextResponse.next();
 
     const isProtectedPath = protectedPaths.some((path) => request.nextUrl.pathname.startsWith(path));
+
     if (isExpiredSession) {
       response.cookies.delete('session');
     }

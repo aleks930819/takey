@@ -30,6 +30,7 @@ export const isExpired = () => {
   const decoded = getSession();
 
   if (!decoded) return true;
+
   const expirationTime = new Date(decoded.expiresAt);
   const currentTime = new Date();
 

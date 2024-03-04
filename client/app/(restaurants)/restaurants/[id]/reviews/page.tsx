@@ -27,7 +27,7 @@ const RestaruantReviews = async ({ params, searchParams }: RestaruantReviewsPage
 
   const reviews = data.data.reviews;
 
-  const { results, totalPages, totalReviews } = data;
+  const { results, totalPages } = data;
 
   if (!reviews) {
     return <NotFound />;
