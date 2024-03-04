@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 const CuisinesSliderItem = ({ cuisine }: { cuisine: Cuisine }) => {
   return (
     <Link href={paths.cuisine(cuisine._id)} className="  full inline-block w-full rounded-lg">
-      <figure className={cn('relative -ml-4 lg:ml-0 h-[100px] w-full overflow-hidden rounded-lg bg-gray-200 ')}>
+      <figure className={cn('relative -ml-4 h-[100px] w-full overflow-hidden rounded-lg bg-gray-200 lg:ml-0 ')}>
         <Image
           src={cuisine.imageCover}
           alt={cuisine.name}

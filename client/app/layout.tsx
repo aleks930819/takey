@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 
@@ -30,7 +30,9 @@ export default function RootLayout({
           <main>{children}</main>
           <div id="modal-root" />
           <ScrollToTopButton />
-          <Footer />
+          <Suspense>
+            <Footer />
+          </Suspense>
         </Providers>
       </body>
     </html>

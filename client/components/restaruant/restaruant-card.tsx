@@ -7,8 +7,6 @@ import { cn } from '@/lib/utils';
 import { paths } from '@/utils';
 
 const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
-
-
   return (
     <Link
       data-testid="restaurant-card"
@@ -20,7 +18,7 @@ const RestaruantCard = ({ restaurant }: { restaurant: Restaurant }) => {
     >
       {/* FIRST COLUMN */}
       <figure className=" relative h-[100px] w-full overflow-hidden bg-gray-200  lg:h-full lg:w-[40%]">
-        <Image src={restaurant.image} alt={restaurant.name} fill className=" object-cover" />
+        <Image src={restaurant.image} alt={restaurant.name} fill className=" object-cover"  />
       </figure>
       {/* SECOND COLUMN */}
       <div className="flex flex-col items-start  gap-3 px-4 py-4 lg:px-0  lg:py-6">

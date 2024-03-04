@@ -24,7 +24,8 @@ const Categories = async ({ categoriesIds, isOpen }: { categoriesIds: string[]; 
               <Image
                 src={category?.image || ''}
                 alt={category?.name || 'Category Image'}
-                fill
+                width={700}
+                height={550}
                 className="rouned-lg h-full w-full object-cover"
               />
             </figure>

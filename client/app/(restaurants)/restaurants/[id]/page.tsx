@@ -100,7 +100,13 @@ const RestaurantPage = async ({ params }: Props) => {
   return (
     <>
       <figure className="relative block h-[150px] w-full overflow-hidden lg:hidden  lg:h-[300px] lg:w-[50%]">
-        <Image src={restaurant.image} alt={restaurant.name} fill className="h-full w-full  object-cover" />
+        <Image
+          src={restaurant.image}
+          alt={restaurant.name}
+          width={700}
+          height={550}
+          className="h-full w-full  object-cover"
+        />
       </figure>
       <MaxWidth className="flex flex-col lg:px-4">
         <SpaceContainer variant="xsmall" />
@@ -112,7 +118,8 @@ const RestaurantPage = async ({ params }: Props) => {
                   <Image
                     src={restaurant.image}
                     alt={restaurant.name}
-                    fill
+                    width={700}
+                    height={550}
                     className="h-full w-full rounded-lg object-cover"
                   />
                 </figure>
@@ -170,10 +177,7 @@ const RestaurantPage = async ({ params }: Props) => {
                     </div>
                   }
                 >
-                  <Categories
-                    categoriesIds={restaurant.categories}
-                    isOpen={restaurant.isOpen}
-                  />
+                  <Categories categoriesIds={restaurant.categories} isOpen={restaurant.isOpen} />
                 </Suspense>
               </MaxWidth>
             </section>
