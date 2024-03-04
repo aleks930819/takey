@@ -8,7 +8,7 @@ import './globals.css';
 import { Footer, Navbar } from '@/components';
 import { ScrollToTopButton } from '@/components/common';
 import { Providers } from './providers';
-import { Spinner } from '@/components/ui';
+import { LoadingScreen } from '@/components/ui';
 
 const roboto = Roboto({ weight: ['100', '300', '400', '500', '700', '900'], subsets: ['latin'] });
 
@@ -29,15 +29,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           <main>
-            <Suspense
-              fallback={
-                <div className="flex min-h-screen items-center justify-center">
-                  <Spinner color="primary" size="md" />
-                </div>
-              }
-            >
-              {children}
-            </Suspense>
+            <Suspense fallback={<LoadingScreen />}>{children}</Suspense>
           </main>
           <div id="modal-root" />
           <ScrollToTopButton />

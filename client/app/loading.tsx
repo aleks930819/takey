@@ -1,11 +1,7 @@
-import { Spinner } from '@/components/ui';
+import { LoadingScreen } from '@/components/ui';
 
 const Loading = () => {
-  return (
-    <div className="flex min-h-screen items-center justify-center">
-      <Spinner color="primary" size="md" />
-    </div>
-  );
+  return <LoadingScreen />;
 };
 
 export default Loading;
