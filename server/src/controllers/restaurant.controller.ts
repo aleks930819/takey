@@ -75,18 +75,14 @@ const getRestaurant = asnycHandler(async (req: Request, res: Response) => {
  * @returns A JSON response containing the new rRestaurant.
  */
 const createRestaurant = asnycHandler(async (req: Request, res: Response) => {
-  const image = await handleImageUpload(req, res);
-
-  const location = req.body.location.split(',');
-
-  req.body.location = location.map((loc: string) => parseFloat(loc));
+  // const image = await handleImageUpload(req, res);
 
   req.body.location = {
     type: 'Point',
     coordinates: req.body.location,
   };
 
-  req.body.image = image;
+  // req.body.image = image;
 
   const restaurant = await Restaurant.create(req.body);
   res.status(201).json({

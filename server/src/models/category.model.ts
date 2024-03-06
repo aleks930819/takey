@@ -12,7 +12,14 @@ const CategorySchema: Schema = new Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
+    },
+    order: {
+      type: Number,
+    },
+    restaurantId: {
+      type: mongoose.Types.ObjectId,
+      ref: 'Restaurant',
+      required: true,
     },
 
     image: {
@@ -32,6 +39,9 @@ CategorySchema.virtual('menuItems', {
   localField: '_id',
   foreignField: 'category',
 });
+
+// TODO: Find why this is not working
+// CategorySchema.index({ name: 1, restaurantId: 1 }, { unique: true });
 
 const Category = mongoose.model<ICategory>('Category', CategorySchema);
 

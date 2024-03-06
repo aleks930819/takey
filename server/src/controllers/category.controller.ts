@@ -13,7 +13,8 @@ import { handleImageUpload } from '../utils/uploads';
  * @returns A JSON response containing all categories.
  */
 const getAllCategories = asnycHandler(async (req: Request, res: Response) => {
-  const categories = await Category.find();
+  // const restarauntId = req.query.restaurantId;
+  const categories = await Category.find().sort('order').exec();
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
     data: {
@@ -55,11 +56,20 @@ const getCategory = asnycHandler(async (req: Request, res: Response) => {
  * @returns A JSON response containing the created category.
  */
 const createCategory = asnycHandler(async (req: Request, res: Response) => {
-  const { name } = req.body;
+  const { name, restaurantId } = req.body;
 
   const imagePath = await handleImageUpload(req, res);
 
-  const category = await Category.create({ name, image: imagePath });
+  const isThereTheSameCategoryForTheRestaurant = await Category.findOne({ name, restaurantId });
+
+  if (isThereTheSameCategoryForTheRestaurant) {
+    return res.status(400).json({
+      status: RESPONSE_STATUS.ERROR,
+      message: 'There is already a category with the same name for this restaurant',
+    });
+  }
+
+  const category = await Category.create({ name, image: imagePath, restaurantId });
 
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
@@ -86,8 +96,6 @@ const updateCategory = asnycHandler(async (req: Request, res: Response) => {
   }
 
   const category = await Category.findByIdAndUpdate(id, req.body);
-
-  console.log(category);
 
   res.status(200).json({
     status: RESPONSE_STATUS.SUCCESS,
