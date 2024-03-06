@@ -31,7 +31,7 @@ Takey is a food delivery app that allows users to order food from different rest
 - MongoDB
 - Mongoose
 
-## Photos
+## Screenshots
 
 ![Screenshot 2024-03-06 at 17-43-56 Takey](https://github.com/aleks930819/takey/assets/107752460/7d302a7e-756d-46be-ac94-a6cb75310f12)
 
