@@ -22,6 +22,7 @@ const errorHandler = (err, req, res) => {
   let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   let message = err.message;
 
+
   if (err.code === 11000) {
     statusCode = 409;
     const field = Object.keys(err.keyValue);

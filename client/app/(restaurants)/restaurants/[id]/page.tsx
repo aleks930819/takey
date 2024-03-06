@@ -183,7 +183,7 @@ const RestaurantPage = async ({ params }: Props) => {
             </section>
             <aside className="mb-auto h-full w-full lg:sticky lg:top-4 lg:w-[30%]">
               <Suspense fallback={<Spinner color="primary" size="md" />}>
-                <Cart userInfo={userInfo} isOpen={restaurant.isOpen} />
+                <Cart userInfo={userInfo} isOpen={restaurant.isOpen} minOrderPrice={restaurant.minOrderPrice} />
               </Suspense>
             </aside>
           </div>

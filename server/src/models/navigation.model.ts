@@ -14,7 +14,6 @@ const NavigationSchema: Schema = new Schema(
     title: {
       type: String,
       required: true,
-      unique: false,
     },
     location: {
       type: String,

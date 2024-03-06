@@ -8,6 +8,7 @@ import './globals.css';
 import { Footer, Navbar } from '@/components';
 import { ScrollToTopButton } from '@/components/common';
 import { Providers } from './providers';
+import { LoadingScreen } from '@/components/ui';
 
 const roboto = Roboto({ weight: ['100', '300', '400', '500', '700', '900'], subsets: ['latin'] });
 
@@ -27,7 +28,9 @@ export default function RootLayout({
       <body className={`${roboto.className} flex min-h-screen flex-col justify-between`}>
         <Providers>
           <Navbar />
-          <main>{children}</main>
+          <main>
+            <Suspense fallback={<LoadingScreen />}>{children}</Suspense>
+          </main>
           <div id="modal-root" />
           <ScrollToTopButton />
           <Suspense>

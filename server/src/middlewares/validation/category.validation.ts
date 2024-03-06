@@ -5,8 +5,6 @@ const validateCategory = [
   body('name')
     .exists()
     .withMessage('Name is required')
-    .isAlpha()
-    .withMessage('Name must be alphabetic')
     .isLength({ min: 3 })
     .withMessage('Name must be at least 3 characters long')
     .isLength({ max: 50 })

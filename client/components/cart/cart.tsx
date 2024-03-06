@@ -13,8 +13,17 @@ import CartItems from './cart-items';
 import CartCheckout from './cart-checkout';
 import { useWindowSize } from '@uidotdev/usehooks';
 import ShowCartButton from './show-cart-button';
+import EmptyCartMessage from './empty-cart-message';
+import NotOpenRestaurantMessage from './not-open-restaurant-message';
+import CartSummary from './cart-summary';
 
-const Cart = ({ userInfo, isOpen }: { userInfo: IUserInfo | undefined; isOpen: boolean }) => {
+export interface CartProps {
+  userInfo: IUserInfo | undefined;
+  isOpen: boolean;
+  minOrderPrice: number;
+}
+
+const Cart = ({ userInfo, isOpen, minOrderPrice }: CartProps) => {
   const [showCartOnMobile, setShowCartOnMobile] = useState(false);
   const restaurantId = useRestaurantIdState((state) => state.restaurantId);
   const { width } = useWindowSize();
@@ -37,25 +46,9 @@ const Cart = ({ userInfo, isOpen }: { userInfo: IUserInfo | undefined; isOpen: b
     setShowCartOnMobile(!showCartOnMobile);
   };
 
-  if (!isOpen) {
-    return (
-      <div className="">
-        <p className="text-lg">You cant add items to the cart because the restaurant is closed</p>
-        <p className="text-sm text-gray-500">Please try again when the restaurant is open</p>
-      </div>
-    );
-  }
+  if (!isOpen) <NotOpenRestaurantMessage />;
 
-  if (currentCart.length === 0) {
-    return (
-      <>
-        <p className="mb-3 text-lg">
-          <strong>Your Cart</strong>
-        </p>
-        <p>Your cart is empty</p>
-      </>
-    );
-  }
+  if (currentCart.length === 0) <EmptyCartMessage />;
 
   return (
     <>
@@ -77,15 +70,14 @@ const Cart = ({ userInfo, isOpen }: { userInfo: IUserInfo | undefined; isOpen: b
           )}
         </p>
         <CartItems currentCart={currentCart} />
-        <div className="mb-4 flex w-full flex-col gap-2 border-b pb-2">
-          <p className="flex items-center justify-between">
-            Delivery fee: <strong>${DELIVERY_FEE.toFixed(2)}</strong>
+        <CartSummary cartTotal={cartTotal} DELIVERY_FEE={DELIVERY_FEE} />
+        {totalCartItemsPrice < minOrderPrice ? (
+          <p className="text-red-500">
+            You need to add more items to reach the minimum order price of ${minOrderPrice.toFixed(2)}
           </p>
-          <p className="flex items-center justify-between">
-            Total: <strong>${cartTotal.toFixed(2)}</strong>
-          </p>
-        </div>
-        <CartCheckout userInfo={userInfo} cartsItems={currentCart} totalCartItemsPrice={totalCartItemsPrice} />
+        ) : (
+          <CartCheckout userInfo={userInfo} cartsItems={currentCart} totalCartItemsPrice={totalCartItemsPrice} />
+        )}
       </div>
     </>
   );
